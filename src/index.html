@@ -1,0 +1,894 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crawler Cheat Sheet</title>
+<meta name="description" content="Player quick reference for the Dungeon Crawler Carl Roleplaying Game, with floor-aware numbers.">
+<style>
+/*__STYLES__*/
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <h1><span>Crawler</span> <span>cheat sheet</span></h1>
+      <p class="lede">Player rules reference for the Dungeon Crawler Carl Roleplaying Game. Choose your floor and every number in yellow, like <span class="lv" data-f="10+2*F">12</span>, updates to match it.</p>
+    </div>
+    <div class="floorbox">
+      <div class="stairs-wrap">
+        <h2 id="floor-label">Your floor</h2>
+        <div class="stairs" role="group" aria-labelledby="floor-label">
+          <button type="button" data-floor="1" aria-pressed="true" aria-label="Floor 1"><span class="n">1</span></button>
+          <button type="button" data-floor="2" aria-pressed="false" aria-label="Floor 2"><span class="n">2</span></button>
+          <button type="button" data-floor="3" aria-pressed="false" aria-label="Floor 3"><span class="n">3</span></button>
+          <button type="button" data-floor="4" aria-pressed="false" aria-label="Floor 4"><span class="n">4</span></button>
+          <button type="button" data-floor="5" aria-pressed="false" aria-label="Floor 5"><span class="n">5</span></button>
+        </div>
+        <p class="stairs-note">F in any formula means your current floor number.</p>
+      </div>
+      <div>
+        <p class="print-floor">Numbers set for Floor <span data-lk="num">1</span></p>
+        <dl class="targets" aria-live="polite">
+          <dt>Unopposed check</dt><dd><span class="lv" data-f="10+2*F">12</span></dd>
+          <dt>Stat check</dt><dd><span class="lv" data-f="10+F">11</span></dd>
+          <dt>Opposed check</dt><dd><span class="lv" data-f="10+F">11</span> + foe’s Mod</dd>
+          <dt>Hit a Mob</dt><dd><span class="lv" data-f="10+F">11</span> + its Dex Mod</dd>
+          <dt>Floor collapses in</dt><dd><span class="lv" data-lk="timer">5 days</span></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="hbnav" aria-label="Sections">
+  <ol>
+    <li class="calc-link"><a href="#calc" style="--c:var(--ink)"><span class="full">Calculators</span><span class="short">Calc</span></a></li>
+    <li><a href="#checks" style="--c:var(--hb1)">Checks</a></li>
+    <li><a href="#results" style="--c:var(--hb2)">Results</a></li>
+    <li><a href="#round" style="--c:var(--hb3)">Round</a></li>
+    <li><a href="#actions" style="--c:var(--hb4)">Actions</a></li>
+    <li><a href="#attacks" style="--c:var(--hb5)">Attacks</a></li>
+    <li><a href="#exploring" style="--c:var(--hb6)"><span class="full">Exploring</span><span class="short">Explore</span></a></li>
+    <li><a href="#health" style="--c:var(--hb7)">Health</a></li>
+    <li><a href="#gear" style="--c:var(--hb8)">Gear</a></li>
+    <li><a href="#debuffs" style="--c:var(--hb9)">Debuffs</a></li>
+    <li><a href="#growth" style="--c:var(--hb10)">Growth</a></li>
+  </ol>
+</nav>
+
+<div class="wrap">
+  <div class="toolbar noprint">
+    <label class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span class="hide">Search rules</span>
+      <input id="q" type="search" placeholder="Search rules, e.g. evade, prone, mana" autocomplete="off">
+    </label>
+    <button class="btn" id="theme" type="button">Dark mode</button>
+    <button class="btn" id="print" type="button">Print</button>
+  </div>
+  <p class="empty" id="empty" role="status"></p>
+
+<main>
+
+<!-- 0 CALCULATORS -->
+<section class="band calc" id="calc" style="--slot:var(--ink)">
+  <div class="band-head"><div class="in"><h2>Calculators</h2><p>For when your VTT can’t do the math. Link your character sheet or type your numbers in. Hover over or tap any underlined number to see how it was worked out.</p></div></div>
+  <div class="calc-wrap">
+
+    <aside class="crawler-panel" id="calc-crawler" aria-label="Your crawler">
+      <div class="sheetbox" id="sheetbox">
+        <div id="sb-off">
+          <h3>Character sheet</h3>
+          <p class="sub">Link your fillable PDF to load your numbers. Damage, Mana, AI Favor, ticked Skills and new Ranks save back into it.</p>
+          <div class="btnrow">
+            <button type="button" class="btn primary" id="sb-link">Link your PDF</button>
+            <button type="button" class="btn hide" id="sb-relink">Reconnect</button>
+          </div>
+          <input type="file" id="sb-file" accept="application/pdf,.pdf" class="hide" tabindex="-1" aria-hidden="true">
+          <p class="sub" id="sb-msg" aria-live="polite"></p>
+        </div>
+        <div id="sb-on" class="hide">
+          <h3 id="sb-who">Linked</h3>
+          <p class="sub" id="sb-file-name"></p>
+          <p class="sub" id="sb-info"></p>
+          <div class="pending">
+            <p class="pend-head" id="sb-count">No unsaved changes</p>
+            <ul class="changes" id="sb-changes"></ul>
+          </div>
+          <div class="btnrow">
+            <button type="button" class="btn primary" id="sb-save">Save to sheet</button>
+            <button type="button" class="btn" id="sb-reload">Reload</button>
+            <button type="button" class="btn" id="sb-unlink">Unlink</button>
+          </div>
+          <label class="chk" id="sb-auto-l"><input type="checkbox" id="sb-auto" checked> Save changes automatically</label>
+          <p class="sub" id="sb-status" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <h3>Your crawler</h3>
+      <table class="statin">
+        <thead><tr><th>Stat</th><th>Enhanced</th><th>Mod</th></tr></thead>
+        <tbody>
+          <tr><td>Strength</td><td><input type="number" min="1" id="cr-str" data-save value="3" inputmode="numeric" aria-label="Strength score"></td><td><b id="m-str">+2</b></td></tr>
+          <tr><td>Intelligence</td><td><input type="number" min="1" id="cr-int" data-save value="3" inputmode="numeric" aria-label="Intelligence score"></td><td><b id="m-int">+2</b></td></tr>
+          <tr><td>Constitution</td><td><input type="number" min="1" id="cr-con" data-save value="3" inputmode="numeric" aria-label="Constitution score"></td><td><b id="m-con">+2</b></td></tr>
+          <tr><td>Dexterity</td><td><input type="number" min="1" id="cr-dex" data-save value="3" inputmode="numeric" aria-label="Dexterity score"></td><td><b id="m-dex">+2</b></td></tr>
+          <tr><td>Charisma</td><td><input type="number" min="1" id="cr-cha" data-save value="3" inputmode="numeric" aria-label="Charisma score"></td><td><b id="m-cha">+2</b></td></tr>
+        </tbody>
+      </table>
+      <div class="fields grid3">
+        <label>Evade Buffs<input type="number" id="cr-evb" data-save value="0" inputmode="numeric"></label>
+        <label>Armor DR<input type="number" id="cr-arm" data-save min="0" value="0" inputmode="numeric"></label>
+        <label>DR Buffs<input type="number" id="cr-drb" data-save min="0" value="0" inputmode="numeric"></label>
+        <label>AI Favor<input type="number" id="cr-fav" data-save min="0" value="1" inputmode="numeric"></label>
+        <label>Level<input type="number" id="cr-lvl" data-save min="1" value="1" inputmode="numeric"></label>
+        <label>Jumping Rank<input type="number" id="cr-jump" data-save min="0" value="0" inputmode="numeric"></label>
+      </div>
+      <details class="more" id="cr-more" open>
+        <summary>Worked-out numbers</summary>
+        <dl class="derived" id="cr-out"></dl>
+      </details>
+      <p class="note" id="cr-note">Saved in this browser only.</p>
+    </aside>
+
+    <div class="tools">
+      <div class="strip" id="strip" aria-live="polite">
+        <div class="hb mini" id="strip-bar" aria-hidden="true"></div>
+        <p id="strip-text"></p>
+      </div>
+      <div class="seg tooltabs" role="tablist" aria-label="Calculators">
+        <button type="button" role="tab" id="tt-check" aria-controls="tp-check" aria-selected="true">Check</button><button type="button" role="tab" id="tt-damage" aria-controls="tp-damage" aria-selected="false">Damage</button><button type="button" role="tab" id="tt-health" aria-controls="tp-health" aria-selected="false">Health &amp; Mana</button><button type="button" role="tab" id="tt-dice" aria-controls="tp-dice" aria-selected="false">Dice</button>
+      </div>
+
+      <div class="toolpanel" id="tp-check" role="tabpanel" aria-labelledby="tt-check">
+        <div class="fields" id="ck-src-l-wrap">
+          <label id="ck-src-l" class="hide wide-l">From your sheet<select id="ck-src"><option value="">Pick a Skill or attack</option></select></label>
+        </div>
+        <div class="seg" role="group" aria-label="Kind of roll">
+          <button type="button" data-kind="skill" aria-pressed="true">Skill Check</button><button type="button" data-kind="attack" aria-pressed="false">Attack</button><button type="button" data-kind="evade" aria-pressed="false">Evade</button><button type="button" data-kind="stat" aria-pressed="false">Stat Check</button>
+        </div>
+        <div class="fields">
+          <label>Stat<select id="ck-stat"><option value="str">Str</option><option value="int">Int</option><option value="con">Con</option><option value="dex">Dex</option><option value="cha">Cha</option></select></label>
+          <label id="ck-rank-l">Skill Rank<input type="number" id="ck-rank" min="0" max="20" value="1" inputmode="numeric"></label>
+          <label>Other bonus<input type="number" id="ck-other" value="0" inputmode="numeric"></label>
+          <label>Roll with<select id="ck-mode"><option value="n">Normal</option><option value="a">Advantage</option><option value="d">Disadvantage</option></select></label>
+          <label class="chk" id="ck-untr-l"><input type="checkbox" id="ck-untr"> No Ranks</label>
+        </div>
+        <div class="fields">
+          <span class="lab">Penalties to all Checks</span>
+          <label class="chk"><input type="checkbox" id="ck-minor"> Minor Injury −2</label>
+          <label class="chk"><input type="checkbox" id="ck-major"> Major Injury −5</label>
+          <label class="chk"><input type="checkbox" id="ck-sore"> Sore as Shit −1</label>
+          <label class="narrow">Fatigued stacks<input type="number" id="ck-fat" min="0" value="0" inputmode="numeric"></label>
+        </div>
+        <div class="fields">
+          <label><span id="ck-tgt-lab">Target</span><input type="number" id="ck-tgt" value="12" inputmode="numeric"></label>
+          <label>Foe’s Mod<input type="number" id="ck-foe" value="0" inputmode="numeric"></label>
+          <div class="presets" aria-label="Target presets">
+            <button type="button" data-preset="unopp">Unopposed</button>
+            <button type="button" data-preset="stat">Stat check</button>
+            <button type="button" data-preset="foe">Foe or Mob</button>
+          </div>
+          <label>The Mob has<select id="ck-mob"><option value="0">No edge</option><option value="5">Advantage (+5)</option><option value="-5">Disadvantage (−5)</option></select></label>
+        </div>
+        <p class="sub" id="ck-odds"></p>
+        <div class="fields">
+          <label class="narrow">d20<input type="number" id="ck-d1" min="1" max="20" inputmode="numeric"></label>
+          <label class="narrow" id="ck-d2-l">Second d20<input type="number" id="ck-d2" min="1" max="20" inputmode="numeric"></label>
+          <button type="button" class="btn primary" id="ck-roll">Roll for me</button>
+          <button type="button" class="btn" id="ck-fav">Reroll with AI Favor</button>
+        </div>
+        <p class="out" id="ck-out" aria-live="polite"></p>
+      </div>
+
+      <div class="toolpanel hide" id="tp-damage" role="tabpanel" aria-labelledby="tt-damage">
+        <div class="fields">
+          <label id="dm-src-l" class="hide wide-l">Attack from your sheet<select id="dm-src"><option value="">Pick an attack</option></select></label>
+        </div>
+        <div class="fields">
+          <label>Base dice<span class="pair"><input type="number" id="dm-n" min="0" max="99" value="1" inputmode="numeric" aria-label="Number of base dice">d<select id="dm-x" aria-label="Base die size"><option>2</option><option selected>4</option><option>6</option><option>8</option><option>10</option><option>12</option></select></span></label>
+          <label>Extra base dice<input type="text" id="dm-extra" placeholder="e.g. 1d2" autocomplete="off"></label>
+          <label>Add Stat Mod<select id="dm-stat"><option value="none">None</option><option value="str" selected>Str</option><option value="dex">Dex</option><option value="int">Int</option><option value="con">Con</option><option value="cha">Cha</option></select></label>
+          <label>Flat bonus<input type="number" id="dm-flat" value="0" inputmode="numeric"></label>
+        </div>
+        <div class="fields">
+          <label class="chk"><input type="checkbox" id="dm-rank-on"> Add Rank damage die</label>
+          <label class="narrow" id="dm-rank-l">Skill Rank<input type="number" id="dm-rank" min="1" max="20" value="1" inputmode="numeric"></label>
+          <label>Result<select id="dm-res"><option value="hit">Hit</option><option value="amazing">Amazing Success</option><option value="crit">Critical Hit</option></select></label>
+        </div>
+        <p class="sub">Roll this</p>
+        <p class="formula-out"><span id="dm-formula">1d4 + 2</span></p>
+        <p class="sub" id="dm-why"></p>
+        <div class="btnrow"><button type="button" class="btn primary" id="dm-roll">Roll for me</button></div>
+        <p class="out" id="dm-out" aria-live="polite"></p>
+        <p class="note">Extra base dice are upgrades or Damage Effects that add “base damage”, like Iron Punch’s 1d2. They double on a Critical Hit; the Rank die doesn’t.</p>
+      </div>
+
+      <div class="toolpanel hide" id="tp-health" role="tabpanel" aria-labelledby="tt-health">
+        <div class="hb" id="hm-bar" aria-hidden="true"></div>
+        <div class="hb-cap" aria-hidden="true"><span>10%</span><span>20%</span><span>30%</span><span>40%</span><span>50%</span><span>60%</span><span>70%</span><span>80%</span><span>90%</span><span>100%</span></div>
+        <p class="out" id="hm-status"></p>
+        <div class="fields">
+          <label class="narrow">Damage<input type="number" id="hm-dmg" min="0" inputmode="numeric"></label>
+          <label>Damage type is<select id="hm-type"><option value="n">Normal for me</option><option value="r">Resisted</option><option value="v">Vulnerable</option><option value="i">Immune</option></select></label>
+          <label>Area attack<select id="hm-area"><option value="1">No, or full area</option><option value="0.5">Evaded, or in the Splash (half)</option><option value="0.25">Evaded in the Splash (quarter)</option></select></label>
+          <label class="chk"><input type="checkbox" id="hm-deb"> From a Debuff (skips DR)</label>
+          <button type="button" class="btn primary" id="hm-hit">Take the hit</button>
+        </div>
+        <p class="sub" id="hm-preview"></p>
+        <div class="fields">
+          <label class="narrow">Heal slots<input type="number" id="hm-heal" min="1" max="10" value="2" inputmode="numeric"></label>
+          <button type="button" class="btn" id="hm-heal-b">Heal</button>
+          <button type="button" class="btn" id="hm-spell">Cast Heal (2 Mana)</button>
+          <label class="narrow">Mana<input type="number" id="hm-mana" min="1" value="2" inputmode="numeric"></label>
+          <button type="button" class="btn" id="hm-mana-b">Spend Mana</button>
+        </div>
+        <div class="btnrow">
+          <span class="lab">Rest</span>
+          <button type="button" class="btn" data-rest="hour">1 calm hour</button>
+          <button type="button" class="btn" data-rest="short">Short rest (2 h)</button>
+          <button type="button" class="btn" data-rest="long">Long rest (8 h)</button>
+        </div>
+        <p class="sub" id="hm-log" aria-live="polite"></p>
+        <p class="note">Uses the Con Mod, DR and Intelligence from Your crawler. Area halving is applied before DR.</p>
+      </div>
+
+      <div class="toolpanel hide" id="tp-dice" role="tabpanel" aria-labelledby="tt-dice">
+        <div class="btnrow">
+          <button type="button" class="btn" data-roll="d20">d20</button>
+          <button type="button" class="btn" data-roll="adv">d20 with Advantage</button>
+          <button type="button" class="btn" data-roll="dis">d20 with Disadvantage</button>
+          <button type="button" class="btn" data-roll="help">Help 1d2</button>
+          <button type="button" class="btn" data-roll="d6">Help or Intervene 1d6</button>
+          <button type="button" class="btn" data-roll="play">Call a Play 2d6</button>
+        </div>
+        <div class="fields">
+          <label>Any dice<input type="text" id="dt-expr" placeholder="e.g. 3d6+2" autocomplete="off"></label>
+          <button type="button" class="btn primary" id="dt-go">Roll</button>
+        </div>
+        <div class="adv-box">
+          <h4>Skill advancement</h4>
+          <div id="adv-sheet" class="hide">
+            <p class="sub" id="adv-list"></p>
+            <div class="btnrow">
+              <button type="button" class="btn" id="adv-2h">Every 2 hours (Rank 4 or lower)</button>
+              <button type="button" class="btn" id="adv-floor">End of floor (every ticked Skill)</button>
+            </div>
+          </div>
+          <div class="fields" id="adv-manual">
+            <label class="narrow">Skill Rank<input type="number" id="dt-rank" min="1" max="20" value="1" inputmode="numeric"></label>
+            <button type="button" class="btn" data-roll="advance">Roll an advancement check</button>
+          </div>
+        </div>
+        <ol class="hist" id="dt-hist" aria-live="polite"></ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 1 CHECKS -->
+<section class="band" id="checks" style="--slot:var(--hb1)">
+  <div class="band-head"><div class="in"><h2>Checks</h2><p>How every roll works, and who sets the number.</p></div></div>
+  <div class="blocks">
+
+    <article class="blk">
+      <h3>The roll</h3>
+      <div class="formula" aria-label="d20 plus Skill Rank plus Stat Mod, meet or beat the Difficulty">
+        <span><b>d20</b><small>roll</small></span><i>+</i>
+        <span><b>Rank</b><small>Skill</small></span><i>+</i>
+        <span><b>Mod</b><small>Stat</small></span><i>vs</i>
+        <span class="goal"><b>DC</b><small>target</small></span>
+      </div>
+      <p>Meet or beat the target and you succeed. Only players roll d20s. The GM never rolls against you; Mobs set the number you have to reach.</p>
+      <p>A full Stat name (Strength) means the score. The short form (Str) means its Mod. Mods come from your Enhanced score.</p>
+      <p class="ref">Core p. 58, Survival p. 12</p>
+    </article>
+
+    <article class="blk">
+      <h3>Difficulty</h3>
+      <p><b>Unopposed</b> (climbing, swimming, endurance, most survival): 10 + 2×F = <span class="lv" data-f="10+2*F">12</span></p>
+      <p><b>Opposed</b> (a foe resists you, including social checks): 10 + foe’s Mod + F = <span class="lv" data-f="10+F">11</span> + Mod</p>
+      <p><b>Stat Check</b> (no Skill, usually resisting something): 10 + F = <span class="lv" data-f="10+F">11</span></p>
+      <p><b>Your attacks</b> target the Mob’s Evade: 10 + Dex Mod + F = <span class="lv" data-f="10+F">11</span> + Dex Mod</p>
+      <p>The GM can set any number and tells you the result, not the target.</p>
+      <p class="ref">Core p. 59, 82; Survival p. 13–14</p>
+    </article>
+
+    <article class="blk">
+      <h3>Stat Mods</h3>
+      <div class="mods">
+        <div><small>1–2</small><b>+1</b></div><div><small>3–5</small><b>+2</b></div><div><small>6–9</small><b>+3</b></div><div><small>10–19</small><b>+4</b></div><div><small>20–49</small><b>+5</b></div>
+        <div><small>50–99</small><b>+6</b></div><div><small>100–149</small><b>+7</b></div><div><small>150–199</small><b>+8</b></div><div><small>200–299</small><b>+9</b></div><div><small>300+</small><b>+10</b></div>
+      </div>
+      <p><b>Unenhanced</b> is your base plus Race, Class, potions and level-ups. <b>Enhanced</b> adds gear, Spells and Buffs.</p>
+      <p class="ref">Core p. 57</p>
+    </article>
+
+    <article class="blk">
+      <h3>Advantage and Disadvantage</h3>
+      <p><b>Advantage:</b> roll two d20s, keep the higher. <b>Disadvantage:</b> keep the lower.</p>
+      <p>They never stack. One of each cancels out; whatever is left over wins (two Advantages and one Disadvantage still means Advantage).</p>
+      <p><b>On Mobs:</b> Advantage adds 5 to the Difficulty you face, Disadvantage takes 5 off. A Disadvantaged Mob attack gives you a free Evade Check; fail it and you can still spend an Action to Evade again.</p>
+      <p class="ref">Core p. 60, Survival p. 14</p>
+    </article>
+
+    <article class="blk">
+      <h3>No Ranks in it?</h3>
+      <p><b>Attack or Utility Skill:</b> you can try it with Disadvantage, adding your Stat Mod but no Ranks.</p>
+      <p><b>Spells:</b> not without Ranks, unless you cast from a scroll. <b>Passive Skills:</b> never untrained.</p>
+      <p data-floors="1-2"><span class="tag">Floors 1–2</span>Note every Skill you try untrained. At the end of each 2-hour session, gain 1 Rank in one of them, then wipe the list. No saving them up.</p>
+      <p data-floors="3-5"><span class="tag">Floor 3+</span>Untrained use no longer teaches Skills. Get them from gear, potions, a Guild (Rank 1, paid), your Race or Class.</p>
+      <p class="ref">Core p. 58, Survival p. 12</p>
+    </article>
+
+    <article class="blk">
+      <h3>Teamwork</h3>
+      <p><b>Help</b> (an Action, before the roll): add 1d2 to an ally’s non-combat Skill Check, or 1d6 if you have Ranks in that Skill.</p>
+      <p><b>Intervene</b> (Interrupt, after the roll): add 1d6 to an ally’s d20 Check. Made for turning a Near Miss into a hit.</p>
+      <p><b>Party Skill Check:</b> everyone rolls, no helping. Half or more succeed and the party succeeds. An Amazing Success flips one failure; a Major Fail flips one success.</p>
+      <p>Nobody can help with a Stat Check.</p>
+      <p class="ref">Core p. 59–60, 64, 82</p>
+    </article>
+
+    <article class="blk">
+      <h3>Trying again</h3>
+      <p>Out of combat, if retrying is possible and nothing is at stake, the GM may skip the roll.</p>
+      <p>After a <b>Major or Critical Fail</b> you can’t try that Skill again in the same scene.</p>
+      <p><b>Escalating checks</b> list several targets (say 12, 17, 22). You get the best one you beat and everything below it.</p>
+      <p class="ref">Core p. 60–61</p>
+    </article>
+
+    <article class="blk">
+      <h3>Your sheet, decoded</h3>
+      <p><b>Evade:</b> d20 + Dex Mod + Evade Buffs. No Ranks.</p>
+      <p><b>To hit:</b> Skill Rank + Stat Mod. <b>Damage:</b> dice + Stat Mod from the weapon entry.</p>
+      <p><b>DR:</b> Armor + Buffs. <b>Health Bar:</b> 10 slots, each worth your Con Mod.</p>
+      <p><b>Max Mana:</b> your Enhanced Intelligence score (the score, not the Mod).</p>
+      <p><b>Defaults:</b> Move 20 ft, Step 10 ft. Humans start with 1 AI Favor and are Size 4 (Medium).</p>
+      <p class="ref">Crawlers &amp; Customization p. 14–16</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- 2 RESULTS -->
+<section class="band" id="results" style="--slot:var(--hb2)">
+  <div class="band-head"><div class="in"><h2>Results</h2><p>How far you beat or missed the number decides what happens.</p></div></div>
+  <div class="blocks">
+    <article class="blk wide">
+      <h3>Degrees of success and failure</h3>
+      <div class="deg-wrap">
+      <table class="deg">
+        <thead><tr><th>Roll</th><th>Attack</th><th>Evade</th><th>Anything else</th></tr></thead>
+        <tbody>
+          <tr data-deg="crit" style="--c:var(--hb10)"><td><span class="nm">Critical Hit</span><span class="mg">Natural 20</span></td><td data-label="Attack">Always hits. Roll twice the base damage dice, then add Mod and bonuses.</td><td data-label="Evade">Advantage on your next attack against that foe.</td><td data-label="Anything else">Best possible result.</td></tr>
+          <tr data-deg="amazing" style="--c:var(--hb8)"><td><span class="nm">Amazing Success</span><span class="mg">Beat by 10+</span></td><td data-label="Attack">Extra damage equal to F: +<span class="lv" data-f="F">1</span></td><td data-label="Evade">Advantage on your next attack against that foe.</td><td data-label="Anything else">Faster, quieter, more impressive. Long jobs finish early.</td></tr>
+          <tr data-deg="success" style="--c:var(--hb6)"><td><span class="nm">Success</span><span class="mg">Beat by 0–9</span></td><td data-label="Attack">Hit. Roll damage.</td><td data-label="Evade">You avoid that attack.</td><td data-label="Anything else">It works.</td></tr>
+          <tr data-deg="near" style="--c:var(--hb5)"><td><span class="nm">Near Miss</span><span class="mg">Miss by 1–2</span></td><td data-label="Attack">GM calls “Near Miss”. Someone can Intervene.</td><td data-label="Evade">You’re hit.</td><td data-label="Anything else">Fail, or succeed with a complication.</td></tr>
+          <tr data-deg="fail" style="--c:var(--hb4)"><td><span class="nm">Fail</span><span class="mg">Miss by 3–9</span></td><td data-label="Attack">You miss.</td><td data-label="Evade">You’re hit.</td><td data-label="Anything else">Fail, or fail forward at a cost.</td></tr>
+          <tr data-deg="major" style="--c:var(--hb2)"><td><span class="nm">Major Fail</span><span class="mg">Miss by 10+</span></td><td data-label="Attack">Miss badly: drop something, need to reload, or gain Take Down.</td><td data-label="Evade">Hit for +<span class="lv" data-f="F">1</span> damage, and a Minor Injury after combat.</td><td data-label="Anything else">Wasted time, materials or tools.</td></tr>
+          <tr data-deg="fumble" style="--c:var(--hb1)"><td><span class="nm">Critical Fail</span><span class="mg">Natural 1</span></td><td data-label="Attack">Always misses. Hit a friend, break your weapon, or gain Stunned.</td><td data-label="Evade">Double damage, and a Major Injury after combat.</td><td data-label="Anything else">Worst possible outcome.</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p style="margin-top:8px">A natural 20 or 1 never also triggers the beat-by-10 effects; you get the single best (or worst) result. The GM announces the degree, not the margin, except for a Near Miss. A tie is a Success.</p>
+      <p class="ref">Core p. 60–61, 79–80; Survival inside cover</p>
+
+      <p class="noprint">To work out a roll for you, use the <a href="#tp-check">check calculator</a>.</p>
+    </article>
+  </div>
+</section>
+
+<!-- 3 ROUND -->
+<section class="band" id="round" style="--slot:var(--hb3)">
+  <div class="band-head"><div class="in"><h2>Combat round</h2><p>Mobs declare first, you react, then you strike back. No initiative.</p></div></div>
+  <div class="blocks">
+    <article class="blk wide">
+      <h3>One round, five steps</h3>
+      <ol class="track">
+        <li class="mob"><span class="who">GM</span><b>Mobs declare</b><p>Where they move, who they attack, and how.</p></li>
+        <li class="crw"><span class="who">Crawlers</span><b>React</b><p>Spend Actions on Interrupts: Evade, Intervene, Heal, Taunt, Catcher.</p></li>
+        <li class="mob"><span class="who">GM</span><b>Mobs resolve</b><p>Damage lands on anyone who didn’t Evade. Your DR applies. Debuffs from attacks land now.</p></li>
+        <li class="crw"><span class="who">Crawlers</span><b>Act</b><p>Spend what’s left in any order, mixing turns freely.</p></li>
+        <li><span class="who">Everyone</span><b>Clean up</b><p>Ongoing damage and effects tick, Dying counts down, Actions reset.</p></li>
+      </ol>
+      <p class="ref">Core p. 80–86, Survival p. 32–37</p>
+    </article>
+
+    <article class="blk">
+      <h3>Your two Actions</h3>
+      <p>You get <b>2 Actions per round</b> (a round is 10 seconds). Interrupts in step 2 come out of those same two.</p>
+      <p>Every Action comes with a free <b>10 ft Step</b>. Talking is free.</p>
+      <p>You can wait for an ally to go first, but you can’t hold an Action into the next round.</p>
+      <p>Keep tokens in view so the GM sees who has Actions left.</p>
+      <p class="ref">Core p. 63–64</p>
+    </article>
+
+    <article class="blk">
+      <h3>Starting a fight</h3>
+      <p>The GM sets positions and terrain first.</p>
+      <p><b>Surprise:</b> if you catch foes off guard, each crawler gets 1 free Action before step 1. It happens once.</p>
+      <p><b>Stealth</b> success before combat: 1 non-Attack Action (an Attack with Advantage at Rank 5).</p>
+      <p>Otherwise Mobs go first.</p>
+      <p class="ref">Core p. 80, 199</p>
+    </article>
+
+    <article class="blk">
+      <h3>What Mobs get</h3>
+      <p><b>Ordinary Mobs:</b> 1 Move and 1 other Action (usually an attack), spread across crawlers in reach.</p>
+      <p><b>Elites and Bosses:</b> 1 Action per crawler in the fight, even after some of you go down.</p>
+      <p>Mobs die at 0% Health. If a Mob forces you to attack a party member, they get a free Evade.</p>
+      <p class="ref">Core p. 81, 87</p>
+    </article>
+  </div>
+</section>
+
+<!-- 4 ACTIONS -->
+<section class="band" id="actions" style="--slot:var(--hb4)">
+  <div class="band-head"><div class="in"><h2>Actions</h2><p>What one Action buys you, in step 2 and step 4.</p></div></div>
+  <div class="blocks">
+    <article class="blk">
+      <h3>Interrupts (step 2, 1 Action each)</h3>
+      <p><b>Evade:</b> one Evade Check per attack aimed at you, against that attack’s value. Against an area: half damage, or a quarter in the Splash zone. A Step won’t carry you out of a blast.</p>
+      <p><b>Intervene:</b> add 1d6 to another crawler’s d20 Check after they roll. Not on Stat Checks.</p>
+      <p><b>Heal:</b> cast a healing Spell or use a healing item before Mob damage lands. Also works as a normal Action.</p>
+      <p class="ref">Core p. 81–82</p>
+    </article>
+
+    <article class="blk">
+      <h3>Protecting allies</h3>
+      <p><b>Taunt</b> (Skill, Cha, Int-Opposed): after Mobs declare, pull one attack from a Mob within 30 ft of you onto yourself, more on higher degrees. You can then spend your other Action to Evade. Rank 5: free Evade against Taunted attacks.</p>
+      <p><b>Catcher</b> (Passive Skill): take a direct, non-area hit meant for an adjacent ally; Step 10 ft first if needed. You can’t Evade or block the hit you catch.</p>
+      <p class="ref">Core p. 82, 189, 200</p>
+    </article>
+
+    <article class="blk">
+      <h3>On your turn (step 4)</h3>
+      <p><b>Attack:</b> weapon, fists or Spell against Evade. Swapping to a Hotlist weapon is part of the attack.</p>
+      <p><b>Cast a Spell:</b> from your Hotlist, paying Mana.</p>
+      <p><b>Make a Check:</b> use a Skill, like First Aid. Checks the GM calls for mid-fight usually cost nothing.</p>
+      <p><b>Move:</b> Move value (20 ft) plus your Step.</p>
+      <p><b>Use a Hotlist Item</b> or <b>Retrieve</b> one from Inventory (you can’t use it in that same Action).</p>
+      <p class="ref">Core p. 64, 82–86</p>
+    </article>
+
+    <article class="blk">
+      <h3>Clever plays</h3>
+      <p><b>Call a Play:</b> name an Action for an ally, roll 2d6 and keep the higher. Add it to their Check when they do it; if they’d have succeeded anyway, it goes on damage instead.</p>
+      <p><b>Look for Clues</b> (Boss fights only): Unopposed Perception or Investigation. Learn a weakness, resistance, attack or terrain trick; more on Amazing. Pick what to study.</p>
+      <p class="ref">Core p. 85–86</p>
+    </article>
+
+    <article class="blk">
+      <h3>Costs nothing</h3>
+      <ul>
+        <li>Talking</li>
+        <li>A 10 ft Step with each Action</li>
+        <li>Dropping prone</li>
+        <li>Swapping weapons as part of an Attack</li>
+        <li>Most External Buffs when they trigger</li>
+        <li>A Skill Check the GM calls for mid-fight</li>
+      </ul>
+      <p class="ref">Core p. 64, 69, 85, 95</p>
+    </article>
+  </div>
+</section>
+
+<!-- 5 ATTACKS -->
+<section class="band" id="attacks" style="--slot:var(--hb5)">
+  <div class="band-head"><div class="in"><h2>Attacks</h2><p>Hitting things, hurting things, and blowing things up.</p></div></div>
+  <div class="blocks">
+    <article class="blk">
+      <h3>To hit</h3>
+      <p>d20 + Attack Skill Rank + Stat Mod against the target’s Evade: <span class="lv" data-f="10+F">11</span> + its Dex Mod (10 + Dex Mod + F). Some stat blocks add more.</p>
+      <p><b>Melee</b> uses Str. <b>Physical ranged</b> uses Dex. <b>Spells</b> use Int. The Skill entry has the final say (Pugilism, for one, hits with Dex).</p>
+      <p class="ref">Core p. 82–83</p>
+    </article>
+
+    <article class="blk">
+      <h3>Range</h3>
+      <p><b>Melee</b> reaches 5 ft. <b>Reach</b> reaches 10 ft, not through occupied spaces (a diagonal past one open corner is fine).</p>
+      <p><b>Ranged</b> weapons and Spells have no penalty inside their listed range and automatically fail beyond it.</p>
+      <p>Ranged attacks and ranged Spells made inside an enemy’s melee reach roll with Disadvantage.</p>
+      <p class="ref">Core p. 82–83</p>
+    </article>
+
+    <article class="blk">
+      <h3>Damage</h3>
+      <p>Base dice + Stat Mod (per the entry) + Rank damage die (if the entry grants one) + bonuses. The target’s DR comes off after.</p>
+      <p><b>Critical Hit:</b> double the base dice, including upgrade dice that say “base damage”. The Rank damage die is not doubled.</p>
+      <p><b>Amazing Success:</b> +F, which is +<span class="lv" data-f="F">1</span> right now.</p>
+      <p class="ref">Core p. 79, 85, 176</p>
+    </article>
+
+    <article class="blk">
+      <h3>Rank damage die</h3>
+      <table class="mini">
+        <thead><tr><th>Rank</th><th>Add</th><th>Rank</th><th>Add</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>+1</td><td>12–13</td><td>+1d12</td></tr>
+          <tr><td>2–3</td><td>+1d2</td><td>14–15</td><td>+1d8 +1d6</td></tr>
+          <tr><td>4–5</td><td>+1d4</td><td>16–17</td><td>+2d8</td></tr>
+          <tr><td>6–7</td><td>+1d6</td><td>18–19</td><td>+1d10 +1d8</td></tr>
+          <tr><td>8–9</td><td>+1d8</td><td>20</td><td>+2d10</td></tr>
+          <tr><td>10–11</td><td>+1d10</td><td></td><td></td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:6px">Only when a Skill, Spell or upgrade tells you to add it.</p>
+      <p class="ref">Core p. 176, Crawlers &amp; Customization p. 22</p>
+    </article>
+
+    <article class="blk">
+      <h3>Hand-to-hand</h3>
+      <p><b>Unarmed Combat:</b> every crawler has it. 1d4 + Str Bludgeoning, no Damage Effects.</p>
+      <p>Skills like Pugilism, Wrasslin’ and Foot Soldier let you pick one <b>Damage Effect</b> (Iron Punch, Powerful Strike, Choke Out…) before you roll. It applies on a hit and still goes on cooldown on a miss.</p>
+      <p>Mark either the Attack or the Damage Effect for advancement, not both. Skip Damage Effects for most of a 3+ round fight to earn the Skill’s AI Favor.</p>
+      <p class="ref">Core p. 179–180</p>
+    </article>
+
+    <article class="blk">
+      <h3>Area attacks</h3>
+      <p>Roll once against one target in range. On a hit, roll damage once and it hits <b>everyone</b> in the area, allies included.</p>
+      <p><b>Blast:</b> out from the target point. <b>Burst:</b> out from you. <b>Line:</b> 5 ft wide. <b>Cone:</b> 60° arc. <b>+Splash:</b> an outer ring taking half.</p>
+      <p>Evading halves it; Evading in the Splash leaves a quarter. Round down.</p>
+      <p>Most misses do nothing, but thrown things and Fireball still land: roll 1d8 for direction, and they drift as many feet as you missed by.</p>
+      <p class="ref">Core p. 83–84, 200–201</p>
+    </article>
+
+    <article class="blk">
+      <h3>Situations</h3>
+      <p><b>Cover:</b> attacks from beyond melee range have Disadvantage. Melee ignores cover.</p>
+      <p><b>Darkness, bad weather, shifting ground:</b> Disadvantage. <b>High ground:</b> Advantage.</p>
+      <p><b>Unseen:</b> Advantage attacking someone who can’t see you; Disadvantage against a target you can’t see.</p>
+      <p><b>Held</b> or <b>prone</b> (Take Down) targets: Advantage.</p>
+      <p><b>Size:</b> target 4+ sizes bigger, Advantage; 4+ smaller, Disadvantage (a big attacker who hits anyway in melee adds its size to damage).</p>
+      <p class="ref">Core p. 84–85, 97</p>
+    </article>
+
+    <article class="blk">
+      <h3>Sizes</h3>
+      <table class="mini">
+        <tbody>
+          <tr><td>1</td><td>Tiny</td><td>rat</td><td>5</td><td>Large</td><td>horse</td></tr>
+          <tr><td>2</td><td>Small</td><td>cat</td><td>6</td><td>Huge</td><td>elephant</td></tr>
+          <tr><td>3</td><td>Petite</td><td>goblin</td><td>7</td><td>Colossal</td><td>dragon</td></tr>
+          <tr><td>4</td><td>Medium</td><td>human</td><td>8</td><td>Gargantuan</td><td>kaiju</td></tr>
+        </tbody>
+      </table>
+      <p class="ref">Core p. 85</p>
+    </article>
+  </div>
+</section>
+
+<!-- 6 EXPLORING -->
+<section class="band" id="exploring" style="--slot:var(--hb6)">
+  <div class="band-head"><div class="in"><h2>Exploring</h2><p>Moving, seeing, hiding, and the things that kill you slowly.</p></div></div>
+  <div class="blocks">
+    <article class="blk">
+      <h3>Movement</h3>
+      <p><b>Move Action:</b> 20 ft, plus the Step, so 30 ft. Two Moves cover 60 ft.</p>
+      <p>Split movement around your other Action. Pass through allies, never enemies. On a grid, diagonals cost the same (1 square is 5 ft).</p>
+      <p><b>Drop prone:</b> free, gives Take Down. <b>Stand up:</b> 10 ft of movement (your Step). <b>Pick up an item:</b> 10 ft.</p>
+      <p><b>Forced movement:</b> Push is away, Pull is toward, Slide is any direction.</p>
+      <p class="ref">Core p. 69–70, 80</p>
+    </article>
+
+    <article class="blk">
+      <h3>Rough going</h3>
+      <p><b>Difficult terrain:</b> every foot costs 2.</p>
+      <p><b>Climbing, swimming, crawling:</b> every foot costs 2 (3 in difficult terrain). Sheer walls or currents need an Unopposed Skill Check.</p>
+      <p><b>Jumping:</b> Unopposed Jumping Check to clear up to Rank + Str Mod feet. Costs normal Move.</p>
+      <p>Anyone with a climb, swim or fly Move pays nothing extra.</p>
+      <p class="ref">Core p. 69–70</p>
+    </article>
+
+    <article class="blk">
+      <h3>Light</h3>
+      <p><b>Bright:</b> no penalty.</p>
+      <p><b>Dim:</b> Disadvantage on sight-based checks such as Perception and Investigation.</p>
+      <p><b>Dark:</b> Disadvantage wherever sight matters, and the ground counts as difficult terrain.</p>
+      <p>A torch or the Torch Spell (1 Mana) gives 20 ft bright light, then 20 ft dim.</p>
+      <p class="ref">Core p. 69, Crawlers &amp; Customization p. 40</p>
+    </article>
+
+    <article class="blk">
+      <h3>Hiding and sneaking</h3>
+      <p><b>Hide in Shadows</b> (Dex, Int-Opposed) while in cover, dim light or darkness. Behind something bigger than you: Advantage. Success makes you Invisible until you fail a Hide check, attack, or show yourself.</p>
+      <p><b>Stealth</b> (Dex, Int-Opposed) to move unseen. You must start out of every foe’s sight.</p>
+      <p>Moving at a fast travel pace rules out hiding.</p>
+      <p class="ref">Core p. 71, 76, 195, 199</p>
+    </article>
+
+    <article class="blk">
+      <h3>Hazards</h3>
+      <p><b>Falling:</b> 1d6 Bludgeoning per 10 ft (max 20d6), and you land prone.</p>
+      <p><b>Holding your breath:</b> Con Mod rounds. After that, Drowning: <span class="lv" data-d="1d6">1d6+1</span> each round.</p>
+      <p><b>No food</b> for a 30-hour day: Survival Check or lose 3 slots and gain Fatigued until you eat.</p>
+      <p><b>No water</b> for a day: lose 3 slots and gain Fatigued until you drink.</p>
+      <p class="ref">Core p. 76</p>
+    </article>
+
+    <article class="blk">
+      <h3>Travel pace</h3>
+      <table class="mini">
+        <thead><tr><th>Pace</th><th>Minute</th><th>Hour</th><th>Day</th></tr></thead>
+        <tbody>
+          <tr><td>Fast</td><td>400 ft</td><td>4 mi</td><td>38 mi</td></tr>
+          <tr><td>Normal</td><td>300 ft</td><td>3 mi</td><td>29 mi</td></tr>
+          <tr><td>Slow</td><td>200 ft</td><td>2 mi</td><td>20 mi</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:6px"><b>Fast:</b> Disadvantage on Perception and Survival to spot danger or navigate. <b>Slow:</b> Advantage on them.</p>
+      <p>A day assumes 10 hours of travel. Each 2 hours past that: Unopposed Endurance or gain Fatigued.</p>
+      <p class="ref">Core p. 70–71</p>
+    </article>
+
+    <article class="blk">
+      <h3>The clock</h3>
+      <p>A dungeon day is <b>30 hours</b>. The recap show airs in saferooms every 30 hours.</p>
+      <p><b>Floor collapse</b> (usual timer, the GM can change it): Floor 1, 5 days; Floor 2, 6; Floor 3, 8; Floor 4, 10; Floor 5, 15. Yours: <span class="lv" data-lk="timer">5 days</span></p>
+      <p><b>Cooldowns:</b> once per round means not with both Actions. Once per day is per 30 hours. Once per X days and once per floor reset when you reach a new floor.</p>
+      <p class="ref">Core p. 63, Survival p. 17</p>
+    </article>
+  </div>
+</section>
+
+<!-- 7 HEALTH -->
+<section class="band" id="health" style="--slot:var(--hb7)">
+  <div class="band-head"><div class="in"><h2>Health</h2><p>Damage comes off in whole slots. So does healing.</p></div></div>
+  <div class="blocks">
+    <article class="blk">
+      <h3>Taking damage, in order</h3>
+      <ol class="seq">
+        <li><b>DR</b> comes off first. Damage from Debuffs skips this step.</li>
+        <li><b>Resistance</b> to that type halves what’s left.</li>
+        <li><b>Vulnerability</b> doubles it.</li>
+        <li><b>Immunity</b> makes it zero, along with any Debuff riding on it.</li>
+        <li>Lose <b>one slot for every full slot value</b> left over. Less than one slot’s worth is ignored.</li>
+      </ol>
+      <p>Mixed damage types split evenly, and each part checks its own resistances.</p>
+      <p>Example: slots of 4, 22 damage. Five slots go (20), the last 2 are ignored.</p>
+      <p class="noprint">The <a href="#tp-health">Health and Mana tracker</a> does this for you.</p>
+      <p class="ref">Core p. 92–94</p>
+    </article>
+
+    <article class="blk">
+      <h3>Zero and Dying</h3>
+      <p>At 0% you can’t act until healed. Healed during step 4, you can still use any Actions you had left.</p>
+      <p>Losing your last slot gives the <b>Dying</b> Debuff: a countdown of Con Mod rounds. It drops by 1 at each Clean Up and each time you’d take damage. Heal 1 slot (10%) to stop it.</p>
+      <p>While Dying: no Actions, no moving, no talking, no HUD.</p>
+      <p>If Debuff damage would drop you to 0%, roll a Con Stat Check against <span class="lv" data-f="10+F">11</span> at Clean Up (free). Success ends that Debuff and skips the damage.</p>
+      <p class="ref">Core p. 94, 96–97</p>
+    </article>
+
+    <article class="blk">
+      <h3>Healing and rest</h3>
+      <p><b>Heal Spell:</b> every crawler has it. 2 Mana, an Interrupt, self only, heals 2 slots.</p>
+      <p><b>Each calm hour</b> outside combat: 1 slot and 5 Mana.</p>
+      <p><b>Short rest</b> (2 h): 5 slots and half your max Mana, rounded down.</p>
+      <p><b>Long rest</b> (8 h): full Health and Mana, clears all Fatigued.</p>
+      <p><b>Full day</b> (30 h): full recovery, and the only cure for a Long-Term Major Injury.</p>
+      <p>Rest means a saferoom or truly relaxing. Healing never goes past 100%.</p>
+      <p class="ref">Core p. 94–95, Crawlers &amp; Customization p. 15</p>
+    </article>
+
+    <article class="blk">
+      <h3>Injuries</h3>
+      <p><b>Minor Injury:</b> −2 to all Checks until a short rest. A second one becomes Long-Term (needs a long rest).</p>
+      <p><b>Major Injury:</b> −5 to all Checks until a long rest. A second one becomes Long-Term (needs a full day).</p>
+      <p>You get them after combat from a Major Fail (Minor) or natural 1 (Major) on an Evade.</p>
+      <p><b>First Aid</b> Rank 5: spend 5 minutes to also cure a Minor Injury.</p>
+      <p class="ref">Core p. 80, 96, 195</p>
+    </article>
+
+    <article class="blk">
+      <h3>Damage types</h3>
+      <p><b>Common:</b> Bludgeoning, Fire, Piercing, Poison, Slashing.</p>
+      <p><b>Uncommon:</b> Acid, Electric, Force, Holy, Ice, Necrotic, Psychic, Sonic.</p>
+      <p>Types only matter for Resistance, Vulnerability and Immunity.</p>
+      <p class="ref">Core p. 93</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- 8 GEAR -->
+<section class="band" id="gear" style="--slot:var(--hb8)">
+  <div class="band-head"><div class="in"><h2>Magic &amp; gear</h2><p>Mana, Spells, potions, and what fits where.</p></div></div>
+  <div class="blocks">
+    <article class="blk">
+      <h3>Casting Spells</h3>
+      <p>A Spell has to be in your <b>Hotlist</b> to cast it in combat or under pressure. Casting takes an Action.</p>
+      <p><b>Attack Spells:</b> d20 + Spell Rank + Int Mod against Evade; damage is base + Int.</p>
+      <p><b>Passive (non-Attack) Spells</b> just happen. No roll, and they don’t earn advancement marks.</p>
+      <p>Muted means no casting. Ranged Spells inside melee reach take Disadvantage.</p>
+      <p data-floors="3-5"><span class="tag">Floor 3+</span>Spells Favored by a Class cost everyone else 1 extra Mana.</p>
+      <p class="ref">Core p. 85, 202; Crawlers &amp; Customization p. 36</p>
+    </article>
+
+    <article class="blk">
+      <h3>Mana</h3>
+      <p><b>Max Mana</b> equals your Enhanced Intelligence score. Update it when Intelligence changes.</p>
+      <p>Get it back by resting (see Health), Mana Potions (full), Mana Toast in some saferooms, or a Replenish Buff (Int Mana every 10 minutes).</p>
+      <p class="ref">Core p. 94, 96; Crawlers &amp; Customization p. 15</p>
+    </article>
+
+    <article class="blk">
+      <h3>Scrolls, books, potions</h3>
+      <p><b>Scroll:</b> casts its Spell once at the Rank written on it, no Mana, then crumbles. Works even without Ranks.</p>
+      <p><b>Spellbook or tome:</b> read it to learn the Spell at a set Rank (random is 1d6−1, minimum 1).</p>
+      <p><b>Potion:</b> works from the Hotlist without physically drinking, if you’re conscious. An Action in combat; healing potions can be an Interrupt. One potion every other round at most, or Potion Sickness (Poisoned for 15 seconds).</p>
+      <p class="ref">Core p. 99</p>
+    </article>
+
+    <article class="blk">
+      <h3>Hotlist and Inventory</h3>
+      <p><b>Hotlist:</b> 10 slots, up to 999 of the same item per slot. Anything there can appear in your hand or at your feet as part of using it.</p>
+      <p><b>Inventory:</b> weightless, but gives no bonuses. Pulling something out is a Retrieve Action; from Inventory to an attack takes 2 Actions.</p>
+      <p>You must lift an item for 4 seconds to stash it (you lift Strength × 15 lb). No living things (they die), loose liquids, or explosives within 3 seconds of going off.</p>
+      <p class="ref">Core p. 98; Crawlers &amp; Customization p. 15</p>
+    </article>
+
+    <article class="blk">
+      <h3>Gear slots</h3>
+      <p><b>Head, Torso, Arms, Legs, Feet:</b> one item each.</p>
+      <p><b>Hands:</b> one item per hand plus a pair of gloves. A shield takes a hand; Two-Handed takes both.</p>
+      <p><b>Accessories:</b> up to 10 (one belt, one cape).</p>
+      <p>Only equipped gear gives bonuses.</p>
+      <p class="ref">Core p. 98–99</p>
+    </article>
+
+    <article class="blk">
+      <h3>Buffs</h3>
+      <p><b>Internal Buffs</b> are always on while you have the source, like Stat boosts or Invisible.</p>
+      <p><b>External Buffs</b> fire on a trigger, and you choose whether to use them (handy with cooldowns). Examples: Damage Reflection, Resistances, Safe Fall.</p>
+      <p><b>Rule of Three:</b> only 3 External Buffs active. Pick them at the start of the day; swap during a short rest.</p>
+      <p class="ref">Core p. 95–96</p>
+    </article>
+
+    <article class="blk">
+      <h3>Junk, loot and gold</h3>
+      <p><b>Misc. Junk:</b> spend 1 to find any small household item in your Inventory (not food or water). Merchants pay 1 gold each.</p>
+      <p><b>Dead Mobs</b> drop 1d6 Junk each plus gold by floor. Yours: <span class="lv" data-lk="gold">no gold</span></p>
+      <p>Bosses always drop a map. Open loot boxes in a saferoom; unopened boxes can’t be taken from a body.</p>
+      <p><b>Crafting:</b> Fabricate (or Engineering for moving parts), Unopposed. Takes size × size hours.</p>
+      <p data-floors="4-5"><span class="tag">Floor 4+</span>Magic crafting needs a crafting table in a personal space.</p>
+      <p class="ref">Core p. 88, 99, 215–222</p>
+    </article>
+  </div>
+</section>
+
+<!-- 9 DEBUFFS -->
+<section class="band" id="debuffs" style="--slot:var(--hb9)">
+  <div class="band-head"><div class="in"><h2>Debuffs</h2><p>Same Debuff twice doesn’t stack unless it says so. Damage hits at Clean Up and ignores DR.</p></div></div>
+  <div class="blocks">
+    <article class="blk wide">
+      <div class="debuff-wrap">
+      <table class="debuffs">
+        <thead><tr><th>Debuff</th><th>Effect</th><th>Ends</th></tr></thead>
+        <tbody>
+          <tr><td>Blinded</td><td>Disadvantage on Skill Checks that need sight.</td><td data-label="Ends">End of next round</td></tr>
+          <tr><td>Blood Trail</td><td><span class="lv" data-d="1d6">1d6+1</span> each round. <span class="tag">Stacks</span></td><td data-label="Ends">Bandage (an Action) or First Aid</td></tr>
+          <tr><td>Burned</td><td><span class="lv" data-d="1d10">1d10+1</span> Fire each round.</td><td data-label="Ends">End of combat or 5 min. As an Action, Dex Stat Check (<span class="lv" data-f="10+F">11</span>) to put it out</td></tr>
+          <tr><td>Drowning</td><td><span class="lv" data-d="1d6">1d6+1</span> each round.</td><td data-label="Ends">Head above water</td></tr>
+          <tr><td>Dying</td><td>At 0%. Countdown of Con Mod rounds, −1 at Clean Up and each time you’d take damage.</td><td data-label="Ends">Death, or healing 1+ slot</td></tr>
+          <tr><td>Enraged</td><td>Only Attack and Move Actions.</td><td data-label="Ends">2 rounds (20 s)</td></tr>
+          <tr><td>Fatigued</td><td>−1 to all Checks, Move halved. <span class="tag">Stacks</span></td><td data-label="Ends">Long rest</td></tr>
+          <tr><td>Held</td><td>No Move Actions or Steps; you can still Evade. Attacks against you have Advantage.</td><td data-label="Ends">Released, or escape with a Str-Opposed Escape Artist Check (Floors 1–2 also allow a Dex Stat Check)</td></tr>
+          <tr><td>Minor Injury</td><td>−2 to all Checks. A second one becomes Long-Term.</td><td data-label="Ends">Short rest</td></tr>
+          <tr><td>Long-Term Minor Injury</td><td>−2 to all Checks.</td><td data-label="Ends">Long rest</td></tr>
+          <tr><td>Major Injury</td><td>−5 to all Checks. A second one becomes Long-Term.</td><td data-label="Ends">Long rest</td></tr>
+          <tr><td>Long-Term Major Injury</td><td>−5 to all Checks.</td><td data-label="Ends">Full day of rest (30 h)</td></tr>
+          <tr><td>Muted</td><td>Can’t speak or cast Spells.</td><td data-label="Ends">End of combat or 5 min</td></tr>
+          <tr><td>Paralyzed</td><td>No Actions at all.</td><td data-label="Ends">End of next round</td></tr>
+        </tbody>
+      </table>
+      <table class="debuffs">
+        <thead><tr><th>Debuff</th><th>Effect</th><th>Ends</th></tr></thead>
+        <tbody>
+          <tr><td>Poisoned</td><td><span class="lv" data-d="1d8">1d8+1</span> Poison each round. <span class="tag">Stacks</span></td><td data-label="Ends">An antidote</td></tr>
+          <tr><td>Queasy</td><td>If your next Action needs a roll, Disadvantage.</td><td data-label="Ends">After your next Action</td></tr>
+          <tr><td>Sepsis</td><td>Staggered, plus <span class="lv" data-d="1d10">1d10+1</span> Poison each round.</td><td data-label="Ends">Stagger ends after your next Action; damage until healed</td></tr>
+          <tr><td>Shit-Faced</td><td>Disadvantage on all Checks.</td><td data-label="Ends">10 min</td></tr>
+          <tr><td>Shocked</td><td>Lose your next Action.</td><td data-label="Ends">Once you’ve lost it</td></tr>
+          <tr><td>Sore as Shit</td><td>−1 to all rolls.</td><td data-label="Ends">1 hour</td></tr>
+          <tr><td>Staggered</td><td>Next Action can’t be a Move and gets no Step. If it’s an attack, Disadvantage.</td><td data-label="Ends">After your next Action</td></tr>
+          <tr><td>Stiff Legs</td><td>No 10 ft Steps.</td><td data-label="Ends">End of combat or 5 min</td></tr>
+          <tr><td>Stunned</td><td>Disadvantage on your next Check.</td><td data-label="Ends">After that Check</td></tr>
+          <tr><td>Take Down</td><td>Prone. Attacks against you have Advantage.</td><td data-label="Ends">Use your Step to stand</td></tr>
+          <tr><td>Terrified</td><td>No Move Actions or Steps. Your attacks have Disadvantage.</td><td data-label="Ends">End of next round, or losing a slot</td></tr>
+          <tr><td>The Taint</td><td>Can’t be healed.</td><td data-label="Ends">End of combat or 5 min</td></tr>
+          <tr><td>Woozy</td><td>No Dex Mod on Attack or Evade Checks.</td><td data-label="Ends">End of next round</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p style="margin-top:8px"><b>On Mobs:</b> Disadvantage lowers their Difficulty by 5 (and a Disadvantaged attack gives you a free Evade). A −X penalty lowers it by X. Damage still lands at Clean Up.</p>
+      <p class="ref">Core p. 96–97, Survival p. 44–46</p>
+    </article>
+  </div>
+</section>
+
+<!-- 10 GROWTH -->
+<section class="band" id="growth" style="--slot:var(--hb10)">
+  <div class="band-head"><div class="in"><h2>Growth &amp; fame</h2><p>Levels, Skill Ranks, AI Favor and the audience.</p></div></div>
+  <div class="blocks">
+    <article class="blk">
+      <h3>Gaining levels</h3>
+      <p><b>Every 2 hours of play:</b> +1 level for everyone.</p>
+      <p><b>Quest done:</b> at least +1.</p>
+      <p><b>Boss kill</b> (each party member): Neighborhood 1, Borough 2, City 3, Province 4, Country 5, Floor 6.</p>
+      <p><b>Killing a crawler:</b> 1d6 levels, plus the level gap if they outranked you (max 15), minus it if you outranked them (min 1). It also earns a Player Killer skull.</p>
+      <p data-floors="3-5"><span class="tag">Floor 3+</span>Each level gives 3 Stat points, spent in a saferoom. Levels from Floors 1–2 count once you arrive.</p>
+      <p class="ref">Core p. 87–88, 169–170</p>
+    </article>
+
+    <article class="blk">
+      <h3>Raising Skills</h3>
+      <p>Each time you roll a Skill, pass or fail, <b>tick its box</b>.</p>
+      <p><b>Advancement check:</b> 1d20 equal to or over the current Rank gives +1 Rank.</p>
+      <p><b>When:</b> Rank 4 or lower, every 2 hours of play. Rank 5+, at the end of each floor. Then erase all ticks.</p>
+      <p>Passive Skills don’t tick; they rise through magic, training, Race or Class. Levels never raise Skills.</p>
+      <p><b>Cap:</b> Rank 15 on Floors 1–5. <b>Upgrades:</b> Ranks 5, 10 and 15. Working on your floor: <span class="lv" data-lk="upgrades">Rank 5 only</span></p>
+      <p class="ref">Core p. 169, 173; Crawlers &amp; Customization p. 20, 42</p>
+    </article>
+
+    <article class="blk">
+      <h3>Grinding</h3>
+      <p>Declare hours against weak Mobs. Up to 5 a day is safe; each extra hour needs an Unopposed Endurance Check or it’s wasted and you gain Fatigued.</p>
+      <p>Put hours into Skills. When a Skill has hours equal to its Rank, roll its advancement check. Same Skill once a day.</p>
+      <p>Neighborhood Map: +1 hour on a 5+ hour grind. Borough Field Guide: +2.</p>
+      <p>Total grind hours equal to your level gives a level (the lowest-level crawler gets 1d2).</p>
+      <p class="ref">Core p. 170–171, 215–216</p>
+    </article>
+
+    <article class="blk">
+      <h3>AI Favor</h3>
+      <p><b>Spend 1 to:</b> reroll a d20, once per Check, before the GM announces the result (never a natural 1). Or, once per round, take an extra non-Attack Action.</p>
+      <p><b>Earn it:</b> heroics, surviving something stupid, sticking it to the showrunners, amusing the AI, and using an attack marked with AI Favor for most of a fight of 3+ rounds.</p>
+      <p>Humans start with 1.</p>
+      <p class="ref">Core p. 61, 175; Crawlers &amp; Customization p. 16</p>
+    </article>
+
+    <article class="blk">
+      <h3>Popularity</h3>
+      <p><b>+1, once per session:</b> a natural 20 or 1 in a fight or life-or-death check; a courageous act (Catcher alone doesn’t count); an original solution that works.</p>
+      <p><b>+1</b> for making the daily recap, and at floor’s end for a cute pet moment, a memorable catchphrase, or Charisma of <span class="lv" data-f="5*F">5</span> or more (5 × F).</p>
+      <p><b>−1:</b> dodging a fight or being boring or gross (per session). At floor’s end: a big d10+ attack as your main move, Charisma of <span class="lv" data-f="2*F">2</span> or less (2 × F), taking the stairs 30+ hours early, or grinding 15+ of the final 30 hours.</p>
+      <p class="ref">Core p. 279–280</p>
+    </article>
+
+    <article class="blk">
+      <h3>Playing to the cameras</h3>
+      <p>Once per 2-hour session, before an important, dramatic Check, announce who you’re playing to. You roll it with <b>Disadvantage</b>.</p>
+      <table class="mini">
+        <thead><tr><th>Result</th><th>Audience</th><th>AI</th></tr></thead>
+        <tbody>
+          <tr><td>Amazing or Crit</td><td>+2 Popularity</td><td>+2 Favor</td></tr>
+          <tr><td>Success</td><td>+1</td><td>+1</td></tr>
+          <tr><td>Near Miss</td><td>Nothing</td><td>Nothing</td></tr>
+          <tr><td>Fail</td><td>−1</td><td>−1</td></tr>
+          <tr><td>Major Fail</td><td>−2</td><td>−2</td></tr>
+          <tr><td>Critical Fail</td><td>+1 if you truly suffer</td><td>No Favor all day</td></tr>
+        </tbody>
+      </table>
+      <p data-floors="4-5" style="margin-top:6px"><span class="tag">Floor 4+</span>Play to Sponsors for Benefactor Boxes.</p>
+      <p class="ref">Core p. 280–281</p>
+    </article>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Summarised from the Dungeon Crawler Carl RPG Core Rulebook (Royal Court Edition), Rules for Survival, and Crawlers &amp; Customization. When a specific Skill, Spell or item says something different, the specific text wins, and the GM can patch any rule.</p>
+</footer>
+</div>
+
+<script>
+/*__SCRIPT__*/
+</script>
+</body>
+</html>

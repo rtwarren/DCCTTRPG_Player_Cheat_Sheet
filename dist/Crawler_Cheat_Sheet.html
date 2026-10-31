@@ -1,0 +1,2491 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crawler Cheat Sheet</title>
+<meta name="description" content="Player quick reference for the Dungeon Crawler Carl Roleplaying Game, with floor-aware numbers.">
+<style>
+@font-face{font-family:"CC Head";src:url(data:font/woff;base64,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) format("woff");font-weight:700;font-style:normal;font-display:swap}
+
+:root{
+  --bg:#E3E4DF; --panel:#F6F6F2; --ink:#1B1D21; --soft:#565B62; --rule:#CBCDC6; --well:#ECEDE8;
+  --live:#F4C51C; --live-ink:#1B1D21; --focus:#1D63A8; --lost:#C8242B;
+  --hb1:#C8242B; --hb2:#D8421F; --hb3:#E6621A; --hb4:#EE8418; --hb5:#F2A51B;
+  --hb6:#EEC01E; --hb7:#C6C22B; --hb8:#94B636; --hb9:#5FA73F; --hb10:#3A9A48;
+  --head:"Bahnschrift Condensed","Bahnschrift","CC Head","Arial Narrow",sans-serif;
+  --body:"Bahnschrift","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --navh:3.1rem;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#131518; --panel:#1C1F23; --ink:#ECEBE6; --soft:#A3A7AE; --rule:#33373D; --well:#24282D;
+    --focus:#6FA8E8; --lost:#E5484D; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131518; --panel:#1C1F23; --ink:#ECEBE6; --soft:#A3A7AE; --rule:#33373D; --well:#24282D;
+  --focus:#6FA8E8; --lost:#E5484D; color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html{scroll-padding-top:calc(var(--navh) + .75rem)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45;font-variant-numeric:tabular-nums;-webkit-text-size-adjust:100%}
+h1,h2,h3{font-family:var(--head);font-variation-settings:"wdth" 75;font-weight:700;margin:0;line-height:1.05}
+p{margin:0 0 .45rem}
+b,strong{font-weight:700}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.wrap{max-width:1320px;margin:0 auto;padding:0 16px}
+
+/* ---------- hero ---------- */
+.hero{padding:28px 0 22px}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px 40px;align-items:end}
+h1{font-size:clamp(3rem,8.5vw,6.4rem);letter-spacing:-.01em;line-height:.88}
+h1 span{display:block}
+.lede{max-width:34rem;margin-top:14px;color:var(--soft);font-size:1rem}
+.lede .lv{margin:0 .1em}
+.floorbox{display:flex;gap:26px;align-items:flex-end;flex-wrap:wrap}
+.stairs-wrap h2{font-size:1.15rem;margin-bottom:8px}
+.stairs{display:flex;align-items:flex-end;gap:3px;height:168px}
+.stairs button{position:relative;width:56px;border:0;padding:0;cursor:pointer;background:var(--well);border-top:5px solid var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:6px;color:var(--ink)}
+.stairs button:nth-child(1){height:100%}
+.stairs button:nth-child(2){height:84%}
+.stairs button:nth-child(3){height:68%}
+.stairs button:nth-child(4){height:52%}
+.stairs button:nth-child(5){height:37%}
+.stairs .n{font-family:var(--head);font-variation-settings:"wdth" 75;font-weight:700;font-size:1.8rem;line-height:1}
+.stairs button[aria-pressed="true"]{background:var(--live);color:var(--live-ink)}
+.stairs button:hover{background:color-mix(in srgb,var(--live) 45%,var(--well))}
+.stairs button[aria-pressed="true"]:hover{background:var(--live)}
+.stairs-note{font-size:.8rem;color:var(--soft);margin-top:8px;max-width:17rem}
+.targets{margin:0;display:grid;grid-template-columns:auto auto;gap:5px 14px;align-items:baseline;font-size:.95rem}
+.targets dt{color:var(--soft)}
+.targets dd{margin:0;font-weight:700}
+.targets .lv{font-size:1.15rem}
+
+/* ---------- live values ---------- */
+.lv{display:inline-block;background:var(--live);color:var(--live-ink);font-weight:700;padding:0 .3em;border-radius:3px;line-height:1.35;white-space:nowrap}
+.lv.flash{animation:flash .7s ease-out}
+@keyframes flash{0%{box-shadow:0 0 0 4px color-mix(in srgb,var(--live) 70%,transparent)}100%{box-shadow:0 0 0 0 transparent}}
+.fx{color:var(--soft);font-size:.86em;white-space:nowrap}
+
+/* ---------- HB nav ---------- */
+.hbnav{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--rule)}
+.hbnav ol{list-style:none;margin:0 auto;padding:6px 16px 7px;max-width:1320px;display:grid;grid-template-columns:1.25fr repeat(10,1fr);gap:3px}
+.hbnav a{display:block;text-decoration:none;padding-top:11px;position:relative;font-size:.8rem;line-height:1.2;color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hbnav a::before{content:"";position:absolute;left:0;right:0;top:0;height:8px;background:var(--c);transition:height .15s}
+.hbnav a:hover,.hbnav a[aria-current="true"]{color:var(--ink);font-weight:700}
+.hbnav a[aria-current="true"]::before{height:10px;box-shadow:inset 0 -2px 0 var(--ink)}
+
+/* ---------- toolbar ---------- */
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:14px 0 6px}
+.search{flex:1 1 18rem;display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:0 10px}
+.search input{flex:1;border:0;background:transparent;padding:10px 0;min-width:0;outline:none}
+.search:focus-within{outline:3px solid var(--focus);outline-offset:1px}
+.search svg{flex:none;color:var(--soft)}
+.btn{border:1px solid var(--rule);background:var(--panel);border-radius:6px;padding:9px 14px;cursor:pointer}
+.btn:hover{border-color:var(--soft)}
+.empty{display:none;padding:22px;background:var(--panel);border-radius:6px;margin:10px 0}
+.empty.show{display:block}
+
+/* ---------- bands ---------- */
+main{padding-bottom:30px}
+.band{display:grid;grid-template-columns:12.5rem minmax(0,1fr);background:var(--panel);border-left:8px solid var(--slot);margin:12px 0 0;border-radius:0 6px 6px 0}
+.band-head{padding:20px 18px 20px 20px;border-right:1px solid var(--rule)}
+.band-head .in{position:sticky;top:calc(var(--navh) + 16px)}
+.band-head h2{font-size:2.1rem}
+.band-head p{color:var(--soft);font-size:.9rem;margin-top:6px}
+.blocks{display:grid;grid-template-columns:repeat(auto-fill,minmax(17.5rem,1fr));gap:22px 30px;padding:20px 22px 22px}
+.blk{min-width:0}
+.blk.wide{grid-column:1/-1}
+.blk h3{font-size:1.25rem;padding-top:8px;border-top:3px solid var(--rule);margin-bottom:7px}
+.blk p,.blk li{font-size:.94rem}
+.blk ul,.blk ol{margin:0 0 .45rem;padding-left:1.15rem}
+.blk li{margin-bottom:.22rem}
+.ref{font-size:.76rem;color:var(--soft);margin-top:4px}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;border:1px solid currentColor;border-radius:3px;padding:0 .35em;margin-right:.3em;vertical-align:1px;color:var(--soft);white-space:nowrap}
+.off{opacity:.45}
+.off .tag{text-decoration:line-through}
+
+/* formula */
+.formula{display:flex;flex-wrap:wrap;align-items:stretch;gap:4px;margin:4px 0 10px}
+.formula span{display:flex;flex-direction:column;justify-content:center;align-items:center;min-width:3.3rem;padding:7px 9px;background:var(--well);border-radius:4px;text-align:center}
+.formula span b{font-family:var(--head);font-variation-settings:"wdth" 75;font-size:1.45rem;line-height:1}
+.formula span small{font-size:.72rem;color:var(--soft);margin-top:3px}
+.formula i{font-style:normal;align-self:center;font-weight:700;font-size:1.1rem;color:var(--soft);padding:0 1px}
+.formula span.goal{background:var(--ink);color:var(--panel)}
+.formula span.goal small{color:var(--panel);opacity:.8}
+
+/* tables */
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{text-align:left;vertical-align:top;padding:6px 8px;border-bottom:1px solid var(--rule)}
+th{font-size:.78rem;color:var(--soft);font-weight:700;border-bottom:2px solid var(--rule)}
+.mini td,.mini th{padding:3px 6px}
+.mods{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;margin-bottom:6px}
+.mods div{background:var(--well);text-align:center;padding:5px 2px;border-radius:3px}
+.mods small{display:block;font-size:.72rem;color:var(--soft)}
+.mods b{font-size:1.05rem}
+
+.deg td:first-child{border-left:6px solid var(--c);white-space:nowrap}
+.deg tr.hit td{background:color-mix(in srgb,var(--live) 35%,transparent)}
+.deg .nm{display:block;font-weight:700}
+.deg .mg{display:block;font-size:.8rem;color:var(--soft)}
+
+/* round track */
+.blk .track{list-style:none;margin:2px 0 8px;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;counter-reset:st}
+.track li{counter-increment:st;padding:10px 12px 12px;background:var(--well);border-radius:4px;position:relative;margin:0}
+.track li.mob{background:color-mix(in srgb,var(--hb1) 13%,var(--well))}
+.track li.crw{background:color-mix(in srgb,var(--hb10) 15%,var(--well))}
+.track li::before{content:counter(st);font-family:var(--head);font-variation-settings:"wdth" 75;font-weight:700;font-size:2rem;line-height:1;display:block;margin-bottom:4px}
+.track b{display:block;margin-bottom:3px}
+.track .who{font-size:.74rem;color:var(--soft);display:block;margin-bottom:4px}
+.track p{font-size:.88rem;margin:0}
+
+ol.seq{padding-left:1.3rem}
+
+/* tools */
+.tool{background:var(--well);border-radius:6px;padding:12px 14px;margin-top:10px}
+.tool h4{margin:0 0 8px;font-size:.95rem}
+.fields{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:flex-end}
+.fields label{display:flex;flex-direction:column;font-size:.78rem;color:var(--soft);gap:3px}
+.fields select{width:auto}
+.fields input[type=number],.fields input[type=text],.fields select{min-width:6.5rem;max-width:12rem;padding:7px 8px;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:1rem}
+.fields .chk{flex-direction:row;align-items:center;gap:6px;font-size:.85rem;color:var(--ink);padding-bottom:8px}
+.presets{display:flex;gap:4px;flex-wrap:wrap}
+.presets button{border:1px solid var(--rule);background:var(--panel);border-radius:4px;padding:6px 9px;font-size:.82rem;cursor:pointer}
+.presets button:hover{border-color:var(--soft)}
+.out{margin-top:10px;font-weight:700;min-height:1.4em}
+.hb{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin-top:10px;max-width:34rem}
+.hb div{height:30px;border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:#1B1D21;position:relative}
+.hb div.gone{background:transparent!important;border:1px dashed var(--rule);color:var(--soft)}
+.hb div.hitnow{background:repeating-linear-gradient(135deg,var(--lost) 0 5px,color-mix(in srgb,var(--lost) 60%,var(--panel)) 5px 10px)!important;color:#fff}
+.hb-cap{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;max-width:34rem;font-size:.66rem;color:var(--soft);text-align:center;margin-top:2px}
+
+/* debuffs */
+.debuff-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,30rem),1fr));gap:0 28px;align-items:start}
+.debuffs td:first-child{font-weight:700;white-space:nowrap}
+.debuffs td:last-child{color:var(--soft);min-width:11rem}
+.debuffs tr.hide{display:none}
+
+footer{color:var(--soft);font-size:.82rem;padding:18px 0 40px}
+footer p{max-width:60rem}
+.print-floor{display:none}
+.hide{display:none!important}
+
+/* calculators */
+.hbnav .short{display:none}
+.tab-off,.hide-s{display:none!important}
+.seg{display:inline-flex;flex-wrap:wrap;margin-bottom:12px;border:1px solid var(--rule);border-radius:6px;overflow:hidden;max-width:100%}
+.seg button{border:0;border-right:1px solid var(--rule);background:var(--panel);padding:8px 13px;cursor:pointer;color:var(--ink)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"],.seg button[aria-selected="true"]{background:var(--ink);color:var(--panel);font-weight:700}
+.btn.primary{background:var(--ink);color:var(--panel);border-color:var(--ink);font-weight:700}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+a.btn{text-decoration:none;display:inline-block}
+.fields .btn{align-self:flex-end}
+.fields + .fields,.fields + .sub,.sub + .fields,.seg + .fields,.fields + .seg{margin-top:12px}
+.lab{display:block;width:100%;font-size:.78rem;color:var(--soft);margin-bottom:-4px}
+.btnrow .lab{width:auto;margin:0 4px 0 0}
+.fields label.narrow input{min-width:0;width:5.2rem}
+.fields label.wide-l select{min-width:16rem;max-width:100%}
+.calc-wrap{display:grid;grid-template-columns:minmax(16rem,21rem) minmax(0,1fr);gap:24px 28px;padding:20px 22px 22px}
+.crawler-panel h3,.tools h4,.sheetbox h3{font-family:var(--head);font-variation-settings:"wdth" 75;font-weight:700;font-size:1.25rem;margin:0 0 8px}
+.crawler-panel > h3{padding-top:8px;border-top:3px solid var(--ink);margin-top:16px}
+.sheetbox{background:var(--well);border-radius:6px;padding:12px 14px;border-left:4px solid var(--live)}
+.sheetbox .btnrow{margin-top:10px}
+.sheetbox .chk{display:flex;gap:6px;align-items:center;font-size:.85rem;margin-top:10px}
+.pending{margin-top:8px;padding-top:8px;border-top:1px solid var(--rule)}
+.pend-head{font-weight:700;font-size:.9rem;margin:0}
+.changes{margin:4px 0 0;padding-left:1.1rem;font-size:.85rem;max-height:9rem;overflow:auto}
+.changes li{margin:1px 0}
+.statin{width:auto;border-collapse:collapse}
+.statin th,.statin td{border-bottom:0;padding:2px 10px 2px 0;vertical-align:middle}
+.statin input{width:5rem;padding:5px 8px;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:1rem}
+.statin b{font-size:1.05rem}
+.fields.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 10px;margin-top:10px}
+.fields.grid3 label input{min-width:0;width:100%;max-width:none}
+.more{margin-top:12px}
+.more summary{cursor:pointer;font-weight:700;font-size:.9rem}
+.derived{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;margin:8px 0 0;font-size:.88rem}
+.derived dt{color:var(--soft)}
+.derived dd{margin:0;font-weight:700}
+.calc-wrap .sub{font-size:.86rem;color:var(--soft);margin:8px 0 0}
+.calc-wrap .note{font-size:.78rem;color:var(--soft);margin:12px 0 0}
+.calc-wrap p{margin:0 0 .3rem}
+.tools{min-width:0}
+.strip{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--rule)}
+.strip p{margin:0;display:flex;flex-wrap:wrap;gap:4px 16px;font-weight:700;font-size:.92rem}
+.strip .dying{color:var(--lost)}
+.hb.mini{width:12rem;margin:0;gap:2px}
+.hb.mini div{height:12px}
+.toolpanel{background:var(--well);border-radius:6px;padding:14px 16px}
+.toolpanel .seg{background:var(--panel)}
+.formula-out{font-family:var(--head);font-variation-settings:"wdth" 75;font-weight:700;font-size:2rem;line-height:1.1;margin:2px 0 4px;overflow-wrap:anywhere}
+.btnrow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:12px}
+.pair{display:flex;align-items:center;gap:5px;color:var(--ink);font-weight:700}
+.fields .pair input[type=number]{min-width:0;width:4.2rem}
+.fields .pair select{min-width:0;width:4.6rem}
+.adv-box{margin-top:16px;padding-top:12px;border-top:1px solid var(--rule)}
+.hist{list-style:none;padding:0;margin:12px 0 0;font-size:.9rem}
+.hist li{padding:6px 0;border-bottom:1px solid var(--rule)}
+.hist li .h{font-weight:700;font-size:1.1rem;margin-right:4px}
+.hist li:not(:first-child){color:var(--soft)}
+.hist li:not(:first-child) .h{font-size:.95rem}
+#tp-health .hb,#tp-health .hb-cap{max-width:none}
+.bandnav{grid-column:1/-1;display:flex;justify-content:space-between;gap:10px;padding:0 22px 20px}
+.bandnav .next{margin-left:auto}
+.band-head + .calc-wrap + .bandnav{padding-top:0}
+[data-eq]:not(.lv){text-decoration:underline dotted;text-underline-offset:3px;text-decoration-thickness:1px;cursor:help}
+.lv[data-eq]{cursor:help}
+.tip{position:fixed;z-index:50;max-width:24rem;background:var(--ink);color:var(--panel);font-size:.84rem;line-height:1.4;padding:8px 11px;border-radius:6px;white-space:pre-line;pointer-events:none;opacity:0;transform:translateY(2px);transition:opacity .12s,transform .12s;font-variant-numeric:tabular-nums;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.tip.show{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){ .tip{transition:none} }
+
+@media (max-width:980px){
+  .hero .wrap{grid-template-columns:1fr}
+  .band{grid-template-columns:1fr}
+  .calc-wrap{grid-template-columns:1fr}
+  .band-head{border-right:0;border-bottom:1px solid var(--rule);padding:16px 18px 12px}
+  .band-head .in{position:static}
+  .band-head h2{font-size:1.8rem}
+  .track{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  body{font-size:14.5px}
+  .hbnav ol{grid-template-columns:.9fr repeat(5,1fr);row-gap:6px;padding:6px 16px}
+  .hbnav li.calc-link{grid-row:span 2}
+  .hbnav li.calc-link a{height:100%}
+  .hbnav .full{display:none}
+  .hbnav .short{display:inline}
+  .seg{display:grid;grid-template-columns:1fr 1fr;width:100%}
+  .seg button{border-bottom:1px solid var(--rule)}
+  .seg button:nth-child(2n){border-right:0}
+  .seg button:nth-last-child(-n+2){border-bottom:0}
+  :root{--navh:5.3rem}
+  .blocks{grid-template-columns:1fr;padding:16px}
+  .track{grid-template-columns:1fr}
+  .stairs button{width:44px}
+  .floorbox{gap:18px}
+  .stairs button{width:52px}
+  .deg thead,.debuffs thead{display:none}
+  .deg tr,.debuffs tr{display:block;padding:8px 0 8px 10px;border-bottom:1px solid var(--rule)}
+  .deg tr{border-left:6px solid var(--c)}
+  .deg td,.debuffs td{display:block;border:0;padding:2px 0}
+  .deg td:first-child{border-left:0}
+  .deg td[data-label]::before,.debuffs td[data-label]::before{content:attr(data-label) ": ";font-weight:700;color:var(--ink)}
+  .debuffs tr{padding-left:0}
+  .debuffs td:last-child{min-width:0}
+}
+@media (prefers-reduced-motion:reduce){
+  .lv.flash{animation:none}
+  .hbnav a::before{transition:none}
+}
+
+/* ---------- print ---------- */
+@media print{
+  @page{size:letter landscape;margin:.32in}
+  :root{--bg:#fff;--panel:#fff;--ink:#000;--soft:#444;--rule:#bbb;--well:#f1f1ee;color-scheme:light}
+  body{font-size:7pt;line-height:1.27;background:#fff}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .hbnav,.toolbar,.tool,.stairs-wrap,.empty,.noprint,.band.calc,.tip,.bandnav{display:none!important}
+  .band.tab-off:not(.calc){display:block!important}
+  .hero{padding:0 0 4pt}
+  .hero .wrap{grid-template-columns:auto 1fr;align-items:end;gap:6pt 18pt;padding:0}
+  h1{font-size:24pt;line-height:.9}
+  h1 span{display:inline}
+  .lede{display:none}
+  .print-floor{display:block;font-weight:700;font-size:9pt}
+  .floorbox{gap:8pt}
+  .targets{grid-template-columns:repeat(5,auto auto);font-size:7.5pt;gap:2pt 6pt}
+  .targets .lv{font-size:8pt}
+  html{font-size:8.5pt}
+  .wrap{max-width:none;padding:0}
+  main{padding:0}
+  .band{display:block;background:none;border:0;margin:0;border-radius:0}
+  .band-head{border:0;border-top:3.5pt solid var(--slot);padding:2pt 0 3pt;margin-top:3pt;break-after:avoid;break-inside:avoid}
+  .band-head .in{position:static}
+  .band-head h2{font-size:12pt;display:inline}
+  .band-head p{display:inline;font-size:7pt;margin:0 0 0 6pt}
+  .blocks{display:block;padding:0;column-count:5;column-gap:12pt}
+  .deg tr.hit td{background:none}
+  .blk{break-inside:avoid;margin:0 0 5pt}
+  .blk.wide{column-span:all;break-inside:auto}
+  .debuffs tr,.deg tr{break-inside:avoid}
+  .blk h3{font-size:9pt;padding-top:2pt;border-top-width:1.5pt;margin-bottom:2pt}
+  .blk p,.blk li{font-size:6.9pt;margin-bottom:1.5pt}
+  .blk ul,.blk ol{margin-bottom:2pt}
+  .ref{font-size:6pt;margin-top:1pt}
+  table{font-size:6.9pt}
+  th,td{padding:1.5pt 3pt}
+  th{font-size:6.4pt}
+  .formula{margin:1pt 0 3pt;gap:3pt}
+  .formula span{padding:2pt 5pt;min-width:0}
+  .formula span b{font-size:10pt}
+  .formula span small{font-size:5.8pt;margin-top:0}
+  .formula i{font-size:9pt}
+  .mods div{padding:1pt}
+  .mods b{font-size:7.5pt}
+  .mods small{font-size:5.8pt}
+  .blk .track{gap:2pt;margin:0;break-inside:avoid}
+  .track li{padding:3pt 4pt}
+  .track li::before{font-size:10pt;margin-bottom:0}
+  .track p{font-size:6.8pt}
+  .track .who{font-size:6pt;margin-bottom:1pt}
+  .lv{padding:0 .2em;line-height:1.2}
+  .debuff-wrap{grid-template-columns:1fr 1fr;gap:0 14pt}
+  .deg .nm{display:inline;margin-right:4pt}
+  .deg .mg{display:inline;font-size:6.4pt}
+  .tag{font-size:6pt}
+  footer{column-span:all}
+  footer{font-size:6.5pt;padding:4pt 0 0}
+  .off{opacity:.5}
+}
+
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <h1><span>Crawler</span> <span>cheat sheet</span></h1>
+      <p class="lede">Player rules reference for the Dungeon Crawler Carl Roleplaying Game. Choose your floor and every number in yellow, like <span class="lv" data-f="10+2*F">12</span>, updates to match it.</p>
+    </div>
+    <div class="floorbox">
+      <div class="stairs-wrap">
+        <h2 id="floor-label">Your floor</h2>
+        <div class="stairs" role="group" aria-labelledby="floor-label">
+          <button type="button" data-floor="1" aria-pressed="true" aria-label="Floor 1"><span class="n">1</span></button>
+          <button type="button" data-floor="2" aria-pressed="false" aria-label="Floor 2"><span class="n">2</span></button>
+          <button type="button" data-floor="3" aria-pressed="false" aria-label="Floor 3"><span class="n">3</span></button>
+          <button type="button" data-floor="4" aria-pressed="false" aria-label="Floor 4"><span class="n">4</span></button>
+          <button type="button" data-floor="5" aria-pressed="false" aria-label="Floor 5"><span class="n">5</span></button>
+        </div>
+        <p class="stairs-note">F in any formula means your current floor number.</p>
+      </div>
+      <div>
+        <p class="print-floor">Numbers set for Floor <span data-lk="num">1</span></p>
+        <dl class="targets" aria-live="polite">
+          <dt>Unopposed check</dt><dd><span class="lv" data-f="10+2*F">12</span></dd>
+          <dt>Stat check</dt><dd><span class="lv" data-f="10+F">11</span></dd>
+          <dt>Opposed check</dt><dd><span class="lv" data-f="10+F">11</span> + foe’s Mod</dd>
+          <dt>Hit a Mob</dt><dd><span class="lv" data-f="10+F">11</span> + its Dex Mod</dd>
+          <dt>Floor collapses in</dt><dd><span class="lv" data-lk="timer">5 days</span></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="hbnav" aria-label="Sections">
+  <ol>
+    <li class="calc-link"><a href="#calc" style="--c:var(--ink)"><span class="full">Calculators</span><span class="short">Calc</span></a></li>
+    <li><a href="#checks" style="--c:var(--hb1)">Checks</a></li>
+    <li><a href="#results" style="--c:var(--hb2)">Results</a></li>
+    <li><a href="#round" style="--c:var(--hb3)">Round</a></li>
+    <li><a href="#actions" style="--c:var(--hb4)">Actions</a></li>
+    <li><a href="#attacks" style="--c:var(--hb5)">Attacks</a></li>
+    <li><a href="#exploring" style="--c:var(--hb6)"><span class="full">Exploring</span><span class="short">Explore</span></a></li>
+    <li><a href="#health" style="--c:var(--hb7)">Health</a></li>
+    <li><a href="#gear" style="--c:var(--hb8)">Gear</a></li>
+    <li><a href="#debuffs" style="--c:var(--hb9)">Debuffs</a></li>
+    <li><a href="#growth" style="--c:var(--hb10)">Growth</a></li>
+  </ol>
+</nav>
+
+<div class="wrap">
+  <div class="toolbar noprint">
+    <label class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span class="hide">Search rules</span>
+      <input id="q" type="search" placeholder="Search rules, e.g. evade, prone, mana" autocomplete="off">
+    </label>
+    <button class="btn" id="theme" type="button">Dark mode</button>
+    <button class="btn" id="print" type="button">Print</button>
+  </div>
+  <p class="empty" id="empty" role="status"></p>
+
+<main>
+
+<!-- 0 CALCULATORS -->
+<section class="band calc" id="calc" style="--slot:var(--ink)">
+  <div class="band-head"><div class="in"><h2>Calculators</h2><p>For when your VTT can’t do the math. Link your character sheet or type your numbers in. Hover over or tap any underlined number to see how it was worked out.</p></div></div>
+  <div class="calc-wrap">
+
+    <aside class="crawler-panel" id="calc-crawler" aria-label="Your crawler">
+      <div class="sheetbox" id="sheetbox">
+        <div id="sb-off">
+          <h3>Character sheet</h3>
+          <p class="sub">Link your fillable PDF to load your numbers. Damage, Mana, AI Favor, ticked Skills and new Ranks save back into it.</p>
+          <div class="btnrow">
+            <button type="button" class="btn primary" id="sb-link">Link your PDF</button>
+            <button type="button" class="btn hide" id="sb-relink">Reconnect</button>
+          </div>
+          <input type="file" id="sb-file" accept="application/pdf,.pdf" class="hide" tabindex="-1" aria-hidden="true">
+          <p class="sub" id="sb-msg" aria-live="polite"></p>
+        </div>
+        <div id="sb-on" class="hide">
+          <h3 id="sb-who">Linked</h3>
+          <p class="sub" id="sb-file-name"></p>
+          <p class="sub" id="sb-info"></p>
+          <div class="pending">
+            <p class="pend-head" id="sb-count">No unsaved changes</p>
+            <ul class="changes" id="sb-changes"></ul>
+          </div>
+          <div class="btnrow">
+            <button type="button" class="btn primary" id="sb-save">Save to sheet</button>
+            <button type="button" class="btn" id="sb-reload">Reload</button>
+            <button type="button" class="btn" id="sb-unlink">Unlink</button>
+          </div>
+          <label class="chk" id="sb-auto-l"><input type="checkbox" id="sb-auto" checked> Save changes automatically</label>
+          <p class="sub" id="sb-status" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <h3>Your crawler</h3>
+      <table class="statin">
+        <thead><tr><th>Stat</th><th>Enhanced</th><th>Mod</th></tr></thead>
+        <tbody>
+          <tr><td>Strength</td><td><input type="number" min="1" id="cr-str" data-save value="3" inputmode="numeric" aria-label="Strength score"></td><td><b id="m-str">+2</b></td></tr>
+          <tr><td>Intelligence</td><td><input type="number" min="1" id="cr-int" data-save value="3" inputmode="numeric" aria-label="Intelligence score"></td><td><b id="m-int">+2</b></td></tr>
+          <tr><td>Constitution</td><td><input type="number" min="1" id="cr-con" data-save value="3" inputmode="numeric" aria-label="Constitution score"></td><td><b id="m-con">+2</b></td></tr>
+          <tr><td>Dexterity</td><td><input type="number" min="1" id="cr-dex" data-save value="3" inputmode="numeric" aria-label="Dexterity score"></td><td><b id="m-dex">+2</b></td></tr>
+          <tr><td>Charisma</td><td><input type="number" min="1" id="cr-cha" data-save value="3" inputmode="numeric" aria-label="Charisma score"></td><td><b id="m-cha">+2</b></td></tr>
+        </tbody>
+      </table>
+      <div class="fields grid3">
+        <label>Evade Buffs<input type="number" id="cr-evb" data-save value="0" inputmode="numeric"></label>
+        <label>Armor DR<input type="number" id="cr-arm" data-save min="0" value="0" inputmode="numeric"></label>
+        <label>DR Buffs<input type="number" id="cr-drb" data-save min="0" value="0" inputmode="numeric"></label>
+        <label>AI Favor<input type="number" id="cr-fav" data-save min="0" value="1" inputmode="numeric"></label>
+        <label>Level<input type="number" id="cr-lvl" data-save min="1" value="1" inputmode="numeric"></label>
+        <label>Jumping Rank<input type="number" id="cr-jump" data-save min="0" value="0" inputmode="numeric"></label>
+      </div>
+      <details class="more" id="cr-more" open>
+        <summary>Worked-out numbers</summary>
+        <dl class="derived" id="cr-out"></dl>
+      </details>
+      <p class="note" id="cr-note">Saved in this browser only.</p>
+    </aside>
+
+    <div class="tools">
+      <div class="strip" id="strip" aria-live="polite">
+        <div class="hb mini" id="strip-bar" aria-hidden="true"></div>
+        <p id="strip-text"></p>
+      </div>
+      <div class="seg tooltabs" role="tablist" aria-label="Calculators">
+        <button type="button" role="tab" id="tt-check" aria-controls="tp-check" aria-selected="true">Check</button><button type="button" role="tab" id="tt-damage" aria-controls="tp-damage" aria-selected="false">Damage</button><button type="button" role="tab" id="tt-health" aria-controls="tp-health" aria-selected="false">Health &amp; Mana</button><button type="button" role="tab" id="tt-dice" aria-controls="tp-dice" aria-selected="false">Dice</button>
+      </div>
+
+      <div class="toolpanel" id="tp-check" role="tabpanel" aria-labelledby="tt-check">
+        <div class="fields" id="ck-src-l-wrap">
+          <label id="ck-src-l" class="hide wide-l">From your sheet<select id="ck-src"><option value="">Pick a Skill or attack</option></select></label>
+        </div>
+        <div class="seg" role="group" aria-label="Kind of roll">
+          <button type="button" data-kind="skill" aria-pressed="true">Skill Check</button><button type="button" data-kind="attack" aria-pressed="false">Attack</button><button type="button" data-kind="evade" aria-pressed="false">Evade</button><button type="button" data-kind="stat" aria-pressed="false">Stat Check</button>
+        </div>
+        <div class="fields">
+          <label>Stat<select id="ck-stat"><option value="str">Str</option><option value="int">Int</option><option value="con">Con</option><option value="dex">Dex</option><option value="cha">Cha</option></select></label>
+          <label id="ck-rank-l">Skill Rank<input type="number" id="ck-rank" min="0" max="20" value="1" inputmode="numeric"></label>
+          <label>Other bonus<input type="number" id="ck-other" value="0" inputmode="numeric"></label>
+          <label>Roll with<select id="ck-mode"><option value="n">Normal</option><option value="a">Advantage</option><option value="d">Disadvantage</option></select></label>
+          <label class="chk" id="ck-untr-l"><input type="checkbox" id="ck-untr"> No Ranks</label>
+        </div>
+        <div class="fields">
+          <span class="lab">Penalties to all Checks</span>
+          <label class="chk"><input type="checkbox" id="ck-minor"> Minor Injury −2</label>
+          <label class="chk"><input type="checkbox" id="ck-major"> Major Injury −5</label>
+          <label class="chk"><input type="checkbox" id="ck-sore"> Sore as Shit −1</label>
+          <label class="narrow">Fatigued stacks<input type="number" id="ck-fat" min="0" value="0" inputmode="numeric"></label>
+        </div>
+        <div class="fields">
+          <label><span id="ck-tgt-lab">Target</span><input type="number" id="ck-tgt" value="12" inputmode="numeric"></label>
+          <label>Foe’s Mod<input type="number" id="ck-foe" value="0" inputmode="numeric"></label>
+          <div class="presets" aria-label="Target presets">
+            <button type="button" data-preset="unopp">Unopposed</button>
+            <button type="button" data-preset="stat">Stat check</button>
+            <button type="button" data-preset="foe">Foe or Mob</button>
+          </div>
+          <label>The Mob has<select id="ck-mob"><option value="0">No edge</option><option value="5">Advantage (+5)</option><option value="-5">Disadvantage (−5)</option></select></label>
+        </div>
+        <p class="sub" id="ck-odds"></p>
+        <div class="fields">
+          <label class="narrow">d20<input type="number" id="ck-d1" min="1" max="20" inputmode="numeric"></label>
+          <label class="narrow" id="ck-d2-l">Second d20<input type="number" id="ck-d2" min="1" max="20" inputmode="numeric"></label>
+          <button type="button" class="btn primary" id="ck-roll">Roll for me</button>
+          <button type="button" class="btn" id="ck-fav">Reroll with AI Favor</button>
+        </div>
+        <p class="out" id="ck-out" aria-live="polite"></p>
+      </div>
+
+      <div class="toolpanel hide" id="tp-damage" role="tabpanel" aria-labelledby="tt-damage">
+        <div class="fields">
+          <label id="dm-src-l" class="hide wide-l">Attack from your sheet<select id="dm-src"><option value="">Pick an attack</option></select></label>
+        </div>
+        <div class="fields">
+          <label>Base dice<span class="pair"><input type="number" id="dm-n" min="0" max="99" value="1" inputmode="numeric" aria-label="Number of base dice">d<select id="dm-x" aria-label="Base die size"><option>2</option><option selected>4</option><option>6</option><option>8</option><option>10</option><option>12</option></select></span></label>
+          <label>Extra base dice<input type="text" id="dm-extra" placeholder="e.g. 1d2" autocomplete="off"></label>
+          <label>Add Stat Mod<select id="dm-stat"><option value="none">None</option><option value="str" selected>Str</option><option value="dex">Dex</option><option value="int">Int</option><option value="con">Con</option><option value="cha">Cha</option></select></label>
+          <label>Flat bonus<input type="number" id="dm-flat" value="0" inputmode="numeric"></label>
+        </div>
+        <div class="fields">
+          <label class="chk"><input type="checkbox" id="dm-rank-on"> Add Rank damage die</label>
+          <label class="narrow" id="dm-rank-l">Skill Rank<input type="number" id="dm-rank" min="1" max="20" value="1" inputmode="numeric"></label>
+          <label>Result<select id="dm-res"><option value="hit">Hit</option><option value="amazing">Amazing Success</option><option value="crit">Critical Hit</option></select></label>
+        </div>
+        <p class="sub">Roll this</p>
+        <p class="formula-out"><span id="dm-formula">1d4 + 2</span></p>
+        <p class="sub" id="dm-why"></p>
+        <div class="btnrow"><button type="button" class="btn primary" id="dm-roll">Roll for me</button></div>
+        <p class="out" id="dm-out" aria-live="polite"></p>
+        <p class="note">Extra base dice are upgrades or Damage Effects that add “base damage”, like Iron Punch’s 1d2. They double on a Critical Hit; the Rank die doesn’t.</p>
+      </div>
+
+      <div class="toolpanel hide" id="tp-health" role="tabpanel" aria-labelledby="tt-health">
+        <div class="hb" id="hm-bar" aria-hidden="true"></div>
+        <div class="hb-cap" aria-hidden="true"><span>10%</span><span>20%</span><span>30%</span><span>40%</span><span>50%</span><span>60%</span><span>70%</span><span>80%</span><span>90%</span><span>100%</span></div>
+        <p class="out" id="hm-status"></p>
+        <div class="fields">
+          <label class="narrow">Damage<input type="number" id="hm-dmg" min="0" inputmode="numeric"></label>
+          <label>Damage type is<select id="hm-type"><option value="n">Normal for me</option><option value="r">Resisted</option><option value="v">Vulnerable</option><option value="i">Immune</option></select></label>
+          <label>Area attack<select id="hm-area"><option value="1">No, or full area</option><option value="0.5">Evaded, or in the Splash (half)</option><option value="0.25">Evaded in the Splash (quarter)</option></select></label>
+          <label class="chk"><input type="checkbox" id="hm-deb"> From a Debuff (skips DR)</label>
+          <button type="button" class="btn primary" id="hm-hit">Take the hit</button>
+        </div>
+        <p class="sub" id="hm-preview"></p>
+        <div class="fields">
+          <label class="narrow">Heal slots<input type="number" id="hm-heal" min="1" max="10" value="2" inputmode="numeric"></label>
+          <button type="button" class="btn" id="hm-heal-b">Heal</button>
+          <button type="button" class="btn" id="hm-spell">Cast Heal (2 Mana)</button>
+          <label class="narrow">Mana<input type="number" id="hm-mana" min="1" value="2" inputmode="numeric"></label>
+          <button type="button" class="btn" id="hm-mana-b">Spend Mana</button>
+        </div>
+        <div class="btnrow">
+          <span class="lab">Rest</span>
+          <button type="button" class="btn" data-rest="hour">1 calm hour</button>
+          <button type="button" class="btn" data-rest="short">Short rest (2 h)</button>
+          <button type="button" class="btn" data-rest="long">Long rest (8 h)</button>
+        </div>
+        <p class="sub" id="hm-log" aria-live="polite"></p>
+        <p class="note">Uses the Con Mod, DR and Intelligence from Your crawler. Area halving is applied before DR.</p>
+      </div>
+
+      <div class="toolpanel hide" id="tp-dice" role="tabpanel" aria-labelledby="tt-dice">
+        <div class="btnrow">
+          <button type="button" class="btn" data-roll="d20">d20</button>
+          <button type="button" class="btn" data-roll="adv">d20 with Advantage</button>
+          <button type="button" class="btn" data-roll="dis">d20 with Disadvantage</button>
+          <button type="button" class="btn" data-roll="help">Help 1d2</button>
+          <button type="button" class="btn" data-roll="d6">Help or Intervene 1d6</button>
+          <button type="button" class="btn" data-roll="play">Call a Play 2d6</button>
+        </div>
+        <div class="fields">
+          <label>Any dice<input type="text" id="dt-expr" placeholder="e.g. 3d6+2" autocomplete="off"></label>
+          <button type="button" class="btn primary" id="dt-go">Roll</button>
+        </div>
+        <div class="adv-box">
+          <h4>Skill advancement</h4>
+          <div id="adv-sheet" class="hide">
+            <p class="sub" id="adv-list"></p>
+            <div class="btnrow">
+              <button type="button" class="btn" id="adv-2h">Every 2 hours (Rank 4 or lower)</button>
+              <button type="button" class="btn" id="adv-floor">End of floor (every ticked Skill)</button>
+            </div>
+          </div>
+          <div class="fields" id="adv-manual">
+            <label class="narrow">Skill Rank<input type="number" id="dt-rank" min="1" max="20" value="1" inputmode="numeric"></label>
+            <button type="button" class="btn" data-roll="advance">Roll an advancement check</button>
+          </div>
+        </div>
+        <ol class="hist" id="dt-hist" aria-live="polite"></ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 1 CHECKS -->
+<section class="band" id="checks" style="--slot:var(--hb1)">
+  <div class="band-head"><div class="in"><h2>Checks</h2><p>How every roll works, and who sets the number.</p></div></div>
+  <div class="blocks">
+
+    <article class="blk">
+      <h3>The roll</h3>
+      <div class="formula" aria-label="d20 plus Skill Rank plus Stat Mod, meet or beat the Difficulty">
+        <span><b>d20</b><small>roll</small></span><i>+</i>
+        <span><b>Rank</b><small>Skill</small></span><i>+</i>
+        <span><b>Mod</b><small>Stat</small></span><i>vs</i>
+        <span class="goal"><b>DC</b><small>target</small></span>
+      </div>
+      <p>Meet or beat the target and you succeed. Only players roll d20s. The GM never rolls against you; Mobs set the number you have to reach.</p>
+      <p>A full Stat name (Strength) means the score. The short form (Str) means its Mod. Mods come from your Enhanced score.</p>
+      <p class="ref">Core p. 58, Survival p. 12</p>
+    </article>
+
+    <article class="blk">
+      <h3>Difficulty</h3>
+      <p><b>Unopposed</b> (climbing, swimming, endurance, most survival): 10 + 2×F = <span class="lv" data-f="10+2*F">12</span></p>
+      <p><b>Opposed</b> (a foe resists you, including social checks): 10 + foe’s Mod + F = <span class="lv" data-f="10+F">11</span> + Mod</p>
+      <p><b>Stat Check</b> (no Skill, usually resisting something): 10 + F = <span class="lv" data-f="10+F">11</span></p>
+      <p><b>Your attacks</b> target the Mob’s Evade: 10 + Dex Mod + F = <span class="lv" data-f="10+F">11</span> + Dex Mod</p>
+      <p>The GM can set any number and tells you the result, not the target.</p>
+      <p class="ref">Core p. 59, 82; Survival p. 13–14</p>
+    </article>
+
+    <article class="blk">
+      <h3>Stat Mods</h3>
+      <div class="mods">
+        <div><small>1–2</small><b>+1</b></div><div><small>3–5</small><b>+2</b></div><div><small>6–9</small><b>+3</b></div><div><small>10–19</small><b>+4</b></div><div><small>20–49</small><b>+5</b></div>
+        <div><small>50–99</small><b>+6</b></div><div><small>100–149</small><b>+7</b></div><div><small>150–199</small><b>+8</b></div><div><small>200–299</small><b>+9</b></div><div><small>300+</small><b>+10</b></div>
+      </div>
+      <p><b>Unenhanced</b> is your base plus Race, Class, potions and level-ups. <b>Enhanced</b> adds gear, Spells and Buffs.</p>
+      <p class="ref">Core p. 57</p>
+    </article>
+
+    <article class="blk">
+      <h3>Advantage and Disadvantage</h3>
+      <p><b>Advantage:</b> roll two d20s, keep the higher. <b>Disadvantage:</b> keep the lower.</p>
+      <p>They never stack. One of each cancels out; whatever is left over wins (two Advantages and one Disadvantage still means Advantage).</p>
+      <p><b>On Mobs:</b> Advantage adds 5 to the Difficulty you face, Disadvantage takes 5 off. A Disadvantaged Mob attack gives you a free Evade Check; fail it and you can still spend an Action to Evade again.</p>
+      <p class="ref">Core p. 60, Survival p. 14</p>
+    </article>
+
+    <article class="blk">
+      <h3>No Ranks in it?</h3>
+      <p><b>Attack or Utility Skill:</b> you can try it with Disadvantage, adding your Stat Mod but no Ranks.</p>
+      <p><b>Spells:</b> not without Ranks, unless you cast from a scroll. <b>Passive Skills:</b> never untrained.</p>
+      <p data-floors="1-2"><span class="tag">Floors 1–2</span>Note every Skill you try untrained. At the end of each 2-hour session, gain 1 Rank in one of them, then wipe the list. No saving them up.</p>
+      <p data-floors="3-5"><span class="tag">Floor 3+</span>Untrained use no longer teaches Skills. Get them from gear, potions, a Guild (Rank 1, paid), your Race or Class.</p>
+      <p class="ref">Core p. 58, Survival p. 12</p>
+    </article>
+
+    <article class="blk">
+      <h3>Teamwork</h3>
+      <p><b>Help</b> (an Action, before the roll): add 1d2 to an ally’s non-combat Skill Check, or 1d6 if you have Ranks in that Skill.</p>
+      <p><b>Intervene</b> (Interrupt, after the roll): add 1d6 to an ally’s d20 Check. Made for turning a Near Miss into a hit.</p>
+      <p><b>Party Skill Check:</b> everyone rolls, no helping. Half or more succeed and the party succeeds. An Amazing Success flips one failure; a Major Fail flips one success.</p>
+      <p>Nobody can help with a Stat Check.</p>
+      <p class="ref">Core p. 59–60, 64, 82</p>
+    </article>
+
+    <article class="blk">
+      <h3>Trying again</h3>
+      <p>Out of combat, if retrying is possible and nothing is at stake, the GM may skip the roll.</p>
+      <p>After a <b>Major or Critical Fail</b> you can’t try that Skill again in the same scene.</p>
+      <p><b>Escalating checks</b> list several targets (say 12, 17, 22). You get the best one you beat and everything below it.</p>
+      <p class="ref">Core p. 60–61</p>
+    </article>
+
+    <article class="blk">
+      <h3>Your sheet, decoded</h3>
+      <p><b>Evade:</b> d20 + Dex Mod + Evade Buffs. No Ranks.</p>
+      <p><b>To hit:</b> Skill Rank + Stat Mod. <b>Damage:</b> dice + Stat Mod from the weapon entry.</p>
+      <p><b>DR:</b> Armor + Buffs. <b>Health Bar:</b> 10 slots, each worth your Con Mod.</p>
+      <p><b>Max Mana:</b> your Enhanced Intelligence score (the score, not the Mod).</p>
+      <p><b>Defaults:</b> Move 20 ft, Step 10 ft. Humans start with 1 AI Favor and are Size 4 (Medium).</p>
+      <p class="ref">Crawlers &amp; Customization p. 14–16</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- 2 RESULTS -->
+<section class="band" id="results" style="--slot:var(--hb2)">
+  <div class="band-head"><div class="in"><h2>Results</h2><p>How far you beat or missed the number decides what happens.</p></div></div>
+  <div class="blocks">
+    <article class="blk wide">
+      <h3>Degrees of success and failure</h3>
+      <div class="deg-wrap">
+      <table class="deg">
+        <thead><tr><th>Roll</th><th>Attack</th><th>Evade</th><th>Anything else</th></tr></thead>
+        <tbody>
+          <tr data-deg="crit" style="--c:var(--hb10)"><td><span class="nm">Critical Hit</span><span class="mg">Natural 20</span></td><td data-label="Attack">Always hits. Roll twice the base damage dice, then add Mod and bonuses.</td><td data-label="Evade">Advantage on your next attack against that foe.</td><td data-label="Anything else">Best possible result.</td></tr>
+          <tr data-deg="amazing" style="--c:var(--hb8)"><td><span class="nm">Amazing Success</span><span class="mg">Beat by 10+</span></td><td data-label="Attack">Extra damage equal to F: +<span class="lv" data-f="F">1</span></td><td data-label="Evade">Advantage on your next attack against that foe.</td><td data-label="Anything else">Faster, quieter, more impressive. Long jobs finish early.</td></tr>
+          <tr data-deg="success" style="--c:var(--hb6)"><td><span class="nm">Success</span><span class="mg">Beat by 0–9</span></td><td data-label="Attack">Hit. Roll damage.</td><td data-label="Evade">You avoid that attack.</td><td data-label="Anything else">It works.</td></tr>
+          <tr data-deg="near" style="--c:var(--hb5)"><td><span class="nm">Near Miss</span><span class="mg">Miss by 1–2</span></td><td data-label="Attack">GM calls “Near Miss”. Someone can Intervene.</td><td data-label="Evade">You’re hit.</td><td data-label="Anything else">Fail, or succeed with a complication.</td></tr>
+          <tr data-deg="fail" style="--c:var(--hb4)"><td><span class="nm">Fail</span><span class="mg">Miss by 3–9</span></td><td data-label="Attack">You miss.</td><td data-label="Evade">You’re hit.</td><td data-label="Anything else">Fail, or fail forward at a cost.</td></tr>
+          <tr data-deg="major" style="--c:var(--hb2)"><td><span class="nm">Major Fail</span><span class="mg">Miss by 10+</span></td><td data-label="Attack">Miss badly: drop something, need to reload, or gain Take Down.</td><td data-label="Evade">Hit for +<span class="lv" data-f="F">1</span> damage, and a Minor Injury after combat.</td><td data-label="Anything else">Wasted time, materials or tools.</td></tr>
+          <tr data-deg="fumble" style="--c:var(--hb1)"><td><span class="nm">Critical Fail</span><span class="mg">Natural 1</span></td><td data-label="Attack">Always misses. Hit a friend, break your weapon, or gain Stunned.</td><td data-label="Evade">Double damage, and a Major Injury after combat.</td><td data-label="Anything else">Worst possible outcome.</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p style="margin-top:8px">A natural 20 or 1 never also triggers the beat-by-10 effects; you get the single best (or worst) result. The GM announces the degree, not the margin, except for a Near Miss. A tie is a Success.</p>
+      <p class="ref">Core p. 60–61, 79–80; Survival inside cover</p>
+
+      <p class="noprint">To work out a roll for you, use the <a href="#tp-check">check calculator</a>.</p>
+    </article>
+  </div>
+</section>
+
+<!-- 3 ROUND -->
+<section class="band" id="round" style="--slot:var(--hb3)">
+  <div class="band-head"><div class="in"><h2>Combat round</h2><p>Mobs declare first, you react, then you strike back. No initiative.</p></div></div>
+  <div class="blocks">
+    <article class="blk wide">
+      <h3>One round, five steps</h3>
+      <ol class="track">
+        <li class="mob"><span class="who">GM</span><b>Mobs declare</b><p>Where they move, who they attack, and how.</p></li>
+        <li class="crw"><span class="who">Crawlers</span><b>React</b><p>Spend Actions on Interrupts: Evade, Intervene, Heal, Taunt, Catcher.</p></li>
+        <li class="mob"><span class="who">GM</span><b>Mobs resolve</b><p>Damage lands on anyone who didn’t Evade. Your DR applies. Debuffs from attacks land now.</p></li>
+        <li class="crw"><span class="who">Crawlers</span><b>Act</b><p>Spend what’s left in any order, mixing turns freely.</p></li>
+        <li><span class="who">Everyone</span><b>Clean up</b><p>Ongoing damage and effects tick, Dying counts down, Actions reset.</p></li>
+      </ol>
+      <p class="ref">Core p. 80–86, Survival p. 32–37</p>
+    </article>
+
+    <article class="blk">
+      <h3>Your two Actions</h3>
+      <p>You get <b>2 Actions per round</b> (a round is 10 seconds). Interrupts in step 2 come out of those same two.</p>
+      <p>Every Action comes with a free <b>10 ft Step</b>. Talking is free.</p>
+      <p>You can wait for an ally to go first, but you can’t hold an Action into the next round.</p>
+      <p>Keep tokens in view so the GM sees who has Actions left.</p>
+      <p class="ref">Core p. 63–64</p>
+    </article>
+
+    <article class="blk">
+      <h3>Starting a fight</h3>
+      <p>The GM sets positions and terrain first.</p>
+      <p><b>Surprise:</b> if you catch foes off guard, each crawler gets 1 free Action before step 1. It happens once.</p>
+      <p><b>Stealth</b> success before combat: 1 non-Attack Action (an Attack with Advantage at Rank 5).</p>
+      <p>Otherwise Mobs go first.</p>
+      <p class="ref">Core p. 80, 199</p>
+    </article>
+
+    <article class="blk">
+      <h3>What Mobs get</h3>
+      <p><b>Ordinary Mobs:</b> 1 Move and 1 other Action (usually an attack), spread across crawlers in reach.</p>
+      <p><b>Elites and Bosses:</b> 1 Action per crawler in the fight, even after some of you go down.</p>
+      <p>Mobs die at 0% Health. If a Mob forces you to attack a party member, they get a free Evade.</p>
+      <p class="ref">Core p. 81, 87</p>
+    </article>
+  </div>
+</section>
+
+<!-- 4 ACTIONS -->
+<section class="band" id="actions" style="--slot:var(--hb4)">
+  <div class="band-head"><div class="in"><h2>Actions</h2><p>What one Action buys you, in step 2 and step 4.</p></div></div>
+  <div class="blocks">
+    <article class="blk">
+      <h3>Interrupts (step 2, 1 Action each)</h3>
+      <p><b>Evade:</b> one Evade Check per attack aimed at you, against that attack’s value. Against an area: half damage, or a quarter in the Splash zone. A Step won’t carry you out of a blast.</p>
+      <p><b>Intervene:</b> add 1d6 to another crawler’s d20 Check after they roll. Not on Stat Checks.</p>
+      <p><b>Heal:</b> cast a healing Spell or use a healing item before Mob damage lands. Also works as a normal Action.</p>
+      <p class="ref">Core p. 81–82</p>
+    </article>
+
+    <article class="blk">
+      <h3>Protecting allies</h3>
+      <p><b>Taunt</b> (Skill, Cha, Int-Opposed): after Mobs declare, pull one attack from a Mob within 30 ft of you onto yourself, more on higher degrees. You can then spend your other Action to Evade. Rank 5: free Evade against Taunted attacks.</p>
+      <p><b>Catcher</b> (Passive Skill): take a direct, non-area hit meant for an adjacent ally; Step 10 ft first if needed. You can’t Evade or block the hit you catch.</p>
+      <p class="ref">Core p. 82, 189, 200</p>
+    </article>
+
+    <article class="blk">
+      <h3>On your turn (step 4)</h3>
+      <p><b>Attack:</b> weapon, fists or Spell against Evade. Swapping to a Hotlist weapon is part of the attack.</p>
+      <p><b>Cast a Spell:</b> from your Hotlist, paying Mana.</p>
+      <p><b>Make a Check:</b> use a Skill, like First Aid. Checks the GM calls for mid-fight usually cost nothing.</p>
+      <p><b>Move:</b> Move value (20 ft) plus your Step.</p>
+      <p><b>Use a Hotlist Item</b> or <b>Retrieve</b> one from Inventory (you can’t use it in that same Action).</p>
+      <p class="ref">Core p. 64, 82–86</p>
+    </article>
+
+    <article class="blk">
+      <h3>Clever plays</h3>
+      <p><b>Call a Play:</b> name an Action for an ally, roll 2d6 and keep the higher. Add it to their Check when they do it; if they’d have succeeded anyway, it goes on damage instead.</p>
+      <p><b>Look for Clues</b> (Boss fights only): Unopposed Perception or Investigation. Learn a weakness, resistance, attack or terrain trick; more on Amazing. Pick what to study.</p>
+      <p class="ref">Core p. 85–86</p>
+    </article>
+
+    <article class="blk">
+      <h3>Costs nothing</h3>
+      <ul>
+        <li>Talking</li>
+        <li>A 10 ft Step with each Action</li>
+        <li>Dropping prone</li>
+        <li>Swapping weapons as part of an Attack</li>
+        <li>Most External Buffs when they trigger</li>
+        <li>A Skill Check the GM calls for mid-fight</li>
+      </ul>
+      <p class="ref">Core p. 64, 69, 85, 95</p>
+    </article>
+  </div>
+</section>
+
+<!-- 5 ATTACKS -->
+<section class="band" id="attacks" style="--slot:var(--hb5)">
+  <div class="band-head"><div class="in"><h2>Attacks</h2><p>Hitting things, hurting things, and blowing things up.</p></div></div>
+  <div class="blocks">
+    <article class="blk">
+      <h3>To hit</h3>
+      <p>d20 + Attack Skill Rank + Stat Mod against the target’s Evade: <span class="lv" data-f="10+F">11</span> + its Dex Mod (10 + Dex Mod + F). Some stat blocks add more.</p>
+      <p><b>Melee</b> uses Str. <b>Physical ranged</b> uses Dex. <b>Spells</b> use Int. The Skill entry has the final say (Pugilism, for one, hits with Dex).</p>
+      <p class="ref">Core p. 82–83</p>
+    </article>
+
+    <article class="blk">
+      <h3>Range</h3>
+      <p><b>Melee</b> reaches 5 ft. <b>Reach</b> reaches 10 ft, not through occupied spaces (a diagonal past one open corner is fine).</p>
+      <p><b>Ranged</b> weapons and Spells have no penalty inside their listed range and automatically fail beyond it.</p>
+      <p>Ranged attacks and ranged Spells made inside an enemy’s melee reach roll with Disadvantage.</p>
+      <p class="ref">Core p. 82–83</p>
+    </article>
+
+    <article class="blk">
+      <h3>Damage</h3>
+      <p>Base dice + Stat Mod (per the entry) + Rank damage die (if the entry grants one) + bonuses. The target’s DR comes off after.</p>
+      <p><b>Critical Hit:</b> double the base dice, including upgrade dice that say “base damage”. The Rank damage die is not doubled.</p>
+      <p><b>Amazing Success:</b> +F, which is +<span class="lv" data-f="F">1</span> right now.</p>
+      <p class="ref">Core p. 79, 85, 176</p>
+    </article>
+
+    <article class="blk">
+      <h3>Rank damage die</h3>
+      <table class="mini">
+        <thead><tr><th>Rank</th><th>Add</th><th>Rank</th><th>Add</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>+1</td><td>12–13</td><td>+1d12</td></tr>
+          <tr><td>2–3</td><td>+1d2</td><td>14–15</td><td>+1d8 +1d6</td></tr>
+          <tr><td>4–5</td><td>+1d4</td><td>16–17</td><td>+2d8</td></tr>
+          <tr><td>6–7</td><td>+1d6</td><td>18–19</td><td>+1d10 +1d8</td></tr>
+          <tr><td>8–9</td><td>+1d8</td><td>20</td><td>+2d10</td></tr>
+          <tr><td>10–11</td><td>+1d10</td><td></td><td></td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:6px">Only when a Skill, Spell or upgrade tells you to add it.</p>
+      <p class="ref">Core p. 176, Crawlers &amp; Customization p. 22</p>
+    </article>
+
+    <article class="blk">
+      <h3>Hand-to-hand</h3>
+      <p><b>Unarmed Combat:</b> every crawler has it. 1d4 + Str Bludgeoning, no Damage Effects.</p>
+      <p>Skills like Pugilism, Wrasslin’ and Foot Soldier let you pick one <b>Damage Effect</b> (Iron Punch, Powerful Strike, Choke Out…) before you roll. It applies on a hit and still goes on cooldown on a miss.</p>
+      <p>Mark either the Attack or the Damage Effect for advancement, not both. Skip Damage Effects for most of a 3+ round fight to earn the Skill’s AI Favor.</p>
+      <p class="ref">Core p. 179–180</p>
+    </article>
+
+    <article class="blk">
+      <h3>Area attacks</h3>
+      <p>Roll once against one target in range. On a hit, roll damage once and it hits <b>everyone</b> in the area, allies included.</p>
+      <p><b>Blast:</b> out from the target point. <b>Burst:</b> out from you. <b>Line:</b> 5 ft wide. <b>Cone:</b> 60° arc. <b>+Splash:</b> an outer ring taking half.</p>
+      <p>Evading halves it; Evading in the Splash leaves a quarter. Round down.</p>
+      <p>Most misses do nothing, but thrown things and Fireball still land: roll 1d8 for direction, and they drift as many feet as you missed by.</p>
+      <p class="ref">Core p. 83–84, 200–201</p>
+    </article>
+
+    <article class="blk">
+      <h3>Situations</h3>
+      <p><b>Cover:</b> attacks from beyond melee range have Disadvantage. Melee ignores cover.</p>
+      <p><b>Darkness, bad weather, shifting ground:</b> Disadvantage. <b>High ground:</b> Advantage.</p>
+      <p><b>Unseen:</b> Advantage attacking someone who can’t see you; Disadvantage against a target you can’t see.</p>
+      <p><b>Held</b> or <b>prone</b> (Take Down) targets: Advantage.</p>
+      <p><b>Size:</b> target 4+ sizes bigger, Advantage; 4+ smaller, Disadvantage (a big attacker who hits anyway in melee adds its size to damage).</p>
+      <p class="ref">Core p. 84–85, 97</p>
+    </article>
+
+    <article class="blk">
+      <h3>Sizes</h3>
+      <table class="mini">
+        <tbody>
+          <tr><td>1</td><td>Tiny</td><td>rat</td><td>5</td><td>Large</td><td>horse</td></tr>
+          <tr><td>2</td><td>Small</td><td>cat</td><td>6</td><td>Huge</td><td>elephant</td></tr>
+          <tr><td>3</td><td>Petite</td><td>goblin</td><td>7</td><td>Colossal</td><td>dragon</td></tr>
+          <tr><td>4</td><td>Medium</td><td>human</td><td>8</td><td>Gargantuan</td><td>kaiju</td></tr>
+        </tbody>
+      </table>
+      <p class="ref">Core p. 85</p>
+    </article>
+  </div>
+</section>
+
+<!-- 6 EXPLORING -->
+<section class="band" id="exploring" style="--slot:var(--hb6)">
+  <div class="band-head"><div class="in"><h2>Exploring</h2><p>Moving, seeing, hiding, and the things that kill you slowly.</p></div></div>
+  <div class="blocks">
+    <article class="blk">
+      <h3>Movement</h3>
+      <p><b>Move Action:</b> 20 ft, plus the Step, so 30 ft. Two Moves cover 60 ft.</p>
+      <p>Split movement around your other Action. Pass through allies, never enemies. On a grid, diagonals cost the same (1 square is 5 ft).</p>
+      <p><b>Drop prone:</b> free, gives Take Down. <b>Stand up:</b> 10 ft of movement (your Step). <b>Pick up an item:</b> 10 ft.</p>
+      <p><b>Forced movement:</b> Push is away, Pull is toward, Slide is any direction.</p>
+      <p class="ref">Core p. 69–70, 80</p>
+    </article>
+
+    <article class="blk">
+      <h3>Rough going</h3>
+      <p><b>Difficult terrain:</b> every foot costs 2.</p>
+      <p><b>Climbing, swimming, crawling:</b> every foot costs 2 (3 in difficult terrain). Sheer walls or currents need an Unopposed Skill Check.</p>
+      <p><b>Jumping:</b> Unopposed Jumping Check to clear up to Rank + Str Mod feet. Costs normal Move.</p>
+      <p>Anyone with a climb, swim or fly Move pays nothing extra.</p>
+      <p class="ref">Core p. 69–70</p>
+    </article>
+
+    <article class="blk">
+      <h3>Light</h3>
+      <p><b>Bright:</b> no penalty.</p>
+      <p><b>Dim:</b> Disadvantage on sight-based checks such as Perception and Investigation.</p>
+      <p><b>Dark:</b> Disadvantage wherever sight matters, and the ground counts as difficult terrain.</p>
+      <p>A torch or the Torch Spell (1 Mana) gives 20 ft bright light, then 20 ft dim.</p>
+      <p class="ref">Core p. 69, Crawlers &amp; Customization p. 40</p>
+    </article>
+
+    <article class="blk">
+      <h3>Hiding and sneaking</h3>
+      <p><b>Hide in Shadows</b> (Dex, Int-Opposed) while in cover, dim light or darkness. Behind something bigger than you: Advantage. Success makes you Invisible until you fail a Hide check, attack, or show yourself.</p>
+      <p><b>Stealth</b> (Dex, Int-Opposed) to move unseen. You must start out of every foe’s sight.</p>
+      <p>Moving at a fast travel pace rules out hiding.</p>
+      <p class="ref">Core p. 71, 76, 195, 199</p>
+    </article>
+
+    <article class="blk">
+      <h3>Hazards</h3>
+      <p><b>Falling:</b> 1d6 Bludgeoning per 10 ft (max 20d6), and you land prone.</p>
+      <p><b>Holding your breath:</b> Con Mod rounds. After that, Drowning: <span class="lv" data-d="1d6">1d6+1</span> each round.</p>
+      <p><b>No food</b> for a 30-hour day: Survival Check or lose 3 slots and gain Fatigued until you eat.</p>
+      <p><b>No water</b> for a day: lose 3 slots and gain Fatigued until you drink.</p>
+      <p class="ref">Core p. 76</p>
+    </article>
+
+    <article class="blk">
+      <h3>Travel pace</h3>
+      <table class="mini">
+        <thead><tr><th>Pace</th><th>Minute</th><th>Hour</th><th>Day</th></tr></thead>
+        <tbody>
+          <tr><td>Fast</td><td>400 ft</td><td>4 mi</td><td>38 mi</td></tr>
+          <tr><td>Normal</td><td>300 ft</td><td>3 mi</td><td>29 mi</td></tr>
+          <tr><td>Slow</td><td>200 ft</td><td>2 mi</td><td>20 mi</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:6px"><b>Fast:</b> Disadvantage on Perception and Survival to spot danger or navigate. <b>Slow:</b> Advantage on them.</p>
+      <p>A day assumes 10 hours of travel. Each 2 hours past that: Unopposed Endurance or gain Fatigued.</p>
+      <p class="ref">Core p. 70–71</p>
+    </article>
+
+    <article class="blk">
+      <h3>The clock</h3>
+      <p>A dungeon day is <b>30 hours</b>. The recap show airs in saferooms every 30 hours.</p>
+      <p><b>Floor collapse</b> (usual timer, the GM can change it): Floor 1, 5 days; Floor 2, 6; Floor 3, 8; Floor 4, 10; Floor 5, 15. Yours: <span class="lv" data-lk="timer">5 days</span></p>
+      <p><b>Cooldowns:</b> once per round means not with both Actions. Once per day is per 30 hours. Once per X days and once per floor reset when you reach a new floor.</p>
+      <p class="ref">Core p. 63, Survival p. 17</p>
+    </article>
+  </div>
+</section>
+
+<!-- 7 HEALTH -->
+<section class="band" id="health" style="--slot:var(--hb7)">
+  <div class="band-head"><div class="in"><h2>Health</h2><p>Damage comes off in whole slots. So does healing.</p></div></div>
+  <div class="blocks">
+    <article class="blk">
+      <h3>Taking damage, in order</h3>
+      <ol class="seq">
+        <li><b>DR</b> comes off first. Damage from Debuffs skips this step.</li>
+        <li><b>Resistance</b> to that type halves what’s left.</li>
+        <li><b>Vulnerability</b> doubles it.</li>
+        <li><b>Immunity</b> makes it zero, along with any Debuff riding on it.</li>
+        <li>Lose <b>one slot for every full slot value</b> left over. Less than one slot’s worth is ignored.</li>
+      </ol>
+      <p>Mixed damage types split evenly, and each part checks its own resistances.</p>
+      <p>Example: slots of 4, 22 damage. Five slots go (20), the last 2 are ignored.</p>
+      <p class="noprint">The <a href="#tp-health">Health and Mana tracker</a> does this for you.</p>
+      <p class="ref">Core p. 92–94</p>
+    </article>
+
+    <article class="blk">
+      <h3>Zero and Dying</h3>
+      <p>At 0% you can’t act until healed. Healed during step 4, you can still use any Actions you had left.</p>
+      <p>Losing your last slot gives the <b>Dying</b> Debuff: a countdown of Con Mod rounds. It drops by 1 at each Clean Up and each time you’d take damage. Heal 1 slot (10%) to stop it.</p>
+      <p>While Dying: no Actions, no moving, no talking, no HUD.</p>
+      <p>If Debuff damage would drop you to 0%, roll a Con Stat Check against <span class="lv" data-f="10+F">11</span> at Clean Up (free). Success ends that Debuff and skips the damage.</p>
+      <p class="ref">Core p. 94, 96–97</p>
+    </article>
+
+    <article class="blk">
+      <h3>Healing and rest</h3>
+      <p><b>Heal Spell:</b> every crawler has it. 2 Mana, an Interrupt, self only, heals 2 slots.</p>
+      <p><b>Each calm hour</b> outside combat: 1 slot and 5 Mana.</p>
+      <p><b>Short rest</b> (2 h): 5 slots and half your max Mana, rounded down.</p>
+      <p><b>Long rest</b> (8 h): full Health and Mana, clears all Fatigued.</p>
+      <p><b>Full day</b> (30 h): full recovery, and the only cure for a Long-Term Major Injury.</p>
+      <p>Rest means a saferoom or truly relaxing. Healing never goes past 100%.</p>
+      <p class="ref">Core p. 94–95, Crawlers &amp; Customization p. 15</p>
+    </article>
+
+    <article class="blk">
+      <h3>Injuries</h3>
+      <p><b>Minor Injury:</b> −2 to all Checks until a short rest. A second one becomes Long-Term (needs a long rest).</p>
+      <p><b>Major Injury:</b> −5 to all Checks until a long rest. A second one becomes Long-Term (needs a full day).</p>
+      <p>You get them after combat from a Major Fail (Minor) or natural 1 (Major) on an Evade.</p>
+      <p><b>First Aid</b> Rank 5: spend 5 minutes to also cure a Minor Injury.</p>
+      <p class="ref">Core p. 80, 96, 195</p>
+    </article>
+
+    <article class="blk">
+      <h3>Damage types</h3>
+      <p><b>Common:</b> Bludgeoning, Fire, Piercing, Poison, Slashing.</p>
+      <p><b>Uncommon:</b> Acid, Electric, Force, Holy, Ice, Necrotic, Psychic, Sonic.</p>
+      <p>Types only matter for Resistance, Vulnerability and Immunity.</p>
+      <p class="ref">Core p. 93</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- 8 GEAR -->
+<section class="band" id="gear" style="--slot:var(--hb8)">
+  <div class="band-head"><div class="in"><h2>Magic &amp; gear</h2><p>Mana, Spells, potions, and what fits where.</p></div></div>
+  <div class="blocks">
+    <article class="blk">
+      <h3>Casting Spells</h3>
+      <p>A Spell has to be in your <b>Hotlist</b> to cast it in combat or under pressure. Casting takes an Action.</p>
+      <p><b>Attack Spells:</b> d20 + Spell Rank + Int Mod against Evade; damage is base + Int.</p>
+      <p><b>Passive (non-Attack) Spells</b> just happen. No roll, and they don’t earn advancement marks.</p>
+      <p>Muted means no casting. Ranged Spells inside melee reach take Disadvantage.</p>
+      <p data-floors="3-5"><span class="tag">Floor 3+</span>Spells Favored by a Class cost everyone else 1 extra Mana.</p>
+      <p class="ref">Core p. 85, 202; Crawlers &amp; Customization p. 36</p>
+    </article>
+
+    <article class="blk">
+      <h3>Mana</h3>
+      <p><b>Max Mana</b> equals your Enhanced Intelligence score. Update it when Intelligence changes.</p>
+      <p>Get it back by resting (see Health), Mana Potions (full), Mana Toast in some saferooms, or a Replenish Buff (Int Mana every 10 minutes).</p>
+      <p class="ref">Core p. 94, 96; Crawlers &amp; Customization p. 15</p>
+    </article>
+
+    <article class="blk">
+      <h3>Scrolls, books, potions</h3>
+      <p><b>Scroll:</b> casts its Spell once at the Rank written on it, no Mana, then crumbles. Works even without Ranks.</p>
+      <p><b>Spellbook or tome:</b> read it to learn the Spell at a set Rank (random is 1d6−1, minimum 1).</p>
+      <p><b>Potion:</b> works from the Hotlist without physically drinking, if you’re conscious. An Action in combat; healing potions can be an Interrupt. One potion every other round at most, or Potion Sickness (Poisoned for 15 seconds).</p>
+      <p class="ref">Core p. 99</p>
+    </article>
+
+    <article class="blk">
+      <h3>Hotlist and Inventory</h3>
+      <p><b>Hotlist:</b> 10 slots, up to 999 of the same item per slot. Anything there can appear in your hand or at your feet as part of using it.</p>
+      <p><b>Inventory:</b> weightless, but gives no bonuses. Pulling something out is a Retrieve Action; from Inventory to an attack takes 2 Actions.</p>
+      <p>You must lift an item for 4 seconds to stash it (you lift Strength × 15 lb). No living things (they die), loose liquids, or explosives within 3 seconds of going off.</p>
+      <p class="ref">Core p. 98; Crawlers &amp; Customization p. 15</p>
+    </article>
+
+    <article class="blk">
+      <h3>Gear slots</h3>
+      <p><b>Head, Torso, Arms, Legs, Feet:</b> one item each.</p>
+      <p><b>Hands:</b> one item per hand plus a pair of gloves. A shield takes a hand; Two-Handed takes both.</p>
+      <p><b>Accessories:</b> up to 10 (one belt, one cape).</p>
+      <p>Only equipped gear gives bonuses.</p>
+      <p class="ref">Core p. 98–99</p>
+    </article>
+
+    <article class="blk">
+      <h3>Buffs</h3>
+      <p><b>Internal Buffs</b> are always on while you have the source, like Stat boosts or Invisible.</p>
+      <p><b>External Buffs</b> fire on a trigger, and you choose whether to use them (handy with cooldowns). Examples: Damage Reflection, Resistances, Safe Fall.</p>
+      <p><b>Rule of Three:</b> only 3 External Buffs active. Pick them at the start of the day; swap during a short rest.</p>
+      <p class="ref">Core p. 95–96</p>
+    </article>
+
+    <article class="blk">
+      <h3>Junk, loot and gold</h3>
+      <p><b>Misc. Junk:</b> spend 1 to find any small household item in your Inventory (not food or water). Merchants pay 1 gold each.</p>
+      <p><b>Dead Mobs</b> drop 1d6 Junk each plus gold by floor. Yours: <span class="lv" data-lk="gold">no gold</span></p>
+      <p>Bosses always drop a map. Open loot boxes in a saferoom; unopened boxes can’t be taken from a body.</p>
+      <p><b>Crafting:</b> Fabricate (or Engineering for moving parts), Unopposed. Takes size × size hours.</p>
+      <p data-floors="4-5"><span class="tag">Floor 4+</span>Magic crafting needs a crafting table in a personal space.</p>
+      <p class="ref">Core p. 88, 99, 215–222</p>
+    </article>
+  </div>
+</section>
+
+<!-- 9 DEBUFFS -->
+<section class="band" id="debuffs" style="--slot:var(--hb9)">
+  <div class="band-head"><div class="in"><h2>Debuffs</h2><p>Same Debuff twice doesn’t stack unless it says so. Damage hits at Clean Up and ignores DR.</p></div></div>
+  <div class="blocks">
+    <article class="blk wide">
+      <div class="debuff-wrap">
+      <table class="debuffs">
+        <thead><tr><th>Debuff</th><th>Effect</th><th>Ends</th></tr></thead>
+        <tbody>
+          <tr><td>Blinded</td><td>Disadvantage on Skill Checks that need sight.</td><td data-label="Ends">End of next round</td></tr>
+          <tr><td>Blood Trail</td><td><span class="lv" data-d="1d6">1d6+1</span> each round. <span class="tag">Stacks</span></td><td data-label="Ends">Bandage (an Action) or First Aid</td></tr>
+          <tr><td>Burned</td><td><span class="lv" data-d="1d10">1d10+1</span> Fire each round.</td><td data-label="Ends">End of combat or 5 min. As an Action, Dex Stat Check (<span class="lv" data-f="10+F">11</span>) to put it out</td></tr>
+          <tr><td>Drowning</td><td><span class="lv" data-d="1d6">1d6+1</span> each round.</td><td data-label="Ends">Head above water</td></tr>
+          <tr><td>Dying</td><td>At 0%. Countdown of Con Mod rounds, −1 at Clean Up and each time you’d take damage.</td><td data-label="Ends">Death, or healing 1+ slot</td></tr>
+          <tr><td>Enraged</td><td>Only Attack and Move Actions.</td><td data-label="Ends">2 rounds (20 s)</td></tr>
+          <tr><td>Fatigued</td><td>−1 to all Checks, Move halved. <span class="tag">Stacks</span></td><td data-label="Ends">Long rest</td></tr>
+          <tr><td>Held</td><td>No Move Actions or Steps; you can still Evade. Attacks against you have Advantage.</td><td data-label="Ends">Released, or escape with a Str-Opposed Escape Artist Check (Floors 1–2 also allow a Dex Stat Check)</td></tr>
+          <tr><td>Minor Injury</td><td>−2 to all Checks. A second one becomes Long-Term.</td><td data-label="Ends">Short rest</td></tr>
+          <tr><td>Long-Term Minor Injury</td><td>−2 to all Checks.</td><td data-label="Ends">Long rest</td></tr>
+          <tr><td>Major Injury</td><td>−5 to all Checks. A second one becomes Long-Term.</td><td data-label="Ends">Long rest</td></tr>
+          <tr><td>Long-Term Major Injury</td><td>−5 to all Checks.</td><td data-label="Ends">Full day of rest (30 h)</td></tr>
+          <tr><td>Muted</td><td>Can’t speak or cast Spells.</td><td data-label="Ends">End of combat or 5 min</td></tr>
+          <tr><td>Paralyzed</td><td>No Actions at all.</td><td data-label="Ends">End of next round</td></tr>
+        </tbody>
+      </table>
+      <table class="debuffs">
+        <thead><tr><th>Debuff</th><th>Effect</th><th>Ends</th></tr></thead>
+        <tbody>
+          <tr><td>Poisoned</td><td><span class="lv" data-d="1d8">1d8+1</span> Poison each round. <span class="tag">Stacks</span></td><td data-label="Ends">An antidote</td></tr>
+          <tr><td>Queasy</td><td>If your next Action needs a roll, Disadvantage.</td><td data-label="Ends">After your next Action</td></tr>
+          <tr><td>Sepsis</td><td>Staggered, plus <span class="lv" data-d="1d10">1d10+1</span> Poison each round.</td><td data-label="Ends">Stagger ends after your next Action; damage until healed</td></tr>
+          <tr><td>Shit-Faced</td><td>Disadvantage on all Checks.</td><td data-label="Ends">10 min</td></tr>
+          <tr><td>Shocked</td><td>Lose your next Action.</td><td data-label="Ends">Once you’ve lost it</td></tr>
+          <tr><td>Sore as Shit</td><td>−1 to all rolls.</td><td data-label="Ends">1 hour</td></tr>
+          <tr><td>Staggered</td><td>Next Action can’t be a Move and gets no Step. If it’s an attack, Disadvantage.</td><td data-label="Ends">After your next Action</td></tr>
+          <tr><td>Stiff Legs</td><td>No 10 ft Steps.</td><td data-label="Ends">End of combat or 5 min</td></tr>
+          <tr><td>Stunned</td><td>Disadvantage on your next Check.</td><td data-label="Ends">After that Check</td></tr>
+          <tr><td>Take Down</td><td>Prone. Attacks against you have Advantage.</td><td data-label="Ends">Use your Step to stand</td></tr>
+          <tr><td>Terrified</td><td>No Move Actions or Steps. Your attacks have Disadvantage.</td><td data-label="Ends">End of next round, or losing a slot</td></tr>
+          <tr><td>The Taint</td><td>Can’t be healed.</td><td data-label="Ends">End of combat or 5 min</td></tr>
+          <tr><td>Woozy</td><td>No Dex Mod on Attack or Evade Checks.</td><td data-label="Ends">End of next round</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p style="margin-top:8px"><b>On Mobs:</b> Disadvantage lowers their Difficulty by 5 (and a Disadvantaged attack gives you a free Evade). A −X penalty lowers it by X. Damage still lands at Clean Up.</p>
+      <p class="ref">Core p. 96–97, Survival p. 44–46</p>
+    </article>
+  </div>
+</section>
+
+<!-- 10 GROWTH -->
+<section class="band" id="growth" style="--slot:var(--hb10)">
+  <div class="band-head"><div class="in"><h2>Growth &amp; fame</h2><p>Levels, Skill Ranks, AI Favor and the audience.</p></div></div>
+  <div class="blocks">
+    <article class="blk">
+      <h3>Gaining levels</h3>
+      <p><b>Every 2 hours of play:</b> +1 level for everyone.</p>
+      <p><b>Quest done:</b> at least +1.</p>
+      <p><b>Boss kill</b> (each party member): Neighborhood 1, Borough 2, City 3, Province 4, Country 5, Floor 6.</p>
+      <p><b>Killing a crawler:</b> 1d6 levels, plus the level gap if they outranked you (max 15), minus it if you outranked them (min 1). It also earns a Player Killer skull.</p>
+      <p data-floors="3-5"><span class="tag">Floor 3+</span>Each level gives 3 Stat points, spent in a saferoom. Levels from Floors 1–2 count once you arrive.</p>
+      <p class="ref">Core p. 87–88, 169–170</p>
+    </article>
+
+    <article class="blk">
+      <h3>Raising Skills</h3>
+      <p>Each time you roll a Skill, pass or fail, <b>tick its box</b>.</p>
+      <p><b>Advancement check:</b> 1d20 equal to or over the current Rank gives +1 Rank.</p>
+      <p><b>When:</b> Rank 4 or lower, every 2 hours of play. Rank 5+, at the end of each floor. Then erase all ticks.</p>
+      <p>Passive Skills don’t tick; they rise through magic, training, Race or Class. Levels never raise Skills.</p>
+      <p><b>Cap:</b> Rank 15 on Floors 1–5. <b>Upgrades:</b> Ranks 5, 10 and 15. Working on your floor: <span class="lv" data-lk="upgrades">Rank 5 only</span></p>
+      <p class="ref">Core p. 169, 173; Crawlers &amp; Customization p. 20, 42</p>
+    </article>
+
+    <article class="blk">
+      <h3>Grinding</h3>
+      <p>Declare hours against weak Mobs. Up to 5 a day is safe; each extra hour needs an Unopposed Endurance Check or it’s wasted and you gain Fatigued.</p>
+      <p>Put hours into Skills. When a Skill has hours equal to its Rank, roll its advancement check. Same Skill once a day.</p>
+      <p>Neighborhood Map: +1 hour on a 5+ hour grind. Borough Field Guide: +2.</p>
+      <p>Total grind hours equal to your level gives a level (the lowest-level crawler gets 1d2).</p>
+      <p class="ref">Core p. 170–171, 215–216</p>
+    </article>
+
+    <article class="blk">
+      <h3>AI Favor</h3>
+      <p><b>Spend 1 to:</b> reroll a d20, once per Check, before the GM announces the result (never a natural 1). Or, once per round, take an extra non-Attack Action.</p>
+      <p><b>Earn it:</b> heroics, surviving something stupid, sticking it to the showrunners, amusing the AI, and using an attack marked with AI Favor for most of a fight of 3+ rounds.</p>
+      <p>Humans start with 1.</p>
+      <p class="ref">Core p. 61, 175; Crawlers &amp; Customization p. 16</p>
+    </article>
+
+    <article class="blk">
+      <h3>Popularity</h3>
+      <p><b>+1, once per session:</b> a natural 20 or 1 in a fight or life-or-death check; a courageous act (Catcher alone doesn’t count); an original solution that works.</p>
+      <p><b>+1</b> for making the daily recap, and at floor’s end for a cute pet moment, a memorable catchphrase, or Charisma of <span class="lv" data-f="5*F">5</span> or more (5 × F).</p>
+      <p><b>−1:</b> dodging a fight or being boring or gross (per session). At floor’s end: a big d10+ attack as your main move, Charisma of <span class="lv" data-f="2*F">2</span> or less (2 × F), taking the stairs 30+ hours early, or grinding 15+ of the final 30 hours.</p>
+      <p class="ref">Core p. 279–280</p>
+    </article>
+
+    <article class="blk">
+      <h3>Playing to the cameras</h3>
+      <p>Once per 2-hour session, before an important, dramatic Check, announce who you’re playing to. You roll it with <b>Disadvantage</b>.</p>
+      <table class="mini">
+        <thead><tr><th>Result</th><th>Audience</th><th>AI</th></tr></thead>
+        <tbody>
+          <tr><td>Amazing or Crit</td><td>+2 Popularity</td><td>+2 Favor</td></tr>
+          <tr><td>Success</td><td>+1</td><td>+1</td></tr>
+          <tr><td>Near Miss</td><td>Nothing</td><td>Nothing</td></tr>
+          <tr><td>Fail</td><td>−1</td><td>−1</td></tr>
+          <tr><td>Major Fail</td><td>−2</td><td>−2</td></tr>
+          <tr><td>Critical Fail</td><td>+1 if you truly suffer</td><td>No Favor all day</td></tr>
+        </tbody>
+      </table>
+      <p data-floors="4-5" style="margin-top:6px"><span class="tag">Floor 4+</span>Play to Sponsors for Benefactor Boxes.</p>
+      <p class="ref">Core p. 280–281</p>
+    </article>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Summarised from the Dungeon Crawler Carl RPG Core Rulebook (Royal Court Edition), Rules for Survival, and Crawlers &amp; Customization. When a specific Skill, Spell or item says something different, the specific text wins, and the GM can patch any rule.</p>
+</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var KEY = "dcc-cheat-floor", TKEY = "dcc-cheat-theme", TABKEY = "dcc-cheat-tab", TOOLKEY = "dcc-cheat-tool";
+  var root = document.documentElement;
+  function store(k, v){ try{ if(v === undefined) return localStorage.getItem(k); if(v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); }catch(e){ return null; } }
+
+  /* ===== Minimal PDF form reader and incremental writer (no libraries) ===== */
+  var PDF = (function(){
+    var WSC = {" ":1,"\n":1,"\r":1,"\t":1,"\f":1,"\x00":1}, DELIM = "()<>[]{}/%";
+    function b2s(u8){ var s = "", i; for(i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); return s; }
+    function s2b(s){ var u = new Uint8Array(s.length); for(var i = 0; i < s.length; i++) u[i] = s.charCodeAt(i) & 255; return u; }
+    function skip(s, i){
+      for(;;){
+        var c = s[i];
+        if(c === undefined) return i;
+        if(c === "%"){ while(i < s.length && s[i] !== "\n" && s[i] !== "\r") i++; continue; }
+        if(WSC[c]){ i++; continue; }
+        return i;
+      }
+    }
+    var reNum = /[+\-]?(?:\d+\.?\d*|\.\d+)/y, reRef = /(\d+)\s+(\d+)\s+R(?![A-Za-z])/y, reKw = /[A-Za-z]+/y;
+    function parse(s, i){
+      i = skip(s, i);
+      var c = s[i], j;
+      if(c === "<" && s[i + 1] === "<"){
+        i += 2; var m = [];
+        for(;;){
+          i = skip(s, i);
+          if(s[i] === ">" && s[i + 1] === ">"){ i += 2; break; }
+          var k = parse(s, i); if(k.v.t !== "name") throw new Error("Bad key at " + i);
+          var v = parse(s, k.e); m.push([k.v.raw, v.v]); i = v.e;
+        }
+        return {v: {t: "dict", m: m}, e: i};
+      }
+      if(c === "["){
+        i++; var a = [];
+        for(;;){ i = skip(s, i); if(s[i] === "]"){ i++; break; } var x = parse(s, i); a.push(x.v); i = x.e; }
+        return {v: {t: "arr", a: a}, e: i};
+      }
+      if(c === "/"){ j = i + 1; while(j < s.length && !WSC[s[j]] && DELIM.indexOf(s[j]) < 0) j++; return {v: {t: "name", raw: s.slice(i, j)}, e: j}; }
+      if(c === "("){
+        j = i + 1; var depth = 1;
+        while(j < s.length){ var ch = s[j]; if(ch === "\\"){ j += 2; continue; } if(ch === "(") depth++; else if(ch === ")"){ if(--depth === 0) break; } j++; }
+        return {v: {t: "str", raw: s.slice(i, j + 1)}, e: j + 1};
+      }
+      if(c === "<"){ j = s.indexOf(">", i); return {v: {t: "hex", raw: s.slice(i, j + 1)}, e: j + 1}; }
+      reRef.lastIndex = i; var r = reRef.exec(s);
+      if(r) return {v: {t: "ref", n: +r[1], g: +r[2]}, e: reRef.lastIndex};
+      reNum.lastIndex = i; var n = reNum.exec(s);
+      if(n) return {v: {t: "num", raw: n[0]}, e: reNum.lastIndex};
+      reKw.lastIndex = i; var k2 = reKw.exec(s);
+      if(k2){ var w = k2[0]; return {v: w === "null" ? {t: "null"} : {t: "kw", raw: w}, e: reKw.lastIndex}; }
+      throw new Error("Can’t read the PDF near byte " + i);
+    }
+    function ser(v){
+      switch(v.t){
+        case "dict": return "<< " + v.m.map(function(p){ return p[0] + " " + ser(p[1]); }).join(" ") + " >>";
+        case "arr": return "[ " + v.a.map(ser).join(" ") + " ]";
+        case "ref": return v.n + " " + v.g + " R";
+        case "null": return "null";
+        default: return v.raw;
+      }
+    }
+    function get(d, k){ if(!d || d.t !== "dict") return undefined; for(var i = 0; i < d.m.length; i++) if(d.m[i][0] === k) return d.m[i][1]; return undefined; }
+    function put(d, k, v){ for(var i = 0; i < d.m.length; i++) if(d.m[i][0] === k){ d.m[i][1] = v; return; } d.m.push([k, v]); }
+    function del(d, k){ d.m = d.m.filter(function(p){ return p[0] !== k; }); }
+    function num(v){ return v && v.t === "num" ? parseFloat(v.raw) : NaN; }
+    function clone(v){ return JSON.parse(JSON.stringify(v)); }
+
+    var PDFDOC = {0x80:0x2022,0x81:0x2020,0x82:0x2021,0x83:0x2026,0x84:0x2014,0x85:0x2013,0x86:0x0192,0x87:0x2044,0x88:0x2039,0x89:0x203A,0x8A:0x2212,0x8B:0x2030,0x8C:0x201E,0x8D:0x201C,0x8E:0x201D,0x8F:0x2018,0x90:0x2019,0x91:0x201A,0x92:0x2122,0x93:0xFB01,0x94:0xFB02,0x95:0x0141,0x96:0x0152,0x97:0x0160,0x98:0x0178,0x99:0x017D,0x9A:0x0131,0x9B:0x0142,0x9C:0x0153,0x9D:0x0161,0x9E:0x017E};
+    function strBytes(v){
+      if(v.t === "hex"){
+        var h = v.raw.slice(1, -1).replace(/[^0-9a-fA-F]/g, ""); if(h.length % 2) h += "0";
+        var o = ""; for(var i = 0; i < h.length; i += 2) o += String.fromCharCode(parseInt(h.substr(i, 2), 16)); return o;
+      }
+      var s = v.raw.slice(1, -1), out = "", j = 0;
+      while(j < s.length){
+        var c = s[j];
+        if(c !== "\\"){ out += c; j++; continue; }
+        var nx = s[j + 1];
+        if(nx === "n"){ out += "\n"; j += 2; } else if(nx === "r"){ out += "\r"; j += 2; } else if(nx === "t"){ out += "\t"; j += 2; }
+        else if(nx === "b"){ out += "\b"; j += 2; } else if(nx === "f"){ out += "\f"; j += 2; }
+        else if(nx === "\r"){ j += s[j + 2] === "\n" ? 3 : 2; } else if(nx === "\n"){ j += 2; }
+        else if(/[0-7]/.test(nx)){ var oct = /[0-7]{1,3}/.exec(s.slice(j + 1, j + 4))[0]; out += String.fromCharCode(parseInt(oct, 8) & 255); j += 1 + oct.length; }
+        else { out += nx === undefined ? "" : nx; j += 2; }
+      }
+      return out;
+    }
+    function decodeText(v){
+      if(!v || (v.t !== "str" && v.t !== "hex")) return "";
+      var b = strBytes(v), o = "", i;
+      if(b.charCodeAt(0) === 0xFE && b.charCodeAt(1) === 0xFF){ for(i = 2; i + 1 < b.length; i += 2) o += String.fromCharCode((b.charCodeAt(i) << 8) | b.charCodeAt(i + 1)); return o; }
+      for(i = 0; i < b.length; i++){ var c = b.charCodeAt(i); o += String.fromCharCode(PDFDOC[c] || c); }
+      return o;
+    }
+    function encodeText(t){
+      t = String(t);
+      if(/^[\x20-\x7E]*$/.test(t)) return {t: "str", raw: "(" + t.replace(/([\\()])/g, "\\$1") + ")"};
+      var h = "FEFF";
+      for(var i = 0; i < t.length; i++) h += ("000" + t.charCodeAt(i).toString(16).toUpperCase()).slice(-4);
+      return {t: "hex", raw: "<" + h + ">"};
+    }
+
+    async function inflate(bytes){
+      var ds = new DecompressionStream("deflate"), w = ds.writable.getWriter();
+      w.write(bytes); w.close();
+      var buf = await new Response(ds.readable).arrayBuffer();
+      return new Uint8Array(buf);
+    }
+    function unpredict(data, parms){
+      var pred = num(get(parms, "/Predictor")); if(!(pred >= 10)) return data;
+      var cols = num(get(parms, "/Columns")) || 1, colors = num(get(parms, "/Colors")) || 1, bpc = num(get(parms, "/BitsPerComponent")) || 8;
+      var bpp = Math.max(1, Math.ceil(colors * bpc / 8)), row = Math.ceil(cols * colors * bpc / 8);
+      var out = new Uint8Array(Math.floor(data.length / (row + 1)) * row), prev = new Uint8Array(row);
+      for(var r = 0, p = 0; p + row < data.length + 1 && r * row < out.length; r++){
+        var f = data[p++], cur = out.subarray(r * row, r * row + row);
+        for(var i = 0; i < row; i++){
+          var x = data[p + i], a = i >= bpp ? cur[i - bpp] : 0, b = prev[i], c = i >= bpp ? prev[i - bpp] : 0, v;
+          if(f === 0) v = x; else if(f === 1) v = x + a; else if(f === 2) v = x + b; else if(f === 3) v = x + ((a + b) >> 1);
+          else { var pa = Math.abs(b - c), pb = Math.abs(a - c), pc = Math.abs(a + b - 2 * c); v = x + (pa <= pb && pa <= pc ? a : pb <= pc ? b : c); }
+          cur[i] = v & 255;
+        }
+        prev = cur; p += row;
+      }
+      return out;
+    }
+
+    function Doc(u8){ this.u8 = u8; this.s = b2s(u8); this.x = {}; this.cache = {}; this.objstm = {}; this.scanIdx = null; }
+    Doc.prototype.scan = function(){
+      if(this.scanIdx) return this.scanIdx;
+      var idx = {}, re = /(?:^|[\r\n\s])(\d+)\s+(\d+)\s+obj\b/g, m;
+      while((m = re.exec(this.s))){ idx[m[1]] = {off: m.index + m[0].indexOf(m[1]), gen: +m[2]}; }
+      return (this.scanIdx = idx);
+    };
+    Doc.prototype.rawAt = function(off){
+      var s = this.s, m = /^(\d+)\s+(\d+)\s+obj/.exec(s.slice(off, off + 40));
+      if(!m) return null;
+      var p = parse(s, off + m[0].length), e = skip(s, p.e), stream = null;
+      if(s.slice(e, e + 6) === "stream"){
+        var st = e + 6; if(s[st] === "\r") st++; if(s[st] === "\n") st++;
+        var len = get(p.v, "/Length"), L = len && len.t === "ref" ? num(this.obj(len)) : num(len);
+        if(!(L >= 0) || s.slice(st + L, st + L + 30).indexOf("endstream") < 0){ L = s.indexOf("endstream", st) - st; while(L > 0 && (s[st + L - 1] === "\n" || s[st + L - 1] === "\r")) L--; }
+        stream = this.u8.subarray(st, st + L);
+      }
+      return {n: +m[1], g: +m[2], v: p.v, stream: stream, off: off};
+    };
+    Doc.prototype.entry = function(n){
+      var e = this.x[n];
+      if(e && e.type === 1){ var r = this.rawAt(e.off); if(r && r.n === n) return {kind: 1, off: e.off, gen: r.g}; }
+      if(e && e.type === 2) return {kind: 2, stm: e.stm, idx: e.idx, gen: 0};
+      var sc = this.scan()[n]; if(sc) return {kind: 1, off: sc.off, gen: sc.gen};
+      return null;
+    };
+    Doc.prototype.obj = function(ref){
+      var n = typeof ref === "number" ? ref : ref.n;
+      if(this.cache[n]) return this.cache[n].v;
+      var e = this.entry(n); if(!e) return {t: "null"};
+      if(e.kind === 1){ var r = this.rawAt(e.off); this.cache[n] = {v: r.v, off: e.off, gen: e.gen, stream: r.stream}; return r.v; }
+      var os = this.objstm[e.stm]; if(!os) return {t: "null"};
+      var v = parse(os.s, os.offs[n]).v; this.cache[n] = {v: v, off: os.off, gen: 0}; return v;
+    };
+    Doc.prototype.resolve = function(v){ return v && v.t === "ref" ? this.obj(v) : v; };
+    Doc.prototype.offsetOf = function(n){ this.obj(n); return this.cache[n] ? this.cache[n].off : -1; };
+    Doc.prototype.decodeStream = async function(dict, data){
+      var f = get(dict, "/Filter"), names = !f ? [] : f.t === "arr" ? f.a.map(function(x){ return x.raw; }) : [f.raw];
+      var parms = get(dict, "/DecodeParms"); if(parms && parms.t === "arr") parms = parms.a[0];
+      for(var i = 0; i < names.length; i++){
+        if(names[i] !== "/FlateDecode") throw new Error("Unsupported PDF compression " + names[i]);
+        data = await inflate(data);
+        if(parms) data = unpredict(data, this.resolve(parms));
+      }
+      return data;
+    };
+    Doc.prototype.load = async function(){
+      var s = this.s, sx = s.lastIndexOf("startxref");
+      if(sx < 0) throw new Error("This file doesn’t look like a PDF.");
+      var off = parseInt(/startxref\s+(\d+)/.exec(s.slice(sx, sx + 40))[1], 10), seen = {}, first = true, stmNums = {};
+      this.lastXref = off;
+      while(off >= 0 && !seen[off] && off < s.length){
+        seen[off] = 1;
+        var t = skip(s, off), trailer;
+        if(s.slice(t, t + 4) === "xref"){
+          var p = t + 4;
+          for(;;){
+            p = skip(s, p);
+            if(s.slice(p, p + 7) === "trailer") break;
+            var hdr = /(\d+)\s+(\d+)/y; hdr.lastIndex = p; var h = hdr.exec(s); if(!h) break;
+            p = hdr.lastIndex; var start = +h[1], cnt = +h[2], ent = /\s*(\d{10})\s+(\d{5})\s+([nf])/y;
+            for(var k = 0; k < cnt; k++){
+              ent.lastIndex = p; var e = ent.exec(s); if(!e) break; p = ent.lastIndex;
+              var nn = start + k; if(!(nn in this.x)) this.x[nn] = e[3] === "n" ? {type: 1, off: +e[1]} : {type: 0};
+            }
+          }
+          trailer = parse(s, p + 7).v;
+          if(first){ this.trailer = trailer; this.xrefKind = "table"; first = false; }
+          var xs = get(trailer, "/XRefStm"); if(xs) await this.readXrefStream(num(xs), true);
+        } else {
+          var r = await this.readXrefStream(off, first);
+          if(!r) break;
+          trailer = r;
+          if(first){ this.trailer = trailer; this.xrefKind = "stream"; first = false; }
+        }
+        var prev = get(trailer, "/Prev"); off = prev ? num(prev) : -1;
+      }
+      if(!this.trailer){
+        var ti = s.lastIndexOf("trailer"); if(ti < 0) throw new Error("Couldn’t find the PDF’s trailer.");
+        this.trailer = parse(s, ti + 7).v; this.xrefKind = "table";
+      }
+      var stms = {}; for(var key in this.x) if(this.x[key].type === 2) stms[this.x[key].stm] = 1;
+      for(var sn in stms) await this.loadObjStm(+sn);
+      return this;
+    };
+    Doc.prototype.readXrefStream = async function(off, isFirst){
+      var r = this.rawAt(off); if(!r || !r.stream || (get(r.v, "/Type") || {}).raw !== "/XRef") return null;
+      var data = await this.decodeStream(r.v, r.stream), W = get(r.v, "/W").a.map(num);
+      var size = num(get(r.v, "/Size")), index = get(r.v, "/Index"), idx = index ? index.a.map(num) : [0, size], p = 0;
+      function rd(w){ var v = 0; for(var i = 0; i < w; i++) v = v * 256 + data[p++]; return v; }
+      for(var q = 0; q < idx.length; q += 2){
+        for(var k = 0; k < idx[q + 1]; k++){
+          var ty = W[0] ? rd(W[0]) : 1, f2 = rd(W[1]), f3 = rd(W[2]), nn = idx[q] + k;
+          if(nn in this.x) continue;
+          this.x[nn] = ty === 1 ? {type: 1, off: f2} : ty === 2 ? {type: 2, stm: f2, idx: f3} : {type: 0};
+        }
+      }
+      return r.v;
+    };
+    Doc.prototype.loadObjStm = async function(n){
+      var e = this.x[n]; if(!e || e.type !== 1) return;
+      var r = this.rawAt(e.off); if(!r || !r.stream) return;
+      var data = await this.decodeStream(r.v, r.stream), s = b2s(data), N = num(get(r.v, "/N")), first = num(get(r.v, "/First"));
+      var head = s.slice(0, first).trim().split(/\s+/).map(Number), offs = {};
+      for(var i = 0; i < N; i++) offs[head[2 * i]] = first + head[2 * i + 1];
+      this.objstm[n] = {s: s, offs: offs, off: e.off};
+    };
+
+    /* fields */
+    Doc.prototype.qname = function(d){
+      var parts = [], guard = 0;
+      while(d && guard++ < 20){ var T = get(d, "/T"); if(T) parts.unshift(decodeText(T)); var par = get(d, "/Parent"); d = par ? this.obj(par) : null; }
+      return parts.join(".");
+    };
+    Doc.prototype.inheritFT = function(d){ var guard = 0; while(d && guard++ < 20){ var ft = get(d, "/FT"); if(ft) return ft.raw; var par = get(d, "/Parent"); d = par ? this.obj(par) : null; } return ""; };
+    Doc.prototype.fields = function(){
+      var self = this, map = {}, onPage = {};
+      function rec(name){ return map[name] || (map[name] = {name: name, ft: "", carriers: [], widgets: [], on: null}); }
+      function addWidget(ref, d){
+        var hasT = !!get(d, "/T"), name = self.qname(d);
+        if(!name) return;
+        if(!hasT){ var par = get(d, "/Parent"); if(par){ var f = rec(name); if(f.carriers.indexOf(par.n) < 0) f.carriers.push(par.n); } }
+        var r = rec(name); r.ft = r.ft || self.inheritFT(d);
+        if(hasT && r.carriers.indexOf(ref.n) < 0) r.carriers.push(ref.n);
+        if(r.widgets.indexOf(ref.n) < 0) r.widgets.push(ref.n);
+      }
+      function walk(ref, depth){
+        if(depth > 20 || !ref || ref.t !== "ref") return;
+        var d = self.obj(ref), kids = self.resolve(get(d, "/Kids"));
+        if(kids && kids.t === "arr" && kids.a.length){
+          var name = self.qname(d); if(name){ var f = rec(name); f.ft = f.ft || self.inheritFT(d); if(f.carriers.indexOf(ref.n) < 0) f.carriers.push(ref.n); }
+          kids.a.forEach(function(k){ walk(k, depth + 1); });
+        } else addWidget(ref, d);
+      }
+      var root = this.obj(get(this.trailer, "/Root")), acro = this.resolve(get(root, "/AcroForm"));
+      this.acroRef = get(root, "/AcroForm");
+      var arr = acro ? this.resolve(get(acro, "/Fields")) : null;
+      if(arr && arr.t === "arr") arr.a.forEach(function(r){ walk(r, 0); });
+      (function pages(node, depth){
+        if(!node || depth > 30) return;
+        var d = self.resolve(node), kids = self.resolve(get(d, "/Kids"));
+        if(kids && kids.t === "arr") kids.a.forEach(function(k){ pages(k, depth + 1); });
+        var an = self.resolve(get(d, "/Annots"));
+        if(an && an.t === "arr") an.a.forEach(function(a){
+          if(a.t !== "ref") return; var ad = self.obj(a);
+          if((get(ad, "/Subtype") || {}).raw === "/Widget"){ onPage[a.n] = 1; addWidget(a, ad); }
+        });
+      })(get(root, "/Pages"), 0);
+      Object.keys(map).forEach(function(k){
+        var f = map[k];
+        if(f.ft === "/Btn") f.widgets.forEach(function(w){
+          var ap = self.resolve(get(self.obj(w), "/AP")), n = ap ? self.resolve(get(ap, "/N")) : null;
+          if(n && n.t === "dict") n.m.forEach(function(p){ if(p[0] !== "/Off" && !f.on) f.on = p[0]; });
+        });
+        if(!f.on) f.on = "/Yes";
+        var best = null, bo = -1, vis = f.carriers.filter(function(c){ return onPage[c]; });
+        (vis.length ? vis : f.carriers).forEach(function(c){ var o = self.offsetOf(c); if(o >= bo){ bo = o; best = c; } });
+        var d = best != null ? self.obj(best) : null, V = d ? get(d, "/V") : undefined;
+        if(f.ft === "/Btn"){
+          if(V && V.t === "name") f.value = V.raw !== "/Off" && V.raw !== "/";
+          else { var w0 = f.widgets.length ? self.obj(f.widgets[0]) : null, AS = w0 ? get(w0, "/AS") : null; f.value = !!(AS && AS.raw !== "/Off"); }
+        } else f.value = V ? decodeText(V) : "";
+      });
+      this.fieldMap = map;
+      return map;
+    };
+
+    function apStream(d, text){
+      var R = (get(d, "/Rect") || {a: []}).a.map(num), w = Math.abs(R[2] - R[0]) || 20, h = Math.abs(R[3] - R[1]) || 14;
+      var DA = get(d, "/DA"), da = DA ? strBytes(DA) : "", m = /([\d.]+)\s+Tf/.exec(da), sz = m ? parseFloat(m[1]) : 0;
+      if(!sz || sz > h - 2) sz = Math.max(6, Math.min(12, h - 4));
+      var q = num(get(d, "/Q")) || 0, safe = String(text).replace(/[^\x20-\x7E]/g, "?"), tw = safe.length * sz * 0.556;
+      var x = q === 1 ? (w - tw) / 2 : q === 2 ? w - 2 - tw : 2, y = (h - sz * 0.7) / 2;
+      var body = "/Tx BMC\nq\n1 1 " + (w - 2).toFixed(2) + " " + (h - 2).toFixed(2) + " re W n\nBT\n/Helv " + sz + " Tf 0 g\n" +
+        Math.max(1, x).toFixed(2) + " " + y.toFixed(2) + " Td\n(" + safe.replace(/([\\()])/g, "\\$1") + ") Tj\nET\nQ\nEMC\n";
+      return "<< /Type /XObject /Subtype /Form /BBox [ 0 0 " + w.toFixed(2) + " " + h.toFixed(2) + " ] /Resources << /Font << /Helv << /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >> >> >> /Length " + body.length + " >>\nstream\n" + body + "endstream";
+    }
+
+    Doc.prototype.save = function(changes){
+      var self = this, s = this.s, out = s.charAt(s.length - 1) === "\n" ? "" : "\n", base = this.u8.length;
+      var size = num(get(this.trailer, "/Size")), next = size, written = {}, gens = {};
+      function emit(n, gen, body){ written[n] = base + out.length; gens[n] = gen; out += n + " " + gen + " obj\n" + body + "\nendobj\n"; }
+      var edits = {};
+      function edit(n){ if(!edits[n]){ self.obj(n); edits[n] = {d: clone(self.cache[n].v), gen: self.cache[n].gen || 0}; } return edits[n].d; }
+      Object.keys(changes).forEach(function(name){
+        var f = this.fieldMap[name]; if(!f) return;
+        var val = changes[name];
+        if(f.ft === "/Btn"){
+          var st = {t: "name", raw: val ? f.on : "/Off"};
+          f.carriers.forEach(function(c){ put(edit(c), "/V", st); });
+          f.widgets.forEach(function(w){ var d = edit(w); if(get(d, "/AP") || get(d, "/AS")) put(d, "/AS", st); });
+        } else {
+          var enc = encodeText(val);
+          f.carriers.forEach(function(c){ put(edit(c), "/V", enc); });
+          f.widgets.forEach(function(w){
+            var d = edit(w), apn = next++;
+            emit(apn, 0, apStream(d, val));
+            put(d, "/AP", {t: "dict", m: [["/N", {t: "ref", n: apn, g: 0}]]});
+          });
+        }
+      }, this);
+      var acro = this.acroRef ? this.resolve(this.acroRef) : null;
+      if(acro && this.acroRef.t === "ref"){
+        var na = get(acro, "/NeedAppearances");
+        if(!na || na.raw !== "true"){ var ad = edit(this.acroRef.n); put(ad, "/NeedAppearances", {t: "kw", raw: "true"}); }
+      }
+      Object.keys(edits).forEach(function(n){ emit(+n, edits[n].gen, ser(edits[n].d)); });
+      var nums = Object.keys(written).map(Number).sort(function(a, b){ return a - b; });
+      if(!nums.length) return null;
+      var tr = clone(this.trailer);
+      ["/Prev","/XRefStm","/Type","/W","/Index","/Length","/Filter","/DecodeParms"].forEach(function(k){ del(tr, k); });
+      put(tr, "/Prev", {t: "num", raw: String(this.lastXref)});
+      if(this.xrefKind === "stream"){
+        var xn = next++; written[xn] = base + out.length; gens[xn] = 0; nums.push(xn);
+        var groups = [], bin = "";
+        nums.forEach(function(n){ var g = groups[groups.length - 1]; if(g && g[0] + g[1] === n) g[1]++; else groups.push([n, 1]); });
+        nums.forEach(function(n){ var o = written[n]; bin += String.fromCharCode(1, (o >>> 24) & 255, (o >>> 16) & 255, (o >>> 8) & 255, o & 255, (gens[n] >> 8) & 255, gens[n] & 255); });
+        put(tr, "/Type", {t: "name", raw: "/XRef"});
+        put(tr, "/Size", {t: "num", raw: String(next)});
+        put(tr, "/W", {t: "arr", a: [1, 4, 2].map(function(x){ return {t: "num", raw: String(x)}; })});
+        put(tr, "/Index", {t: "arr", a: [].concat.apply([], groups).map(function(x){ return {t: "num", raw: String(x)}; })});
+        put(tr, "/Length", {t: "num", raw: String(bin.length)});
+        out += xn + " 0 obj\n" + ser(tr) + "\nstream\n" + bin + "\nendstream\nendobj\nstartxref\n" + written[xn] + "\n%%EOF\n";
+      } else {
+        var xoff = base + out.length, tbl = "xref\n", i = 0;
+        while(i < nums.length){
+          var j = i; while(j + 1 < nums.length && nums[j + 1] === nums[j] + 1) j++;
+          tbl += nums[i] + " " + (j - i + 1) + "\n";
+          for(var k = i; k <= j; k++) tbl += ("0000000000" + written[nums[k]]).slice(-10) + " " + ("00000" + gens[nums[k]]).slice(-5) + " n \n";
+          i = j + 1;
+        }
+        put(tr, "/Size", {t: "num", raw: String(Math.max(next, size))});
+        out += tbl + "trailer\n" + ser(tr) + "\nstartxref\n" + xoff + "\n%%EOF\n";
+      }
+      var add = s2b(out), res = new Uint8Array(base + add.length);
+      res.set(this.u8, 0); res.set(add, base);
+      return res;
+    };
+
+    return {
+      open: async function(u8){ var d = new Doc(u8); await d.load(); d.fields(); return d; }
+    };
+  })();
+
+
+  /* ---------- helpers ---------- */
+  function $(id){ return document.getElementById(id); }
+  function num(id, d){ var el = $(id); if(!el) return d; var v = parseInt(el.value, 10); return isNaN(v) ? d : v; }
+  function rnd(n){
+    try{ var a = new Uint32Array(1); window.crypto.getRandomValues(a); return (a[0] % n) + 1; }
+    catch(e){ return Math.floor(Math.random() * n) + 1; }
+  }
+  function rollN(n, x){ var r = []; for(var i = 0; i < n; i++) r.push(rnd(x)); return r; }
+  function total(a){ return a.reduce(function(s, v){ return s + v; }, 0); }
+  function sgn(n){ return (n < 0 ? "−" : "+") + Math.abs(n); }
+  function op(n){ return (n < 0 ? "− " : "+ ") + Math.abs(n); }
+  function plural(n, w){ return n + " " + w + (n === 1 ? "" : "s"); }
+  function modOf(s){
+    if(s >= 300) return 10; if(s >= 200) return 9; if(s >= 150) return 8; if(s >= 100) return 7; if(s >= 50) return 6;
+    if(s >= 20) return 5; if(s >= 10) return 4; if(s >= 6) return 3; if(s >= 3) return 2; return 1;
+  }
+  var STATS = ["str","int","con","dex","cha"], SN = {str:"Str",int:"Int",con:"Con",dex:"Dex",cha:"Cha"};
+  var SFULL = {str:"Strength",int:"Intelligence",con:"Constitution",dex:"Dexterity",cha:"Charisma"};
+  var HB = ["--hb1","--hb2","--hb3","--hb4","--hb5","--hb6","--hb7","--hb8","--hb9","--hb10"];
+  function span(text, eq, cls){ var s = document.createElement("span"); s.textContent = text; if(eq){ s.setAttribute("data-eq", eq); s.tabIndex = 0; } if(cls) s.className = cls; return s; }
+  function fill(el, parts){ el.textContent = ""; parts.forEach(function(p){ el.appendChild(typeof p === "string" ? document.createTextNode(p) : p); }); }
+
+  /* ---------- tooltip for equations ---------- */
+  var tip = document.createElement("div"); tip.id = "tip"; tip.className = "tip"; tip.setAttribute("role", "tooltip"); document.body.appendChild(tip);
+  var tipFor = null;
+  function placeTip(el){
+    var r = el.getBoundingClientRect();
+    tip.style.left = "0px"; tip.style.top = "0px";
+    var tw = tip.offsetWidth, th = tip.offsetHeight;
+    var x = Math.min(Math.max(8, r.left + r.width / 2 - tw / 2), window.innerWidth - tw - 8);
+    var y = r.top - th - 8; if(y < 8) y = r.bottom + 8;
+    tip.style.left = x + "px"; tip.style.top = y + "px";
+  }
+  function showTip(el){
+    var t = el.getAttribute("data-eq"); if(!t) return;
+    tip.textContent = t; tip.classList.add("show"); tipFor = el; el.setAttribute("aria-describedby", "tip"); placeTip(el);
+  }
+  function hideTip(){ tip.classList.remove("show"); if(tipFor) tipFor.removeAttribute("aria-describedby"); tipFor = null; }
+  document.addEventListener("mouseover", function(e){
+    var el = e.target.closest ? e.target.closest("[data-eq]") : null;
+    if(el){ if(el !== tipFor) showTip(el); } else if(tipFor) hideTip();
+  });
+  document.addEventListener("focusin", function(e){ var el = e.target.closest ? e.target.closest("[data-eq]") : null; if(el) showTip(el); });
+  document.addEventListener("focusout", function(e){ if(tipFor && e.target === tipFor) hideTip(); });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape") hideTip(); });
+  window.addEventListener("scroll", function(){ if(tipFor) placeTip(tipFor); }, {passive: true});
+
+  /* ---------- floor ---------- */
+  var LOOK = {
+    num: function(F){ return String(F); },
+    timer: function(F){ return ({1:"5 days",2:"6 days",3:"8 days",4:"10 days",5:"15 days"})[F]; },
+    gold: function(F){ return ({1:"no gold",2:"1d6 gold",3:"2d4 gold",4:"2d6 gold",5:"2d8 gold"})[F]; },
+    upgrades: function(F){ return F <= 2 ? "Rank 5 only" : "Ranks 5, 10 and 15"; }
+  };
+  var LOOKEQ = {
+    timer: function(F){ var d = ({1:5,2:6,3:8,4:10,5:15})[F]; return "Floor " + F + " usually collapses after " + d + " dungeon days\n" + d + " × 30 hours = " + (d * 30) + " hours"; },
+    gold: function(F){ return "Each dead Mob on Floor " + F + " drops " + LOOK.gold(F) + " and 1d6 Misc. Junk.\nRoll once, then multiply by the number of bodies."; },
+    upgrades: function(F){ return "Floors 1–2: only Rank 5 upgrades work.\nFloor 3+: Rank 5, 10 and 15 upgrades work.\nYou’re on Floor " + F + "."; }
+  };
+  var formulas = {};
+  function calc(expr, F){ if(!formulas[expr]) formulas[expr] = new Function("F", "return " + expr); return formulas[expr](F); }
+  function pretty(expr, sub){ return expr.replace(/\*/g, " × ").replace(/\+/g, " + ").replace(/F/g, sub); }
+  var floor = parseInt(store(KEY), 10);
+  if(!(floor >= 1 && floor <= 5)) floor = 1;
+
+  function setFloor(F, animate){
+    floor = F;
+    root.setAttribute("data-floor", F);
+    document.querySelectorAll("[data-f]").forEach(function(el){
+      var ex = el.getAttribute("data-f"), v = calc(ex, F);
+      el.textContent = v;
+      el.setAttribute("data-eq", ex === "F" ? "Your floor number: " + F : pretty(ex, "Floor") + "\n= " + pretty(ex, String(F)) + " = " + v);
+    });
+    document.querySelectorAll("[data-d]").forEach(function(el){
+      var d = el.getAttribute("data-d"); el.textContent = d + "+" + F;
+      el.setAttribute("data-eq", d + " + Floor\n= " + d + " + " + F + " each round");
+    });
+    document.querySelectorAll("[data-lk]").forEach(function(el){
+      var k = el.getAttribute("data-lk"); el.textContent = LOOK[k](F);
+      if(LOOKEQ[k]) el.setAttribute("data-eq", LOOKEQ[k](F));
+    });
+    document.querySelectorAll(".lv").forEach(function(el){ if(el.hasAttribute("data-eq")) el.tabIndex = 0; });
+    document.querySelectorAll("[data-floors]").forEach(function(el){
+      var r = el.getAttribute("data-floors").split("-"), a = +r[0], b = +r[1];
+      el.classList.toggle("off", F < a || F > b);
+    });
+    document.querySelectorAll(".stairs button").forEach(function(b){
+      b.setAttribute("aria-pressed", String(+b.getAttribute("data-floor") === F));
+    });
+    if(animate && !matchMedia("(prefers-reduced-motion: reduce)").matches){
+      document.querySelectorAll(".lv").forEach(function(el){ el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); });
+    }
+    store(KEY, String(F));
+    if(typeof calcRefresh === "function" && ready) calcRefresh();
+  }
+  var ready = false;
+  document.querySelectorAll(".stairs button").forEach(function(b){
+    b.addEventListener("click", function(){ setFloor(+b.getAttribute("data-floor"), true); });
+  });
+
+  /* ---------- section tabs ---------- */
+  var nav = document.querySelector(".hbnav"), bands = Array.prototype.slice.call(document.querySelectorAll(".band"));
+  var links = {}, current = null;
+  document.querySelectorAll(".hbnav a").forEach(function(a){ links[a.getAttribute("href").slice(1)] = a; });
+  function markNav(id){ Object.keys(links).forEach(function(k){ if(k === id) links[k].setAttribute("aria-current", "true"); else links[k].removeAttribute("aria-current"); }); }
+  function navH(){ return nav ? nav.getBoundingClientRect().height : 0; }
+  function showTab(id, opts){
+    opts = opts || {};
+    if(!$(id) || !links[id]) id = "calc";
+    current = id;
+    bands.forEach(function(b){ b.classList.toggle("tab-off", b.id !== id); });
+    markNav(id); store(TABKEY, id);
+    try{ if(!opts.noHash) history.replaceState(null, "", "#" + id); }catch(e){}
+    if(opts.scroll !== false){
+      var main = document.querySelector("main"), top = main.getBoundingClientRect().top + window.scrollY - navH() - 10;
+      if(window.scrollY > top) window.scrollTo(0, top);
+    }
+  }
+  bands.forEach(function(b, i){
+    var bn = document.createElement("div"); bn.className = "bandnav noprint";
+    if(i > 0){ var pv = document.createElement("a"); pv.href = "#" + bands[i - 1].id; pv.className = "btn"; pv.textContent = "Previous: " + labelOf(bands[i - 1].id); bn.appendChild(pv); }
+    if(i < bands.length - 1){ var nx = document.createElement("a"); nx.href = "#" + bands[i + 1].id; nx.className = "btn next"; nx.textContent = "Next: " + labelOf(bands[i + 1].id); bn.appendChild(nx); }
+    b.appendChild(bn);
+  });
+  function labelOf(id){ var a = links[id], f = a.querySelector(".full"); return (f ? f.textContent : a.textContent).trim(); }
+  document.addEventListener("click", function(e){
+    var a = e.target.closest ? e.target.closest('a[href^="#"]') : null; if(!a) return;
+    var id = a.getAttribute("href").slice(1), el = $(id); if(!el) return;
+    var band = el.classList.contains("band") ? el : el.closest(".band"); if(!band) return;
+    e.preventDefault();
+    if(q.value){ q.value = ""; filter(); }
+    showTab(band.id, {scroll: el === band});
+    if(el.classList.contains("toolpanel")) selectTool(el.id.slice(3));
+    if(el !== band){ var top = el.getBoundingClientRect().top + window.scrollY - navH() - 12; window.scrollTo(0, top); }
+  });
+
+  /* ---------- search ---------- */
+  var q = $("q"), empty = $("empty");
+  function filter(){
+    var term = q.value.trim().toLowerCase(), any = false;
+    if(!term){
+      document.querySelectorAll(".hide-s").forEach(function(el){ el.classList.remove("hide-s"); });
+      empty.classList.remove("show"); empty.textContent = "";
+      showTab(current || "calc", {scroll: false, noHash: true});
+      return;
+    }
+    markNav(null);
+    bands.forEach(function(band){
+      band.classList.remove("tab-off");
+      var blocks = band.querySelectorAll(".blk"), shown = 0;
+      if(!blocks.length){ var scope = band.querySelector(".calc-wrap") || band; shown = scope.textContent.toLowerCase().indexOf(term) > -1 ? 1 : 0; }
+      blocks.forEach(function(blk){
+        var hit, rows = blk.querySelectorAll(".debuffs tbody tr");
+        if(rows.length){
+          var n = 0;
+          rows.forEach(function(r){ var m = r.textContent.toLowerCase().indexOf(term) > -1; r.classList.toggle("hide-s", !m); if(m) n++; });
+          blk.querySelectorAll(".debuffs").forEach(function(tb){ tb.classList.toggle("hide-s", !tb.querySelector("tbody tr:not(.hide-s)")); });
+          hit = n > 0;
+        } else hit = blk.textContent.toLowerCase().indexOf(term) > -1;
+        blk.classList.toggle("hide-s", !hit); if(hit) shown++;
+      });
+      if(!shown && band.querySelector(".band-head").textContent.toLowerCase().indexOf(term) > -1){
+        band.querySelectorAll(".hide-s").forEach(function(b){ b.classList.remove("hide-s"); }); shown = 1;
+      }
+      band.classList.toggle("hide-s", !shown); if(shown) any = true;
+    });
+    empty.classList.toggle("show", !any);
+    empty.textContent = any ? "" : "Nothing matches “" + q.value.trim() + "”. Try a shorter word, like evade, mana or prone.";
+  }
+  q.addEventListener("input", filter);
+  q.addEventListener("keydown", function(e){ if(e.key === "Escape"){ q.value = ""; filter(); } });
+
+  /* ---------- theme and print ---------- */
+  var tBtn = $("theme");
+  function isDark(){ var t = root.getAttribute("data-theme"); return t ? t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; }
+  function syncTheme(){ tBtn.textContent = isDark() ? "Light mode" : "Dark mode"; }
+  var savedTheme = store(TKEY);
+  if(savedTheme === "dark" || savedTheme === "light") root.setAttribute("data-theme", savedTheme);
+  tBtn.addEventListener("click", function(){ var nx = isDark() ? "light" : "dark"; root.setAttribute("data-theme", nx); store(TKEY, nx); syncTheme(); });
+  syncTheme();
+  $("print").addEventListener("click", function(){ window.print(); });
+
+  /* ---------- dice expressions ---------- */
+  function parseDice(str){
+    var out = {dice: [], flat: 0, ok: true};
+    var s = String(str || "").replace(/\s+/g, "").toLowerCase().replace(/−/g, "-");
+    if(!s) return out;
+    var re = /([+-]?)(\d*)d(\d+)|([+-]?)(\d+)/g, m, pos = 0;
+    while((m = re.exec(s))){
+      if(m.index !== pos || (pos > 0 && !(m[1] || m[4]))){ out.ok = false; break; }
+      pos = re.lastIndex;
+      if(m[3] !== undefined){
+        var n = m[2] === "" ? 1 : +m[2], x = +m[3];
+        if(n < 1 || n > 100 || x < 2 || x > 1000){ out.ok = false; break; }
+        out.dice.push({n: n, x: x, neg: m[1] === "-"});
+      } else out.flat += (m[4] === "-" ? -1 : 1) * (+m[5]);
+    }
+    if(pos !== s.length) out.ok = false;
+    return out;
+  }
+  function rankDie(r){
+    if(r <= 0) return {dice: [], flat: 0};
+    if(r === 1) return {dice: [], flat: 1};
+    var t = r <= 3 ? [[1,2]] : r <= 5 ? [[1,4]] : r <= 7 ? [[1,6]] : r <= 9 ? [[1,8]] : r <= 11 ? [[1,10]] :
+            r <= 13 ? [[1,12]] : r <= 15 ? [[1,8],[1,6]] : r <= 17 ? [[2,8]] : r <= 19 ? [[1,10],[1,8]] : [[2,10]];
+    return {dice: t.map(function(d){ return {n: d[0], x: d[1], neg: false}; }), flat: 0};
+  }
+  function diceText(list){ return list.map(function(d){ return (d.neg ? "−" : "") + d.n + "d" + d.x; }).join(" + ").replace(/\+ −/g, "− "); }
+  function statKey(t){ var k = String(t || "").trim().slice(0, 3).toLowerCase(); return STATS.indexOf(k) > -1 ? k : ""; }
+
+  /* ---------- your crawler ---------- */
+  var CKEY = "dcc-cheat-crawler";
+  (function(){
+    var raw = store(CKEY); if(!raw) return;
+    try{ var o = JSON.parse(raw); document.querySelectorAll("[data-save]").forEach(function(el){ if(o[el.id] != null) el.value = o[el.id]; }); }catch(e){}
+  })();
+  function saveCrawler(){ var o = {}; document.querySelectorAll("[data-save]").forEach(function(el){ o[el.id] = el.value; }); store(CKEY, JSON.stringify(o)); }
+  function crawler(){
+    var c = {score: {}, mod: {}};
+    STATS.forEach(function(k){ var s = Math.max(1, num("cr-" + k, 3)); c.score[k] = s; c.mod[k] = modOf(s); });
+    c.evb = num("cr-evb", 0); c.arm = Math.max(0, num("cr-arm", 0)); c.drb = Math.max(0, num("cr-drb", 0));
+    c.jump = Math.max(0, num("cr-jump", 0)); c.lvl = Math.max(1, num("cr-lvl", 1)); c.fav = Math.max(0, num("cr-fav", 0));
+    c.dr = c.arm + c.drb; c.evade = c.mod.dex + c.evb; c.slot = c.mod.con; c.mana = c.score.int;
+    return c;
+  }
+  function renderCrawler(){
+    var c = crawler(), F = floor;
+    STATS.forEach(function(k){
+      var m = $("m-" + k); m.textContent = "+" + c.mod[k];
+      m.setAttribute("data-eq", SFULL[k] + " " + c.score[k] + " falls in the " + modBand(c.score[k]) + " range\nso its Mod is +" + c.mod[k]); m.tabIndex = 0;
+    });
+    var fame = c.score.cha >= 5 * F ? "+1 Popularity at floor’s end" : c.score.cha <= 2 * F ? "−1 Popularity at floor’s end" : "No Popularity change";
+    var pts = 3 * (c.lvl - 1);
+    var rows = [
+      ["Evade", "d20 " + sgn(c.evade), "d20 + Dex Mod " + c.mod.dex + " + Evade Buffs " + c.evb + "\n= d20 " + sgn(c.evade)],
+      ["DR", String(c.dr), "Armor " + c.arm + " + DR Buffs " + c.drb + " = " + c.dr],
+      ["Health Bar", "10 slots of " + c.slot, "Each slot holds your Con Mod (" + c.slot + ")\n10 × " + c.slot + " = " + (c.slot * 10) + " Health"],
+      ["Max Mana", String(c.mana), "Max Mana = Enhanced Intelligence score = " + c.mana + "\nShort rest gives back half: " + c.mana + " ÷ 2 = " + Math.floor(c.mana / 2)],
+      ["Hold breath", plural(c.mod.con, "round"), "Con Mod = " + c.mod.con + " rounds"],
+      ["Dying countdown", plural(c.mod.con, "round"), "Con Mod = " + c.mod.con + " rounds"],
+      ["Jump", "up to " + (c.jump + c.mod.str) + " ft", "Jumping Rank " + c.jump + " + Str Mod " + c.mod.str + " = " + (c.jump + c.mod.str) + " ft" + (c.jump ? "" : "\nNo Ranks: roll with Disadvantage")],
+      ["Lift", (c.score.str * 15) + " lb", "Strength " + c.score.str + " × 15 = " + (c.score.str * 15) + " lb"],
+      ["Throw", c.score.str + " lb, " + (c.score.str * 10) + " ft", "Weight up to Strength: " + c.score.str + " lb\nDistance: Strength " + c.score.str + " × 10 = " + (c.score.str * 10) + " ft"],
+      ["Charisma", fame, "Charisma " + c.score.cha + " on Floor " + F + "\n+1 at " + (5 * F) + " or more (5 × F), −1 at " + (2 * F) + " or less (2 × F)"],
+      ["Stat points", pts + " from levels", "3 × (Level " + c.lvl + " − 1) = " + pts + (F < 3 ? "\nSpend them once you reach Floor 3, in a saferoom" : "\nSpend them in a saferoom")]
+    ];
+    var dl = $("cr-out"); dl.innerHTML = "";
+    rows.forEach(function(r){
+      var dt = document.createElement("dt"), dd = document.createElement("dd");
+      dt.textContent = r[0]; dd.appendChild(span(r[1], r[2])); dl.appendChild(dt); dl.appendChild(dd);
+    });
+  }
+  function modBand(s){ return s >= 300 ? "300+" : s >= 200 ? "200–299" : s >= 150 ? "150–199" : s >= 100 ? "100–149" : s >= 50 ? "50–99" : s >= 20 ? "20–49" : s >= 10 ? "10–19" : s >= 6 ? "6–9" : s >= 3 ? "3–5" : "1–2"; }
+
+  /* ---------- status strip ---------- */
+  function renderStrip(){
+    var c = crawler(), bar = $("strip-bar"); bar.innerHTML = "";
+    for(var i = 0; i < 10; i++){ var cell = document.createElement("div"); if(i >= hm.slots) cell.className = "gone"; else cell.style.background = "var(" + HB[i] + ")"; bar.appendChild(cell); }
+    var parts = [
+      span("Health " + hm.slots + " of 10", hm.slots + " of 10 slots left, " + c.slot + " each\n= " + (hm.slots * c.slot) + " of " + (10 * c.slot) + " Health (" + hm.slots * 10 + "%)", "si"), ", ",
+      span("Mana " + hm.mana + " of " + c.mana, "Current Mana " + hm.mana + "\nMax Mana = Intelligence " + c.mana, "si"), ", ",
+      span("AI Favor " + c.fav, "Spend 1 to reroll a d20 once per Check (not a natural 1),\nor for an extra non-Attack Action once per round", "si")
+    ];
+    if(hm.slots === 0) parts.push(span("Dying", "Countdown: Con Mod " + c.mod.con + " rounds. Heal 1 slot to stop it.", "si dying"));
+    fill($("strip-text"), parts);
+  }
+
+  /* ---------- tool tabs ---------- */
+  var TOOLS = ["check","damage","health","dice"];
+  function selectTool(t){
+    if(TOOLS.indexOf(t) < 0) t = "check";
+    TOOLS.forEach(function(k){
+      $("tt-" + k).setAttribute("aria-selected", String(k === t));
+      $("tt-" + k).tabIndex = k === t ? 0 : -1;
+      $("tp-" + k).classList.toggle("hide", k !== t);
+    });
+    store(TOOLKEY, t);
+  }
+  TOOLS.forEach(function(k, i){
+    $("tt-" + k).addEventListener("click", function(){ selectTool(k); });
+    $("tt-" + k).addEventListener("keydown", function(e){
+      var d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if(!d) return;
+      var nk = TOOLS[(i + d + TOOLS.length) % TOOLS.length]; selectTool(nk); $("tt-" + nk).focus();
+    });
+  });
+
+  /* ---------- check calculator ---------- */
+  var ck = {kind: "skill", fav: false, tgtSrc: "manual", src: null};
+  var EFF = {
+    crit:    ["Critical Hit", ["Always hits: roll double base damage dice.", "Advantage on your next attack against that foe.", "The best possible result."]],
+    amazing: ["Amazing Success", ["Hit, with +F extra damage.", "Advantage on your next attack against that foe.", "Faster, quieter or more impressive than usual."]],
+    success: ["Success", ["Hit: roll damage.", "You avoid that attack.", "It works."]],
+    near:    ["Near Miss", ["Miss, but an ally can Intervene with 1d6.", "You’re hit, unless an ally Intervenes with 1d6.", "Fail, or succeed with a complication."]],
+    fail:    ["Fail", ["Miss.", "You’re hit.", "Fail, or fail forward at a cost."]],
+    major:   ["Major Fail", ["Miss badly: drop something, reload, or gain Take Down.", "You’re hit for +F damage and gain a Minor Injury after combat.", "Fail and waste time, materials or tools. No retry this scene."]],
+    fumble:  ["Critical Fail", ["Always misses: hit a friend, break your weapon, or gain Stunned.", "Double damage, and a Major Injury after combat.", "The worst possible outcome. No retry this scene."]]
+  };
+  function ckState(){
+    var c = crawler(), kind = ck.kind, sel = $("ck-stat");
+    Array.prototype.forEach.call(sel.options, function(o){ o.textContent = SN[o.value] + " " + sgn(c.mod[o.value]); });
+    if(kind === "evade"){ sel.value = "dex"; sel.disabled = true; } else sel.disabled = false;
+    var usesRank = kind === "skill" || kind === "attack";
+    $("ck-rank-l").classList.toggle("hide", !usesRank);
+    $("ck-untr-l").classList.toggle("hide", !usesRank);
+    $("ck-tgt-lab").textContent = kind === "attack" ? "Target (the Mob’s Evade)" : kind === "evade" ? "Target (the attack’s value)" : "Target";
+    var untr = usesRank && $("ck-untr").checked;
+    var rank = usesRank && !untr ? Math.max(0, num("ck-rank", 0)) : 0;
+    var mod = c.mod[sel.value], evb = kind === "evade" ? c.evb : 0, other = num("ck-other", 0);
+    var pens = [];
+    if($("ck-minor").checked) pens.push(["Minor Injury", 2]);
+    if($("ck-major").checked) pens.push(["Major Injury", 5]);
+    if($("ck-sore").checked) pens.push(["Sore as Shit", 1]);
+    var fat = Math.max(0, num("ck-fat", 0)); if(fat) pens.push(["Fatigued × " + fat, fat]);
+    var pen = pens.reduce(function(s, p){ return s + p[1]; }, 0);
+    var bonus = rank + mod + evb + other - pen;
+    var adv = $("ck-mode").value === "a", dis = $("ck-mode").value === "d" || untr;
+    var net = adv && dis ? "n" : adv ? "a" : dis ? "d" : "n";
+    var lines = [];
+    if(usesRank) lines.push(op(rank) + "  Skill Rank" + (untr ? " (none, untrained)" : ""));
+    lines.push(op(mod) + "  " + SN[sel.value] + " Mod (" + SFULL[sel.value] + " " + c.score[sel.value] + ")");
+    if(evb) lines.push(op(evb) + "  Evade Buffs");
+    if(other) lines.push(op(other) + "  Other bonus");
+    pens.forEach(function(p){ lines.push(op(-p[1]) + "  " + p[0]); });
+    var base = num("ck-tgt", NaN), shift = parseInt($("ck-mob").value, 10) || 0;
+    var tl = [];
+    if(ck.tgtSrc === "unopp") tl.push("Unopposed: 10 + 2 × Floor " + floor + " = " + (10 + 2 * floor));
+    else if(ck.tgtSrc === "stat") tl.push("Stat check: 10 + Floor " + floor + " = " + (10 + floor));
+    else if(ck.tgtSrc === "foe") tl.push("10 + Floor " + floor + " + foe’s Mod " + num("ck-foe", 0) + " = " + base);
+    else tl.push("Typed in: " + base);
+    if(shift) tl.push(op(shift) + "  Mob has " + (shift > 0 ? "Advantage" : "Disadvantage") + "\n= " + (base + shift));
+    return {kind: kind, bonus: bonus, net: net, lines: lines, base: base, shift: shift, tgt: base + shift, tgtEq: tl.join("\n"), untr: untr};
+  }
+  function ckRefresh(){
+    var s = ckState(), c = crawler();
+    $("ck-d2-l").classList.toggle("hide", s.net === "n");
+    var odds = $("ck-odds"), out = $("ck-out"), fav = $("ck-fav");
+    var bonusEq = "Bonus added to the d20:\n" + s.lines.join("\n") + "\n= " + sgn(s.bonus) + (s.net !== "n" ? "\nRoll 2 d20s and keep the " + (s.net === "a" ? "higher (Advantage)" : "lower (Disadvantage)") : "");
+    if(isNaN(s.base)){ fill(odds, ["Enter a target number, or pick a preset."]); out.textContent = ""; fav.disabled = true; return; }
+    var good = 0;
+    for(var f = 1; f <= 20; f++){ if(f === 20 || (f !== 1 && f + s.bonus >= s.tgt)) good++; }
+    var p = good / 20, pn = s.net === "a" ? 1 - (1 - p) * (1 - p) : s.net === "d" ? p * p : p;
+    var need = s.tgt - s.bonus;
+    var needTxt = need <= 2 ? "anything but a natural 1 succeeds" : need >= 20 ? "only a natural 20 succeeds" : "you need " + need + " or higher on the die";
+    var oddsEq = "Target " + s.tgt + " − bonus " + sgn(s.bonus) + " = " + need + " on the die\n" + good + " of 20 faces succeed (natural 1 always fails, natural 20 always hits)" +
+      (s.net === "a" ? "\nAdvantage: 1 − (1 − " + good + "/20)² ≈ " + Math.round(pn * 100) + "%" : s.net === "d" ? "\nDisadvantage: (" + good + "/20)² ≈ " + Math.round(pn * 100) + "%" : "");
+    fill(odds, [span("Bonus " + sgn(s.bonus), bonusEq), " against ", span("target " + s.tgt, s.tgtEq), ": " + needTxt + ". ",
+      span("About " + Math.round(pn * 100) + "% to succeed", oddsEq), s.net === "a" ? " with Advantage." : s.net === "d" ? " with Disadvantage." : "."]);
+    var d1 = num("ck-d1", NaN), d2 = num("ck-d2", NaN), okd = function(d){ return d >= 1 && d <= 20; };
+    if(!okd(d1) || (s.net !== "n" && !okd(d2))){
+      fill(out, ["Roll for me, or type your d20" + (s.net !== "n" ? "s" : "") + " to see the result."]);
+      fav.disabled = true; fav.textContent = "Reroll with AI Favor"; return;
+    }
+    var kept = s.net === "a" ? Math.max(d1, d2) : s.net === "d" ? Math.min(d1, d2) : d1;
+    var tot = kept + s.bonus, m = tot - s.tgt, key;
+    if(kept === 20) key = "crit"; else if(kept === 1) key = "fumble";
+    else if(m >= 10) key = "amazing"; else if(m >= 0) key = "success";
+    else if(m >= -2) key = "near"; else if(m >= -9) key = "fail"; else key = "major";
+    var col = s.kind === "attack" ? 0 : s.kind === "evade" ? 1 : 2;
+    var eff = EFF[key][1][col].replace("+F", "+" + floor);
+    if(key === "near" && s.kind === "stat") eff = "Fail, or succeed with a complication. Nobody can Intervene on a Stat Check.";
+    else if(key === "near" && col === 2) eff += " An ally can Intervene with 1d6.";
+    var dieLine = s.net !== "n" ? "d20s rolled " + d1 + " and " + d2 + ", kept " + kept + " (" + (s.net === "a" ? "Advantage" : "Disadvantage") + ")" : "d20 rolled " + kept;
+    var totEq = dieLine + "\n" + s.lines.join("\n") + "\n= " + tot + "\nvs target " + s.tgt + ": " + (m >= 0 ? "beat by " + m : "missed by " + (-m)) +
+      (key === "crit" || key === "fumble" ? "\nA natural " + kept + " overrides the total" : "");
+    var parts = [];
+    if(key === "crit" || key === "fumble") parts.push(span("Natural " + kept, totEq), ": " + EFF[key][0] + ". ");
+    else parts.push("Total ", span(String(tot), totEq), " against ", span(String(s.tgt), s.tgtEq), ", " + (m >= 0 ? "beat by " + m : "missed by " + (-m)) + ": " + EFF[key][0] + ". ");
+    parts.push(eff);
+    if(ck.fav) parts.push(" (AI Favor spent.)");
+    fill(out, parts);
+    fav.disabled = ck.fav || kept === 1 || c.fav < 1;
+    fav.textContent = kept === 1 ? "Can’t reroll a natural 1" : ck.fav ? "AI Favor used" : c.fav < 1 ? "No AI Favor left" : "Reroll with AI Favor";
+    if(ck.src) tickSkill(ck.src.name);
+  }
+  document.querySelectorAll("#tp-check .seg button").forEach(function(b){
+    b.addEventListener("click", function(){
+      ck.kind = b.getAttribute("data-kind");
+      document.querySelectorAll("#tp-check .seg button").forEach(function(x){ x.setAttribute("aria-pressed", String(x === b)); });
+      ckRefresh();
+    });
+  });
+  ["ck-stat","ck-rank","ck-other","ck-mode","ck-untr","ck-minor","ck-major","ck-sore","ck-fat","ck-foe","ck-mob"].forEach(function(id){
+    $(id).addEventListener($(id).tagName === "SELECT" || $(id).type === "checkbox" ? "change" : "input", ckRefresh);
+  });
+  $("ck-tgt").addEventListener("input", function(){ ck.tgtSrc = "manual"; ckRefresh(); });
+  ["ck-d1","ck-d2"].forEach(function(id){ $(id).addEventListener("input", function(){ ck.fav = false; ckRefresh(); }); });
+  document.querySelectorAll("#tp-check [data-preset]").forEach(function(b){
+    b.addEventListener("click", function(){
+      var p = b.getAttribute("data-preset"); ck.tgtSrc = p;
+      $("ck-tgt").value = p === "unopp" ? 10 + 2 * floor : p === "stat" ? 10 + floor : 10 + floor + num("ck-foe", 0);
+      ckRefresh();
+    });
+  });
+  $("ck-roll").addEventListener("click", function(){
+    var s = ckState(); ck.fav = false;
+    $("ck-d1").value = rnd(20); $("ck-d2").value = s.net === "n" ? "" : rnd(20);
+    ckRefresh();
+  });
+  $("ck-fav").addEventListener("click", function(){
+    var s = ckState(), d1 = num("ck-d1", 0), d2 = num("ck-d2", 0);
+    var useSecond = s.net === "a" ? d2 > d1 : s.net === "d" ? d2 < d1 : false;
+    $(useSecond ? "ck-d2" : "ck-d1").value = rnd(20);
+    $("cr-fav").value = Math.max(0, num("cr-fav", 0) - 1); saveCrawler();
+    ck.fav = true; calcRefresh(); sheetChanged();
+  });
+  $("ck-src").addEventListener("change", function(){
+    var v = $("ck-src").value; ck.src = null;
+    if(!v || !SH.model) { ckRefresh(); return; }
+    var parts = v.split(":"), row = (parts[0] === "s" ? SH.cur.skills : SH.cur.attacks)[+parts[1]];
+    if(!row){ ckRefresh(); return; }
+    ck.src = {type: parts[0], name: row.name};
+    var kind = parts[0] === "a" ? "attack" : "skill";
+    document.querySelector('#tp-check .seg button[data-kind="' + kind + '"]').click();
+    $("ck-rank").value = row.rank || 0; $("ck-untr").checked = !row.rank;
+    if(row.stat) $("ck-stat").value = row.stat;
+    ckRefresh();
+  });
+
+  /* ---------- damage roll ---------- */
+  function dmPlan(){
+    var c = crawler(), F = floor, res = $("dm-res").value, crit = res === "crit";
+    var n = Math.max(0, num("dm-n", 1)), x = +$("dm-x").value, extra = parseDice($("dm-extra").value);
+    var groups = {}, order = [];
+    function add(d){ var k = (d.neg ? "-" : "") + d.x; if(!groups[k]){ groups[k] = {n: 0, x: d.x, neg: d.neg}; order.push(k); } groups[k].n += d.n; }
+    if(n) add({n: n * (crit ? 2 : 1), x: x, neg: false});
+    if(extra.ok) extra.dice.forEach(function(d){ add({n: d.n * (crit ? 2 : 1), x: d.x, neg: d.neg}); });
+    var baseList = order.map(function(k){ return groups[k]; });
+    var rkOn = $("dm-rank-on").checked, rr = Math.max(1, num("dm-rank", 1)), rk = rkOn ? rankDie(rr) : {dice: [], flat: 0};
+    var statKey2 = $("dm-stat").value, statMod = statKey2 === "none" ? 0 : c.mod[statKey2], flatB = num("dm-flat", 0);
+    var flat = statMod + flatB + rk.flat + (extra.ok ? extra.flat : 0) + (res === "amazing" ? F : 0);
+    var why = [], eq = [];
+    eq.push("Base dice: " + (n ? n + "d" + x : "none") + (extra.ok && extra.dice.length ? " + " + diceText(extra.dice) + " extra base" : "") + (crit ? "\nCritical Hit doubles them: " + diceText(baseList) : ""));
+    if(rk.dice.length || rk.flat) eq.push("Rank die for Rank " + rr + ": " + (rk.dice.length ? diceText(rk.dice) : "+1") + (crit ? " (not doubled)" : ""));
+    if(statKey2 !== "none") eq.push(op(statMod) + "  " + SN[statKey2] + " Mod");
+    if(flatB) eq.push(op(flatB) + "  flat bonus");
+    if(extra.ok && extra.flat) eq.push(op(extra.flat) + "  from extra dice box");
+    if(res === "amazing") eq.push("+ " + F + "  Amazing Success (Floor " + F + ")");
+    if(crit) why.push("base dice doubled for the Critical Hit");
+    if(rk.dice.length || rk.flat) why.push("Rank die " + (rk.dice.length ? diceText(rk.dice) : "+1") + (crit ? ", not doubled" : ""));
+    if(statKey2 !== "none") why.push(SN[statKey2] + " " + sgn(statMod));
+    if(res === "amazing") why.push("+" + F + " for the Amazing Success");
+    if(flatB) why.push("flat " + sgn(flatB));
+    return {base: baseList, rank: rk.dice, flat: flat, why: why, eq: eq.join("\n"), extraOk: extra.ok};
+  }
+  function dmRefresh(){
+    $("dm-rank-l").classList.toggle("hide", !$("dm-rank-on").checked);
+    var p = dmPlan(), all = p.base.concat(p.rank), txt = diceText(all);
+    if(p.flat) txt += (txt ? (p.flat < 0 ? " − " : " + ") + Math.abs(p.flat) : String(p.flat));
+    var avg = all.reduce(function(s, d){ return s + (d.neg ? -1 : 1) * d.n * (d.x + 1) / 2; }, 0) + p.flat;
+    var fo = $("dm-formula"); fo.textContent = txt || "0"; fo.setAttribute("data-eq", p.eq + "\nAverage about " + Math.max(0, Math.floor(avg))); fo.tabIndex = 0;
+    $("dm-why").textContent = (p.extraOk ? "" : "Extra base dice should look like 1d2 or 2d4+1d6. ") + (p.why.length ? p.why.join("; ") + ". " : "") + "Averages about " + Math.max(0, Math.floor(avg)) + ".";
+  }
+  ["dm-n","dm-x","dm-extra","dm-stat","dm-flat","dm-rank-on","dm-rank","dm-res"].forEach(function(id){
+    $(id).addEventListener($(id).tagName === "SELECT" || $(id).type === "checkbox" ? "change" : "input", function(){ dmRefresh(); $("dm-out").textContent = ""; });
+  });
+  $("dm-roll").addEventListener("click", function(){
+    var p = dmPlan(), sum = p.flat, bits = [], lines = [];
+    p.base.concat(p.rank).forEach(function(d){
+      var r = rollN(d.n, d.x), t = total(r); sum += d.neg ? -t : t;
+      bits.push((d.neg ? "−" : "") + d.n + "d" + d.x + " [" + r.join(", ") + "]");
+      lines.push((d.neg ? "− " : "+ ") + d.n + "d" + d.x + " rolled " + r.join(", ") + " = " + t);
+    });
+    if(p.flat){ bits.push(sgn(p.flat)); lines.push(op(p.flat) + "  flat (Mod and bonuses)"); }
+    var tot = Math.max(0, sum);
+    lines[0] = lines.length ? lines[0].replace(/^\+ /, "") : "";
+    fill($("dm-out"), [span(tot + " damage", lines.join("\n") + "\n= " + tot), ": " + bits.join(" ") + ". The target’s DR comes off after."]);
+  });
+  $("dm-src").addEventListener("change", function(){
+    var v = $("dm-src").value; if(!v || !SH.cur) return;
+    var row = SH.cur.attacks[+v]; if(!row) return;
+    var d = parseDice(row.dice);
+    if(d.ok && d.dice.length){ $("dm-n").value = d.dice[0].n; $("dm-x").value = String(d.dice[0].x); $("dm-extra").value = d.dice.slice(1).map(function(x){ return x.n + "d" + x.x; }).join("+"); }
+    $("dm-stat").value = row.dstat || "none";
+    $("dm-rank").value = row.rank || 1;
+    dmRefresh();
+  });
+
+  /* ---------- health and mana tracker ---------- */
+  var HKEY = "dcc-cheat-hb", hm = {slots: 10, mana: null};
+  try{ var hs = JSON.parse(store(HKEY) || "null"); if(hs){ hm.slots = Math.min(10, Math.max(0, +hs.slots || 0)); hm.mana = hs.mana == null ? null : +hs.mana; } }catch(e){}
+  function hmSave(){ store(HKEY, JSON.stringify(hm)); }
+  function hmCalc(){
+    var c = crawler(), dmg = Math.max(0, num("hm-dmg", 0)), type = $("hm-type").value,
+        area = parseFloat($("hm-area").value), deb = $("hm-deb").checked, steps = [], eq = [dmg + " damage"], d = dmg;
+    if(area < 1){ d = Math.floor(dmg * area); steps.push((area === 0.5 ? "halved" : "quartered") + " to " + d); eq.push("× " + (area === 0.5 ? "½" : "¼") + " for the area, rounded down = " + d); }
+    if(!deb && c.dr){ d = Math.max(0, d - c.dr); steps.push("DR " + c.dr + " leaves " + d); eq.push("− DR " + c.dr + " = " + d); }
+    if(deb){ steps.push("Debuff damage skips DR"); eq.push("Debuff damage skips DR"); }
+    if(type === "r"){ d = Math.floor(d / 2); steps.push("resisted to " + d); eq.push("÷ 2 for Resistance = " + d); }
+    if(type === "v"){ d = d * 2; steps.push("vulnerable, doubled to " + d); eq.push("× 2 for Vulnerability = " + d); }
+    if(type === "i"){ d = 0; steps.push("immune"); eq.push("Immune: 0"); }
+    var slot = Math.max(1, c.slot), want = Math.floor(d / slot), lost = Math.min(want, hm.slots), spare = d - want * slot;
+    eq.push(d + " ÷ " + slot + " per slot = " + want + " slot" + (want === 1 ? "" : "s") + (spare ? ", " + spare + " left over is ignored" : ""));
+    if(want > hm.slots) eq.push("Only " + hm.slots + " left to lose");
+    return {dmg: dmg, d: d, slot: slot, lost: lost, spare: spare, steps: steps, eq: eq.join("\n")};
+  }
+  function hmRender(){
+    var c = crawler();
+    if(hm.mana == null || hm.mana > c.mana) hm.mana = c.mana;
+    var bar = $("hm-bar"); bar.innerHTML = "";
+    for(var i = 0; i < 10; i++){
+      var cell = document.createElement("div"); cell.textContent = c.slot;
+      if(i >= hm.slots) cell.className = "gone"; else cell.style.background = "var(" + HB[i] + ")";
+      bar.appendChild(cell);
+    }
+    fill($("hm-status"), [hm.slots + " of 10 slots (" + hm.slots * 10 + "%). Mana " + hm.mana + " of " + c.mana + "." +
+      (hm.slots === 0 ? " Dying: " + plural(c.mod.con, "round") + " on the countdown. Heal 1 slot to stop it." : "")]);
+    var h = hmCalc(), pv = $("hm-preview");
+    if(!num("hm-dmg", 0)) fill(pv, ["Enter damage to see how many slots it costs."]);
+    else fill(pv, [(h.steps.length ? h.steps.join(", ") + ". " : ""),
+      span(h.d < h.slot ? "No slots lost" : "Lose " + plural(h.lost, "slot"), h.eq),
+      h.d < h.slot ? " (" + h.d + " is less than one slot of " + h.slot + ")." : (h.spare ? ", " + h.spare + " leftover ignored." : ".")]);
+    $("hm-spell").disabled = hm.mana < 2 || hm.slots >= 10;
+    hmSave(); renderStrip();
+  }
+  function hmLog(t){ $("hm-log").textContent = t; }
+  ["hm-dmg","hm-type","hm-area","hm-deb"].forEach(function(id){ $(id).addEventListener($(id).tagName === "SELECT" || $(id).type === "checkbox" ? "change" : "input", hmRender); });
+  $("hm-hit").addEventListener("click", function(){
+    var h = hmCalc(); if(!h.dmg){ hmLog("Enter the damage first."); return; }
+    hm.slots -= h.lost;
+    hmLog("Took " + h.dmg + " damage and lost " + plural(h.lost, "slot") + "." + (hm.slots === 0 && h.lost ? " You’re Dying." : ""));
+    $("hm-dmg").value = ""; hmRender(); sheetChanged();
+  });
+  function heal(n, why){ var b = hm.slots; hm.slots = Math.min(10, hm.slots + n); return (why ? why + ": " : "") + "healed " + plural(hm.slots - b, "slot") + "."; }
+  $("hm-heal-b").addEventListener("click", function(){ hmLog(heal(Math.max(1, num("hm-heal", 1)), "")); hmRender(); sheetChanged(); });
+  $("hm-spell").addEventListener("click", function(){ if(hm.mana < 2){ hmLog("Heal needs 2 Mana."); return; } hm.mana -= 2; hmLog(heal(2, "Heal Spell, 2 Mana spent")); hmRender(); sheetChanged(); });
+  $("hm-mana-b").addEventListener("click", function(){
+    var cost = Math.max(1, num("hm-mana", 1));
+    if(cost > hm.mana){ hmLog("Not enough Mana: you have " + hm.mana + "."); return; }
+    hm.mana -= cost; hmLog("Spent " + cost + " Mana."); hmRender(); sheetChanged();
+  });
+  document.querySelectorAll("#tp-health [data-rest]").forEach(function(b){
+    b.addEventListener("click", function(){
+      var c = crawler(), r = b.getAttribute("data-rest"), s0 = hm.slots, m0 = hm.mana;
+      if(r === "hour"){ hm.slots = Math.min(10, hm.slots + 1); hm.mana = Math.min(c.mana, hm.mana + 5); }
+      if(r === "short"){ hm.slots = Math.min(10, hm.slots + 5); hm.mana = Math.min(c.mana, hm.mana + Math.floor(c.mana / 2)); }
+      if(r === "long"){ hm.slots = 10; hm.mana = c.mana; }
+      hmLog(b.textContent + ": +" + plural(hm.slots - s0, "slot") + ", +" + (hm.mana - m0) + " Mana" + (r === "long" ? ". Fatigued is gone too." : "."));
+      hmRender(); sheetChanged();
+    });
+  });
+
+  /* ---------- dice tray ---------- */
+  function addHist(head, detail, eq){
+    var li = document.createElement("li"), b = span(head, eq || null); b.className = "h";
+    var sp = document.createElement("span"); sp.textContent = detail ? " " + detail : "";
+    li.appendChild(b); li.appendChild(sp);
+    var ol = $("dt-hist"); ol.insertBefore(li, ol.firstChild);
+    while(ol.children.length > 8) ol.removeChild(ol.lastChild);
+  }
+  function natNote(v){ return v === 20 ? ", natural 20" : v === 1 ? ", natural 1" : ""; }
+  document.querySelectorAll("#tp-dice [data-roll]").forEach(function(b){
+    b.addEventListener("click", function(){
+      var k = b.getAttribute("data-roll"), a, c, r;
+      if(k === "d20"){ a = rnd(20); addHist(String(a), "d20" + natNote(a), "1d20 rolled " + a); }
+      if(k === "adv" || k === "dis"){
+        a = rnd(20); c = rnd(20); r = k === "adv" ? Math.max(a, c) : Math.min(a, c);
+        addHist(String(r), "d20 with " + (k === "adv" ? "Advantage" : "Disadvantage") + natNote(r), "2d20 rolled " + a + " and " + c + "\nkeep the " + (k === "adv" ? "higher" : "lower") + " = " + r);
+      }
+      if(k === "help"){ a = rnd(2); addHist(String(a), "Help 1d2", "1d2 rolled " + a + "\nadd it before the ally rolls"); }
+      if(k === "d6"){ a = rnd(6); addHist(String(a), "1d6 for Help or Intervene", "1d6 rolled " + a + "\nHelp: add before the roll. Intervene: add after."); }
+      if(k === "play"){ a = rnd(6); c = rnd(6); addHist(String(Math.max(a, c)), "Call a Play bonus", "2d6 rolled " + a + " and " + c + "\nkeep the higher = " + Math.max(a, c) + "\nAdd to the ally’s Check, or to damage if they’d have hit anyway"); }
+      if(k === "advance"){
+        var rank = Math.max(1, num("dt-rank", 1)); a = rnd(20);
+        addHist(a >= rank ? "+1 Rank" : "No change", "Advancement check at Rank " + rank, "1d20 rolled " + a + " against your Rank " + rank + "\n" + (a >= rank ? a + " is " + rank + " or more: gain 1 Rank (now " + Math.min(15, rank + 1) + ", cap 15)" : a + " is under " + rank + ": no change"));
+      }
+    });
+  });
+  function rollExpr(){
+    var raw = $("dt-expr").value, p = parseDice(raw);
+    if(!raw.trim()){ addHist("Nothing to roll", "Type dice like 3d6+2."); return; }
+    if(!p.ok || (!p.dice.length && !p.flat)){ addHist("Couldn’t read that", "Try something like 2d6+3 or 1d8+1d4."); return; }
+    var sum = p.flat, lines = [];
+    p.dice.forEach(function(d){ var r = rollN(d.n, d.x), t = total(r); sum += d.neg ? -t : t; lines.push((d.neg ? "− " : "+ ") + d.n + "d" + d.x + " rolled " + r.join(", ") + " = " + t); });
+    if(p.flat) lines.push(op(p.flat));
+    lines[0] = lines[0].replace(/^\+ /, "");
+    addHist(String(sum), raw.trim(), lines.join("\n") + "\n= " + sum);
+  }
+  $("dt-go").addEventListener("click", rollExpr);
+  $("dt-expr").addEventListener("keydown", function(e){ if(e.key === "Enter"){ e.preventDefault(); rollExpr(); } });
+  function runAdvancement(all){
+    if(!SH.cur) return;
+    var did = 0;
+    SH.cur.skills.forEach(function(s){
+      if(!s.mark) return;
+      if(!all && s.rank >= 5) return;
+      var a = rnd(20), r0 = s.rank || 0;
+      var up = a >= r0 && r0 < 15;
+      if(up) s.rank = r0 + 1;
+      s.mark = false; did++;
+      addHist(up ? s.name + " +1" : s.name + " no change", "advancement check", "1d20 rolled " + a + " against " + s.name + " Rank " + r0 + "\n" + (up ? "gain 1 Rank, now " + s.rank : r0 >= 15 ? "already at the Rank 15 cap" : "under " + r0 + ": no change") + "\nTick cleared");
+    });
+    if(!did) addHist("Nothing to roll", all ? "No Skills are ticked." : "No ticked Skills at Rank 4 or lower.");
+    renderAdv(); sheetChanged();
+  }
+  $("adv-2h").addEventListener("click", function(){ runAdvancement(false); });
+  $("adv-floor").addEventListener("click", function(){ runAdvancement(true); });
+  function renderAdv(){
+    var on = !!SH.cur;
+    $("adv-sheet").classList.toggle("hide", !on);
+    if(!on) return;
+    var t = SH.cur.skills.filter(function(s){ return s.mark; });
+    $("adv-list").textContent = t.length ? "Ticked on your sheet: " + t.map(function(s){ return s.name + " (Rank " + s.rank + ")"; }).join(", ") + "." : "No Skills are ticked yet. Rolling a Skill or attack from your sheet ticks it.";
+  }
+  function tickSkill(name){
+    if(!SH.cur) return;
+    var k = String(name).trim().toLowerCase(), hit = false;
+    SH.cur.skills.forEach(function(s){ if(s.name.trim().toLowerCase() === k && !s.mark){ s.mark = true; hit = true; } });
+    if(hit){ renderAdv(); sheetChanged(); }
+  }
+
+  /* ===================== character sheet link ===================== */
+  var FN = {
+    name: "Name", race: "Race", cls: "class", crawler: "crawler number", level: "level", floor: "Floor",
+    slotVals: ["10","20","30","40","50","60","70","80","90","100"],
+    slotBoxes: ["Check Box6 2","Check Box6 1","Check Box6 1 1","Check Box6 1 2","Check Box6 1 3","Check Box6 1 4","Check Box6 1 5","Check Box6 1 6","Check Box6 1 7","Check Box6 1 8"],
+    stats: {str: [21,22,23], int: [34,35,36], con: [43,44,45], dex: [46,47,48], cha: [49,50,51]},
+    dexMod: 24, evb: 25, evTot: 26, arm: 29, drb: 30, drTot: 31, fav: 32, mana: 37, maxMana: 38, debuffs: 39, ext: [40,41,42], pop: 98,
+    attacks: [[55,551,52,53,54],[61,57,59,58,60],[67,63,65,64,66],[73,69,71,70,72],[79,75,77,76,78]]
+  };
+  function tf(n){ return "Text Field " + n; }
+  var SH = {doc: null, handle: null, fileName: "", mode: "", base: null, cur: null, model: null, lastMod: 0, saving: false, timer: null};
+  function fv(name){ var f = SH.doc && SH.doc.fieldMap[name]; return f ? f.value : undefined; }
+  function fnum(name){ var x = parseInt(String(fv(name) == null ? "" : fv(name)).trim(), 10); return isNaN(x) ? null : x; }
+  function readSheet(){
+    var m = {name: (fv(FN.name) || "").trim(), race: (fv(FN.race) || "").trim(), cls: (fv(FN.cls) || "").trim(), crawler: (fv(FN.crawler) || "").trim(),
+      level: fnum(FN.level), floor: fnum(FN.floor), stats: {}, evb: fnum(tf(FN.evb)), arm: fnum(tf(FN.arm)), drb: fnum(tf(FN.drb)),
+      fav: fnum(tf(FN.fav)), mana: fnum(tf(FN.mana)), debuffs: (fv(tf(FN.debuffs)) || "").trim(),
+      ext: FN.ext.map(function(n){ return (fv(tf(n)) || "").trim(); }).filter(Boolean), pop: (fv(tf(FN.pop)) || "").trim(), skills: [], attacks: []};
+    STATS.forEach(function(k){ var e = fnum(tf(FN.stats[k][0])); m.stats[k] = e != null ? e : fnum(tf(FN.stats[k][1])); });
+    m.slots = 10 - FN.slotBoxes.filter(function(b){ return !!fv(b); }).length;
+    for(var k = 0; k < 20; k++){
+      var nm = (fv(tf(103 + 6 * k)) || "").trim(); if(!nm) continue;
+      m.skills.push({row: k, name: nm, rank: fnum(tf(104 + 6 * k)) || 0, stat: statKey(fv(tf(105 + 6 * k))), mark: !!fv("Check Box " + (k + 1))});
+    }
+    FN.attacks.forEach(function(a, i){
+      var nm = (fv(tf(a[0])) || "").trim(); if(!nm) return;
+      m.attacks.push({row: i, name: nm, rank: fnum(tf(a[1])) || 0, stat: statKey(fv(tf(a[2]))), dice: (fv(tf(a[3])) || "").trim(), dstat: statKey(fv(tf(a[4])))});
+    });
+    return m;
+  }
+  function looksLikeSheet(doc){ var f = doc.fieldMap; return !!(f[FN.name] && f[tf(21)] && f[FN.slotBoxes[0]]); }
+  function applySheet(m){
+    SH.model = m;
+    STATS.forEach(function(k){ if(m.stats[k] != null) $("cr-" + k).value = m.stats[k]; });
+    $("cr-evb").value = m.evb != null ? m.evb : 0;
+    $("cr-arm").value = m.arm != null ? m.arm : 0;
+    $("cr-drb").value = m.drb != null ? m.drb : 0;
+    $("cr-fav").value = m.fav != null ? m.fav : 0;
+    if(m.level != null) $("cr-lvl").value = m.level;
+    if(m.floor >= 1 && m.floor <= 5 && m.floor !== floor) setFloor(m.floor, false);
+    hm.slots = m.slots;
+    hm.mana = m.mana != null ? m.mana : null;
+    var d = m.debuffs.toLowerCase();
+    $("ck-minor").checked = /minor injur/.test(d); $("ck-major").checked = /major injur/.test(d); $("ck-sore").checked = /sore as/.test(d);
+    var fm = /fatigued?\D{0,4}(\d+)/.exec(d); $("ck-fat").value = /fatigue/.test(d) ? (fm ? fm[1] : 1) : 0;
+    SH.cur = {skills: m.skills.map(function(s){ return Object.assign({}, s); }), attacks: m.attacks.map(function(a){ return Object.assign({}, a); })};
+    saveCrawler();
+    calcRefresh();
+    SH.base = curModel();
+    fillSources(); renderSheetBox();
+  }
+  function curModel(){
+    var c = crawler();
+    return {level: c.lvl, floor: floor, stats: Object.assign({}, c.score), evb: c.evb, arm: c.arm, drb: c.drb, fav: c.fav,
+      mana: hm.mana, slots: hm.slots,
+      skills: SH.cur ? SH.cur.skills.map(function(s){ return {row: s.row, name: s.name, rank: s.rank, mark: s.mark}; }) : []};
+  }
+  function diff(){
+    var out = {list: [], writes: {}};
+    if(!SH.base || !SH.doc) return out;
+    var a = SH.base, b = curModel(), w = out.writes, c = crawler();
+    function L(t){ out.list.push(t); }
+    if(a.level !== b.level){ L("Level " + a.level + " to " + b.level); w[FN.level] = String(b.level); }
+    if(a.floor !== b.floor){ L("Floor " + a.floor + " to " + b.floor); w[FN.floor] = String(b.floor); }
+    STATS.forEach(function(k){
+      if(a.stats[k] === b.stats[k]) return;
+      L(SFULL[k] + " " + a.stats[k] + " to " + b.stats[k]);
+      w[tf(FN.stats[k][0])] = String(b.stats[k]); w[tf(FN.stats[k][2])] = String(modOf(b.stats[k]));
+      if(k === "dex"){ w[tf(FN.dexMod)] = String(c.mod.dex); w[tf(FN.evTot)] = String(c.evade); }
+      if(k === "int") w[tf(FN.maxMana)] = String(c.mana);
+      if(k === "con") FN.slotVals.forEach(function(n){ w[n] = String(c.mod.con); });
+    });
+    if(a.evb !== b.evb){ L("Evade Buffs " + a.evb + " to " + b.evb); w[tf(FN.evb)] = String(b.evb); w[tf(FN.evTot)] = String(c.evade); }
+    if(a.arm !== b.arm){ L("Armor " + a.arm + " to " + b.arm); w[tf(FN.arm)] = String(b.arm); w[tf(FN.drTot)] = String(c.dr); }
+    if(a.drb !== b.drb){ L("DR Buffs " + a.drb + " to " + b.drb); w[tf(FN.drb)] = String(b.drb); w[tf(FN.drTot)] = String(c.dr); }
+    if(a.fav !== b.fav){ L("AI Favor " + a.fav + " to " + b.fav); w[tf(FN.fav)] = String(b.fav); }
+    if(a.mana !== b.mana){ L("Current Mana " + a.mana + " to " + b.mana); w[tf(FN.mana)] = String(b.mana); }
+    if(a.slots !== b.slots){
+      L("Health Bar " + a.slots + " to " + b.slots + " slots");
+      FN.slotBoxes.forEach(function(n, i){ w[n] = (i + 1) > b.slots; });
+    }
+    b.skills.forEach(function(s, i){
+      var o = a.skills[i]; if(!o) return;
+      if(o.rank !== s.rank){
+        L(s.name + " Rank " + o.rank + " to " + s.rank); w[tf(104 + 6 * s.row)] = String(s.rank);
+        if(SH.cur) SH.cur.attacks.forEach(function(at){ if(at.name.trim().toLowerCase() === s.name.trim().toLowerCase()) w[tf(FN.attacks[at.row][1])] = String(s.rank); });
+      }
+      if(o.mark !== s.mark){ L(s.name + (s.mark ? " ticked for advancement" : " tick cleared")); w["Check Box " + (s.row + 1)] = s.mark; }
+    });
+    return out;
+  }
+  function renderSheetBox(){
+    var on = !!SH.doc;
+    $("sb-off").classList.toggle("hide", on); $("sb-on").classList.toggle("hide", !on);
+    $("cr-note").textContent = on ? "Numbers come from your linked sheet. Changes save back to it." : "Saved in this browser only.";
+    if(!on){ renderAdv(); return; }
+    var m = SH.model;
+    $("sb-who").textContent = (m.name || "Your crawler") + (m.race ? ", " + m.race : "") + (m.cls ? " " + m.cls : "");
+    $("sb-file-name").textContent = SH.fileName + (SH.mode === "handle" ? " (linked)" : " (a copy: saving downloads an updated file)");
+    var info = [];
+    if(m.crawler) info.push("Crawler " + m.crawler);
+    if(m.debuffs) info.push("Debuffs: " + m.debuffs);
+    if(m.ext.length) info.push("External Buffs: " + m.ext.join(", "));
+    if(m.pop) info.push("Popularity " + m.pop);
+    $("sb-info").textContent = info.join(". ") + (info.length ? "." : "");
+    var d = diff(), ul = $("sb-changes"); ul.innerHTML = "";
+    d.list.forEach(function(t){ var li = document.createElement("li"); li.textContent = t; ul.appendChild(li); });
+    $("sb-count").textContent = d.list.length ? plural(d.list.length, "unsaved change") : "No unsaved changes";
+    $("sb-save").disabled = !d.list.length || SH.saving;
+    $("sb-save").textContent = SH.mode === "handle" ? "Save to sheet" : "Download updated sheet";
+    $("sb-auto-l").classList.toggle("hide", SH.mode !== "handle");
+    renderAdv();
+  }
+  function fillSources(){
+    var on = !!SH.cur, s1 = $("ck-src"), s2 = $("dm-src");
+    $("ck-src-l").classList.toggle("hide", !on); $("dm-src-l").classList.toggle("hide", !on);
+    s1.innerHTML = '<option value="">Pick a Skill or attack</option>'; s2.innerHTML = '<option value="">Pick an attack</option>';
+    if(!on) return;
+    function og(label, rows, pre){
+      if(!rows.length) return null;
+      var g = document.createElement("optgroup"); g.label = label;
+      rows.forEach(function(r, i){ var o = document.createElement("option"); o.value = pre + i; o.textContent = r.name + " (Rank " + r.rank + (r.stat ? ", " + SN[r.stat] : "") + ")"; g.appendChild(o); });
+      return g;
+    }
+    var g1 = og("Skills", SH.cur.skills, "s:"), g2 = og("Attacks", SH.cur.attacks, "a:");
+    if(g1) s1.appendChild(g1); if(g2) s1.appendChild(g2);
+    SH.cur.attacks.forEach(function(r, i){ var o = document.createElement("option"); o.value = String(i); o.textContent = r.name + " (" + (r.dice || "?") + (r.dstat ? " + " + SN[r.dstat] : "") + ")"; s2.appendChild(o); });
+  }
+  function status(t){ $("sb-status").textContent = t; }
+  function stamp(){ var d = new Date(); return d.toLocaleTimeString([], {hour: "numeric", minute: "2-digit"}); }
+  function sheetChanged(){
+    if(!SH.doc) return;
+    renderSheetBox();
+    if(SH.mode === "handle" && $("sb-auto").checked){
+      clearTimeout(SH.timer);
+      SH.timer = setTimeout(function(){ if(diff().list.length) saveSheet(); }, 1200);
+    }
+  }
+  async function openBytes(u8, name, handle){
+    var doc = await PDF.open(u8);
+    if(!looksLikeSheet(doc)) throw new Error("This PDF doesn’t look like the Dungeon Crawler Carl fillable character sheet.");
+    SH.doc = doc; SH.fileName = name; SH.handle = handle || null; SH.mode = handle ? "handle" : "copy";
+    applySheet(readSheet());
+  }
+  async function saveSheet(){
+    if(!SH.doc || SH.saving) return;
+    var d = diff(); if(!d.list.length) return;
+    SH.saving = true; renderSheetBox(); status("Saving…");
+    try{
+      if(SH.mode === "handle"){
+        var file = await SH.handle.getFile();
+        if(file.lastModified !== SH.lastMod){ SH.doc = await PDF.open(new Uint8Array(await file.arrayBuffer())); }
+        var bytes = SH.doc.save(diff().writes);
+        var wr = await SH.handle.createWritable(); await wr.write(bytes); await wr.close();
+        SH.lastMod = (await SH.handle.getFile()).lastModified;
+        SH.doc = await PDF.open(bytes);
+        status("Saved to " + SH.fileName + " at " + stamp() + ".");
+      } else {
+        var bytes2 = SH.doc.save(d.writes);
+        var url = URL.createObjectURL(new Blob([bytes2], {type: "application/pdf"}));
+        var a = document.createElement("a"); a.href = url; a.download = SH.fileName; document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+        SH.doc = await PDF.open(bytes2);
+        status("Downloaded an updated " + SH.fileName + " at " + stamp() + ". Replace your old copy with it.");
+      }
+      var m = readSheet(); SH.model = m;
+      SH.cur = {skills: m.skills.map(function(s){ return Object.assign({}, s); }), attacks: m.attacks.map(function(a2){ return Object.assign({}, a2); })};
+      SH.base = curModel(); fillSources();
+    }catch(e){
+      status(/NotAllowed|permission/i.test(String(e)) ? "Couldn’t save: this page doesn’t have permission to write to the file. Choose Reload, then try again." :
+        /NoModification|InvalidState|locked|busy/i.test(String(e && e.name) + e) ? "Couldn’t save: the PDF is open in another program that’s locking it. Close it there and try again." :
+        "Couldn’t save: " + (e && e.message ? e.message : e));
+    }
+    SH.saving = false; renderSheetBox();
+  }
+
+  /* IndexedDB for remembering the linked file (Chrome and Edge) */
+  function idb(fn){
+    return new Promise(function(res){
+      try{
+        var r = indexedDB.open("dcc-cheat", 1);
+        r.onupgradeneeded = function(){ r.result.createObjectStore("kv"); };
+        r.onsuccess = function(){ try{ fn(r.result.transaction("kv", "readwrite").objectStore("kv"), res); }catch(e){ res(null); } };
+        r.onerror = function(){ res(null); };
+      }catch(e){ res(null); }
+    });
+  }
+  function idbSet(k, v){ return idb(function(s, res){ var q2 = v == null ? s.delete(k) : s.put(v, k); q2.onsuccess = function(){ res(true); }; q2.onerror = function(){ res(null); }; }); }
+  function idbGet(k){ return idb(function(s, res){ var q2 = s.get(k); q2.onsuccess = function(){ res(q2.result || null); }; q2.onerror = function(){ res(null); }; }); }
+
+  var canHandle = typeof window.showOpenFilePicker === "function";
+  async function linkWithHandle(h){
+    var perm = "prompt";
+    try{ perm = await h.queryPermission({mode: "readwrite"}); if(perm !== "granted") perm = await h.requestPermission({mode: "readwrite"}); }catch(e){}
+    var file = await h.getFile();
+    var u8 = new Uint8Array(await file.arrayBuffer());
+    await openBytes(u8, file.name, perm === "granted" ? h : null);
+    SH.lastMod = file.lastModified;
+    if(perm === "granted") idbSet("sheet", h);
+    $("sb-msg").textContent = "";
+    status(perm === "granted" ? "Linked at " + stamp() + "." : "Opened read-only. Saving will download an updated copy.");
+  }
+  $("sb-link").addEventListener("click", async function(){
+    $("sb-msg").textContent = "";
+    if(canHandle){
+      try{
+        var hs2 = await window.showOpenFilePicker({types: [{description: "PDF character sheet", accept: {"application/pdf": [".pdf"]}}], multiple: false});
+        await linkWithHandle(hs2[0]);
+      }catch(e){ if(e && e.name !== "AbortError") $("sb-msg").textContent = e.message || String(e); }
+    } else $("sb-file").click();
+  });
+  $("sb-file").addEventListener("change", async function(){
+    var f = this.files && this.files[0]; if(!f) return;
+    try{ await openBytes(new Uint8Array(await f.arrayBuffer()), f.name, null); status("Opened at " + stamp() + ". Your browser can’t save into the file directly, so saving downloads an updated copy."); }
+    catch(e){ $("sb-msg").textContent = e.message || String(e); }
+    this.value = "";
+  });
+  $("sb-relink").addEventListener("click", async function(){
+    var h = await idbGet("sheet"); if(!h) return;
+    try{ await linkWithHandle(h); $("sb-relink").classList.add("hide"); }catch(e){ $("sb-msg").textContent = "Couldn’t reopen the sheet. Link it again. (" + (e.message || e) + ")"; }
+  });
+  $("sb-save").addEventListener("click", saveSheet);
+  $("sb-auto").addEventListener("change", function(){ store("dcc-cheat-autosave", this.checked ? "1" : "0"); if(this.checked) sheetChanged(); });
+  if(store("dcc-cheat-autosave") === "0") $("sb-auto").checked = false;
+  $("sb-reload").addEventListener("click", async function(){
+    try{
+      if(SH.mode === "handle"){ var file = await SH.handle.getFile(); await openBytes(new Uint8Array(await file.arrayBuffer()), file.name, SH.handle); SH.lastMod = file.lastModified; status("Reloaded from the sheet at " + stamp() + "."); }
+      else { $("sb-file").click(); }
+    }catch(e){ status("Couldn’t reload: " + (e.message || e)); }
+  });
+  $("sb-unlink").addEventListener("click", function(){
+    if(diff().list.length && !window.confirm("You have unsaved changes. Unlink anyway?")) return;
+    SH.doc = null; SH.handle = null; SH.cur = null; SH.model = null; SH.base = null; SH.mode = "";
+    idbSet("sheet", null); fillSources(); renderSheetBox(); $("sb-relink").classList.add("hide");
+  });
+  async function watchFile(){
+    if(SH.mode !== "handle" || SH.saving || document.visibilityState !== "visible") return;
+    try{
+      var file = await SH.handle.getFile();
+      if(file.lastModified === SH.lastMod) return;
+      if(!diff().list.length){
+        await openBytes(new Uint8Array(await file.arrayBuffer()), file.name, SH.handle);
+        SH.lastMod = file.lastModified;
+        status("Your sheet changed in another program. Loaded its new numbers at " + stamp() + ".");
+      } else {
+        SH.lastMod = file.lastModified;
+        status("Your sheet changed in another program. When you save, its changes are kept and yours are added on top.");
+      }
+    }catch(e){}
+  }
+  setInterval(watchFile, 4000);
+  document.addEventListener("visibilitychange", watchFile);
+
+  /* ---------- wiring ---------- */
+  function calcRefresh(){ renderCrawler(); ckRefresh(); dmRefresh(); hmRender(); renderSheetBox(); }
+  document.querySelectorAll("[data-save]").forEach(function(el){ el.addEventListener("input", function(){ saveCrawler(); calcRefresh(); sheetChanged(); }); });
+
+  /* ---------- start ---------- */
+  setFloor(floor, false);
+  ready = true;
+  if(window.matchMedia("(max-width: 640px)").matches) $("cr-more").open = false;
+  selectTool(store(TOOLKEY) || "check");
+  calcRefresh();
+  (function(){
+    var h = location.hash.slice(1), el = h ? $(h) : null, band = el ? (el.classList.contains("band") ? el : el.closest(".band")) : null;
+    showTab(band ? band.id : (store(TABKEY) || "calc"), {scroll: false, noHash: !band});
+    if(el && el.classList.contains("toolpanel")) selectTool(el.id.slice(3));
+  })();
+  if(canHandle) idbGet("sheet").then(async function(h){
+    if(!h) return;
+    try{
+      var p = await h.queryPermission({mode: "readwrite"});
+      if(p === "granted") await linkWithHandle(h);
+      else { $("sb-relink").textContent = "Reconnect to " + h.name; $("sb-relink").classList.remove("hide"); }
+    }catch(e){}
+  });
+  window.__cheat = {linkWithHandle: linkWithHandle, watchFile: watchFile, SH: SH};
+})();
+
+</script>
+</body>
+</html>

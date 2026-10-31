@@ -1,0 +1,7 @@
+# test output and tooling
+tests/out/
+node_modules/
+__pycache__/
+
+# never commit character sheets or rulebooks
+*.pdf
