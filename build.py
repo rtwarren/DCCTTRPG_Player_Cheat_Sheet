@@ -5,7 +5,6 @@ Usage:  python build.py            (writes dist/Crawler_Cheat_Sheet.html)
 
 No third-party packages needed. Python 3.8 or newer.
 """
-import base64
 import pathlib
 import sys
 
@@ -18,8 +17,7 @@ def read(name):
 
 
 def build():
-    font = base64.b64encode((HERE / "fonts" / "heroscn-bold.woff").read_bytes()).decode("ascii")
-    css = read("styles.css").replace("__FONTDATA__", font)
+    css = read("styles.css")
     script = read("main.js").replace("/*__PDFENGINE__*/\n", read("pdf-engine.js"), 1)
     html = read("index.html")
     for marker, value in (("/*__STYLES__*/", css), ("/*__SCRIPT__*/", script)):

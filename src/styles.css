@@ -1,11 +1,9 @@
-@font-face{font-family:"CC Head";src:url(data:font/woff;base64,__FONTDATA__) format("woff");font-weight:700;font-style:normal;font-display:swap}
-
 :root{
   --bg:#E3E4DF; --panel:#F6F6F2; --ink:#1B1D21; --soft:#565B62; --rule:#CBCDC6; --well:#ECEDE8;
   --live:#F4C51C; --live-ink:#1B1D21; --focus:#1D63A8; --lost:#C8242B;
   --hb1:#C8242B; --hb2:#D8421F; --hb3:#E6621A; --hb4:#EE8418; --hb5:#F2A51B;
   --hb6:#EEC01E; --hb7:#C6C22B; --hb8:#94B636; --hb9:#5FA73F; --hb10:#3A9A48;
-  --head:"Bahnschrift Condensed","Bahnschrift","CC Head","Arial Narrow",sans-serif;
+  --head:"Bahnschrift Condensed","Bahnschrift","Arial Narrow","Roboto Condensed",sans-serif;
   --body:"Bahnschrift","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
   --navh:3.1rem;
   color-scheme:light;

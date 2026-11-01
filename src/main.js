@@ -67,7 +67,15 @@
     upgrades: function(F){ return "Floors 1–2: only Rank 5 upgrades work.\nFloor 3+: Rank 5, 10 and 15 upgrades work.\nYou’re on Floor " + F + "."; }
   };
   var formulas = {};
-  function calc(expr, F){ if(!formulas[expr]) formulas[expr] = new Function("F", "return " + expr); return formulas[expr](F); }
+  /* floor formulas are always "[A +] [B *] F", so they're parsed, never run as code */
+  function calc(expr, F){
+    if(!formulas[expr]){
+      var m = /^\s*(?:(\d+)\s*\+\s*)?(?:(\d+)\s*\*\s*)?F\s*$/.exec(expr);
+      if(!m) throw new Error("Unsupported floor formula: " + expr);
+      formulas[expr] = {a: m[1] ? +m[1] : 0, b: m[2] ? +m[2] : 1};
+    }
+    return formulas[expr].a + formulas[expr].b * F;
+  }
   function pretty(expr, sub){ return expr.replace(/\*/g, " × ").replace(/\+/g, " + ").replace(/F/g, sub); }
   var floor = parseInt(store(KEY), 10);
   if(!(floor >= 1 && floor <= 5)) floor = 1;
@@ -715,7 +723,7 @@
     if(!on){ renderAdv(); return; }
     var m = SH.model;
     $("sb-who").textContent = (m.name || "Your crawler") + (m.race ? ", " + m.race : "") + (m.cls ? " " + m.cls : "");
-    $("sb-file-name").textContent = SH.fileName + (SH.mode === "handle" ? " (linked)" : " (a copy: saving downloads an updated file)");
+    $("sb-file-name").textContent = SH.fileName + (SH.mode === "handle" ? " (linked)" : " (read-only here)");
     var info = [];
     if(m.crawler) info.push("Crawler " + m.crawler);
     if(m.debuffs) info.push("Debuffs: " + m.debuffs);
@@ -725,8 +733,8 @@
     var d = diff(), ul = $("sb-changes"); ul.innerHTML = "";
     d.list.forEach(function(t){ var li = document.createElement("li"); li.textContent = t; ul.appendChild(li); });
     $("sb-count").textContent = d.list.length ? plural(d.list.length, "unsaved change") : "No unsaved changes";
-    $("sb-save").disabled = !d.list.length || SH.saving;
-    $("sb-save").textContent = SH.mode === "handle" ? "Save to sheet" : "Download updated sheet";
+    $("sb-save").disabled = SH.mode !== "handle" || !d.list.length || SH.saving;
+    $("sb-save").textContent = SH.mode === "handle" ? "Save to sheet" : "Saving needs Chrome or Edge";
     $("sb-auto-l").classList.toggle("hide", SH.mode !== "handle");
     renderAdv();
   }
@@ -763,25 +771,18 @@
   }
   async function saveSheet(){
     if(!SH.doc || SH.saving) return;
+    /* the page only ever writes through a file the user linked; it never builds a download */
+    if(SH.mode !== "handle"){ status("This browser can\u2019t write into the PDF. Open the page in Chrome or Edge to save, or copy the changes listed here into your PDF reader."); return; }
     var d = diff(); if(!d.list.length) return;
     SH.saving = true; renderSheetBox(); status("Saving…");
     try{
-      if(SH.mode === "handle"){
-        var file = await SH.handle.getFile();
-        if(file.lastModified !== SH.lastMod){ SH.doc = await PDF.open(new Uint8Array(await file.arrayBuffer())); }
-        var bytes = SH.doc.save(diff().writes);
-        var wr = await SH.handle.createWritable(); await wr.write(bytes); await wr.close();
-        SH.lastMod = (await SH.handle.getFile()).lastModified;
-        SH.doc = await PDF.open(bytes);
-        status("Saved to " + SH.fileName + " at " + stamp() + ".");
-      } else {
-        var bytes2 = SH.doc.save(d.writes);
-        var url = URL.createObjectURL(new Blob([bytes2], {type: "application/pdf"}));
-        var a = document.createElement("a"); a.href = url; a.download = SH.fileName; document.body.appendChild(a); a.click(); a.remove();
-        setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
-        SH.doc = await PDF.open(bytes2);
-        status("Downloaded an updated " + SH.fileName + " at " + stamp() + ". Replace your old copy with it.");
-      }
+      var file = await SH.handle.getFile();
+      if(file.lastModified !== SH.lastMod){ SH.doc = await PDF.open(new Uint8Array(await file.arrayBuffer())); }
+      var bytes = SH.doc.save(diff().writes);
+      var wr = await SH.handle.createWritable(); await wr.write(bytes); await wr.close();
+      SH.lastMod = (await SH.handle.getFile()).lastModified;
+      SH.doc = await PDF.open(bytes);
+      status("Saved to " + SH.fileName + " at " + stamp() + ".");
       var m = readSheet(); SH.model = m;
       SH.cur = {skills: m.skills.map(function(s){ return Object.assign({}, s); }), attacks: m.attacks.map(function(a2){ return Object.assign({}, a2); })};
       SH.base = curModel(); fillSources();
@@ -817,7 +818,7 @@
     SH.lastMod = file.lastModified;
     if(perm === "granted") idbSet("sheet", h);
     $("sb-msg").textContent = "";
-    status(perm === "granted" ? "Linked at " + stamp() + "." : "Opened read-only. Saving will download an updated copy.");
+    status(perm === "granted" ? "Linked at " + stamp() + "." : "Opened read-only. To save, link the sheet again and choose Allow when your browser asks.");
   }
   $("sb-link").addEventListener("click", async function(){
     $("sb-msg").textContent = "";
@@ -830,7 +831,7 @@
   });
   $("sb-file").addEventListener("change", async function(){
     var f = this.files && this.files[0]; if(!f) return;
-    try{ await openBytes(new Uint8Array(await f.arrayBuffer()), f.name, null); status("Opened at " + stamp() + ". Your browser can’t save into the file directly, so saving downloads an updated copy."); }
+    try{ await openBytes(new Uint8Array(await f.arrayBuffer()), f.name, null); status("Opened at " + stamp() + ", read-only. This browser can\u2019t save into the PDF, so use Chrome or Edge to save, or copy the listed changes into your PDF reader."); }
     catch(e){ $("sb-msg").textContent = e.message || String(e); }
     this.value = "";
   });
