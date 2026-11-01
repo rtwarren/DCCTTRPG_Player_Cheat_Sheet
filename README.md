@@ -1,6 +1,6 @@
 # Crawler Cheat Sheet
 
-Source for `Crawler_Cheat_Sheet.html`, the player reference and calculator page for the Dungeon Crawler Carl Roleplaying Game. The finished page is one self-contained HTML file that works offline. The readable source is in `src/`, and the built page is in `dist/`.
+Source for `Crawler_Cheat_Sheet_v<version>.html`, the player reference and calculator page for the Dungeon Crawler Carl Roleplaying Game. The finished page is one self-contained HTML file that works offline. The readable source is in `src/`, and the built page is in `dist/`.
 
 ## Folder layout
 
@@ -11,7 +11,7 @@ Source for `Crawler_Cheat_Sheet.html`, the player reference and calculator page 
 | `src/main.js` | Everything interactive: floor picker, tabs, search, hover equations, the calculators, and linking the character sheet. `/*__PDFENGINE__*/` is where `pdf-engine.js` goes. |
 | `src/pdf-engine.js` | A small PDF reader and writer with no libraries. Reads form fields and saves changes as an incremental update. |
 | `build.py` | Combines the pieces into one HTML file. |
-| `dist/Crawler_Cheat_Sheet.html` | The built page. This is the file to open or share. |
+| `dist/Crawler_Cheat_Sheet_v1.2.0.html` | The built page, named with its version. This is the file to open or share. |
 | `CHANGELOG.md` | What changed in each version. |
 | `tests/test-pdf-engine.js` | Round-trip test for the PDF engine (Node 18+, no packages). |
 | `tests/browser-test.js` | End-to-end test of the built page in Chromium (needs Playwright). |
@@ -22,7 +22,7 @@ Source for `Crawler_Cheat_Sheet.html`, the player reference and calculator page 
 python build.py
 ```
 
-This writes `dist/Crawler_Cheat_Sheet.html`. Pass a path to write somewhere else: `python build.py test.html`. It needs Python 3.8 or newer and no extra packages.
+This writes `dist/Crawler_Cheat_Sheet_v<version>.html`, taking the version from the first `## 1.2.3` heading in `CHANGELOG.md`, and removes the previous version's file from `dist/` (git keeps it in the history). Pass a path to write somewhere else: `python build.py test.html`. It needs Python 3.8 or newer and no extra packages.
 
 Edit the files in `src/`, then run the build again. Don't edit the built HTML by hand; the next build overwrites it.
 
@@ -100,4 +100,9 @@ Keep it that way when you edit `main.js`: no `new Blob` plus `createObjectURL` d
 
 ## Versions
 
-Each release is tagged in git (`v1.0.0`, `v1.1.0` and so on). `CHANGELOG.md` lists what changed. Rebuild `dist/` with `python build.py` before committing a change to `src/`.
+Each release is tagged in git (`v1.0.0`, `v1.1.0` and so on). `CHANGELOG.md` lists what changed. To release a version:
+
+1. Make the change in `src/`.
+2. Add the new version's section to the top of `CHANGELOG.md`. The build reads the version number from it.
+3. Run `python build.py`.
+4. `git add -A`, `git commit -m "Short description (1.2.1)"`, `git tag -a v1.2.1 -m "Version 1.2.1"`, then `git push --follow-tags`.

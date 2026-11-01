@@ -12,7 +12,10 @@ const { chromium } = require("playwright");
 (async () => {
   const sheet = process.argv[2];
   if (!sheet) { console.error("Give the path to a copy of the fillable sheet."); process.exit(1); }
-  const page_ = "file://" + path.resolve(__dirname, "..", "dist", "Crawler_Cheat_Sheet.html");
+  const dist = path.resolve(__dirname, "..", "dist");
+  const built = fs.readdirSync(dist).find(f => /^Crawler_Cheat_Sheet_v[\d.]+\.html$/.test(f));
+  if (!built) { console.error("No built page in dist/. Run python build.py first."); process.exit(1); }
+  const page_ = "file://" + path.join(dist, built);
   const browser = await chromium.launch();
   const ctx = await browser.newContext({ viewport: { width: 1366, height: 900 } });
   const p = await ctx.newPage();

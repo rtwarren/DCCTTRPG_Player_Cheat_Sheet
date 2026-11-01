@@ -1,6 +1,6 @@
 # Change log
 
-Versions of `dist/Crawler_Cheat_Sheet.html`. Each one is tagged in git (for example `v1.2.0`).
+Versions of the cheat sheet, built as `dist/Crawler_Cheat_Sheet_v<version>.html`. Each one is tagged in git (for example `v1.2.0`). The build reads the version from the first heading below.
 
 ## 1.2.0 (2026-10-31)
 
