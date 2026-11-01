@@ -1,7 +1,8 @@
 // End-to-end test of the built page in Chromium. Needs: npm install playwright, then npx playwright install chromium
 // Usage: node tests/browser-test.js "path/to/a COPY of the fillable character sheet"
 // 1. Opens the sheet through the plain file input and checks it is read-only (no save, no download).
-// 2. Links it again through a stand-in for a Chrome/Edge file handle, makes changes, saves them
+// 2. Links it again through a stand-in for a Chrome/Edge file handle, makes changes (including an
+//    Unenhanced stat), saves them
 //    through that handle to tests/out/saved.pdf, and reports any page errors.
 // The PDF you point at is never written.
 const path = require("path");
@@ -52,6 +53,8 @@ const { chromium } = require("playwright");
   await p.click("#tt-health");
   await p.fill("#hm-dmg", "3");
   await p.click("#hm-hit");
+  // a level-up point: raise Unenhanced Intelligence by 1, which should carry Enhanced with it
+  await p.fill("#cu-int", String(+(await p.inputValue("#cu-int")) + 1));
   console.log("Unsaved:", await p.$$eval("#sb-changes li", els => els.map(e => e.textContent)));
   await p.click("#sb-save");
   await p.waitForFunction(() => window.__saved);

@@ -229,12 +229,16 @@
   var CKEY = "dcc-cheat-crawler";
   (function(){
     var raw = store(CKEY); if(!raw) return;
-    try{ var o = JSON.parse(raw); document.querySelectorAll("[data-save]").forEach(function(el){ if(o[el.id] != null) el.value = o[el.id]; }); }catch(e){}
+    try{
+      var o = JSON.parse(raw); document.querySelectorAll("[data-save]").forEach(function(el){ if(o[el.id] != null) el.value = o[el.id]; });
+      /* older saves had no Unenhanced column: start it equal to Enhanced */
+      STATS.forEach(function(k){ if(o["cu-" + k] == null && o["cr-" + k] != null) $("cu-" + k).value = o["cr-" + k]; });
+    }catch(e){}
   })();
   function saveCrawler(){ var o = {}; document.querySelectorAll("[data-save]").forEach(function(el){ o[el.id] = el.value; }); store(CKEY, JSON.stringify(o)); }
   function crawler(){
-    var c = {score: {}, mod: {}};
-    STATS.forEach(function(k){ var s = Math.max(1, num("cr-" + k, 3)); c.score[k] = s; c.mod[k] = modOf(s); });
+    var c = {score: {}, base: {}, mod: {}};
+    STATS.forEach(function(k){ var s = Math.max(1, num("cr-" + k, 3)); c.score[k] = s; c.base[k] = Math.max(1, num("cu-" + k, s)); c.mod[k] = modOf(s); });
     c.evb = num("cr-evb", 0); c.arm = Math.max(0, num("cr-arm", 0)); c.drb = Math.max(0, num("cr-drb", 0));
     c.jump = Math.max(0, num("cr-jump", 0)); c.lvl = Math.max(1, num("cr-lvl", 1)); c.fav = Math.max(0, num("cr-fav", 0));
     c.dr = c.arm + c.drb; c.evade = c.mod.dex + c.evb; c.slot = c.mod.con; c.mana = c.score.int;
@@ -244,7 +248,9 @@
     var c = crawler(), F = floor;
     STATS.forEach(function(k){
       var m = $("m-" + k); m.textContent = "+" + c.mod[k];
-      m.setAttribute("data-eq", SFULL[k] + " " + c.score[k] + " falls in the " + modBand(c.score[k]) + " range\nso its Mod is +" + c.mod[k]); m.tabIndex = 0;
+      var gap = c.score[k] - c.base[k];
+      m.setAttribute("data-eq", "Enhanced " + SFULL[k] + " " + c.score[k] + " falls in the " + modBand(c.score[k]) + " range\nso its Mod is +" + c.mod[k] +
+        "\nUnenhanced " + c.base[k] + (gap ? (gap > 0 ? " + " : " \u2212 ") + Math.abs(gap) + " from gear and buffs" : ", nothing from gear or buffs")); m.tabIndex = 0;
     });
     var fame = c.score.cha >= 5 * F ? "+1 Popularity at floor’s end" : c.score.cha <= 2 * F ? "−1 Popularity at floor’s end" : "No Popularity change";
     var pts = 3 * (c.lvl - 1);
@@ -643,7 +649,11 @@
       level: fnum(FN.level), floor: fnum(FN.floor), stats: {}, evb: fnum(tf(FN.evb)), arm: fnum(tf(FN.arm)), drb: fnum(tf(FN.drb)),
       fav: fnum(tf(FN.fav)), mana: fnum(tf(FN.mana)), debuffs: (fv(tf(FN.debuffs)) || "").trim(),
       ext: FN.ext.map(function(n){ return (fv(tf(n)) || "").trim(); }).filter(Boolean), pop: (fv(tf(FN.pop)) || "").trim(), skills: [], attacks: []};
-    STATS.forEach(function(k){ var e = fnum(tf(FN.stats[k][0])); m.stats[k] = e != null ? e : fnum(tf(FN.stats[k][1])); });
+    m.base = {};
+    STATS.forEach(function(k){
+      var e = fnum(tf(FN.stats[k][0])), u = fnum(tf(FN.stats[k][1]));
+      m.stats[k] = e != null ? e : u; m.base[k] = u != null ? u : e;
+    });
     m.slots = 10 - FN.slotBoxes.filter(function(b){ return !!fv(b); }).length;
     for(var k = 0; k < 20; k++){
       var nm = (fv(tf(103 + 6 * k)) || "").trim(); if(!nm) continue;
@@ -658,7 +668,8 @@
   function looksLikeSheet(doc){ var f = doc.fieldMap; return !!(f[FN.name] && f[tf(21)] && f[FN.slotBoxes[0]]); }
   function applySheet(m){
     SH.model = m;
-    STATS.forEach(function(k){ if(m.stats[k] != null) $("cr-" + k).value = m.stats[k]; });
+    STATS.forEach(function(k){ if(m.stats[k] != null) $("cr-" + k).value = m.stats[k]; if(m.base[k] != null) $("cu-" + k).value = m.base[k]; });
+    syncPrev();
     $("cr-evb").value = m.evb != null ? m.evb : 0;
     $("cr-arm").value = m.arm != null ? m.arm : 0;
     $("cr-drb").value = m.drb != null ? m.drb : 0;
@@ -678,7 +689,7 @@
   }
   function curModel(){
     var c = crawler();
-    return {level: c.lvl, floor: floor, stats: Object.assign({}, c.score), evb: c.evb, arm: c.arm, drb: c.drb, fav: c.fav,
+    return {level: c.lvl, floor: floor, stats: Object.assign({}, c.score), base: Object.assign({}, c.base), evb: c.evb, arm: c.arm, drb: c.drb, fav: c.fav,
       mana: hm.mana, slots: hm.slots,
       skills: SH.cur ? SH.cur.skills.map(function(s){ return {row: s.row, name: s.name, rank: s.rank, mark: s.mark}; }) : []};
   }
@@ -690,8 +701,9 @@
     if(a.level !== b.level){ L("Level " + a.level + " to " + b.level); w[FN.level] = String(b.level); }
     if(a.floor !== b.floor){ L("Floor " + a.floor + " to " + b.floor); w[FN.floor] = String(b.floor); }
     STATS.forEach(function(k){
+      if(a.base && a.base[k] !== b.base[k]){ L(SFULL[k] + " (Unenhanced) " + a.base[k] + " to " + b.base[k]); w[tf(FN.stats[k][1])] = String(b.base[k]); }
       if(a.stats[k] === b.stats[k]) return;
-      L(SFULL[k] + " " + a.stats[k] + " to " + b.stats[k]);
+      L(SFULL[k] + " (Enhanced) " + a.stats[k] + " to " + b.stats[k]);
       w[tf(FN.stats[k][0])] = String(b.stats[k]); w[tf(FN.stats[k][2])] = String(modOf(b.stats[k]));
       if(k === "dex"){ w[tf(FN.dexMod)] = String(c.mod.dex); w[tf(FN.evTot)] = String(c.evade); }
       if(k === "int") w[tf(FN.maxMana)] = String(c.mana);
@@ -873,6 +885,17 @@
 
   /* ---------- wiring ---------- */
   function calcRefresh(){ renderCrawler(); ckRefresh(); dmRefresh(); hmRender(); renderSheetBox(); }
+  /* changing Unenhanced moves Enhanced by the same amount, so gear and buff bonuses stay put */
+  function syncPrev(){ STATS.forEach(function(k){ var u = $("cu-" + k); u.setAttribute("data-prev", u.value); }); }
+  STATS.forEach(function(k){
+    $("cu-" + k).addEventListener("input", function(){
+      var nv = parseInt(this.value, 10), pv = parseInt(this.getAttribute("data-prev"), 10);
+      if(isNaN(nv)) return;
+      if(!isNaN(pv) && nv !== pv){ var e = $("cr-" + k); e.value = Math.max(1, (parseInt(e.value, 10) || nv) + (nv - pv)); }
+      this.setAttribute("data-prev", nv);
+    });
+  });
+  syncPrev();
   document.querySelectorAll("[data-save]").forEach(function(el){ el.addEventListener("input", function(){ saveCrawler(); calcRefresh(); sheetChanged(); }); });
 
   /* ---------- start ---------- */

@@ -95,11 +95,23 @@
       return {t: "hex", raw: "<" + h + ">"};
     }
 
+    /* Browsers' DecompressionStream is strict: a bad checksum or a few stray bytes after the data
+       make it fail outright (Chrome reports that as "Failed to fetch"). PDF readers shrug those off,
+       and some PDF programs write them, so keep whatever decoded cleanly instead of giving up. */
+    async function inflateWith(format, bytes){
+      var ds = new DecompressionStream(format), w = ds.writable.getWriter();
+      w.write(bytes).catch(function(){}); w.close().catch(function(){});
+      var rd = ds.readable.getReader(), parts = [], len = 0, err = null;
+      try{ for(;;){ var x = await rd.read(); if(x.done) break; parts.push(x.value); len += x.value.length; } }catch(e){ err = e; }
+      var out = new Uint8Array(len), o = 0;
+      parts.forEach(function(q){ out.set(q, o); o += q.length; });
+      return {out: out, err: err};
+    }
     async function inflate(bytes){
-      var ds = new DecompressionStream("deflate"), w = ds.writable.getWriter();
-      w.write(bytes); w.close();
-      var buf = await new Response(ds.readable).arrayBuffer();
-      return new Uint8Array(buf);
+      var a = await inflateWith("deflate", bytes);
+      if(!a.err || a.out.length) return a.out;
+      try{ if(bytes.length > 2){ var b = await inflateWith("deflate-raw", bytes.subarray(2)); if(b.out.length) return b.out; } }catch(e){}
+      throw new Error("Part of this PDF is compressed in a way the page can\u2019t read. Open the sheet in a PDF reader, use Save As to make a fresh copy, and link that copy.");
     }
     function unpredict(data, parms){
       var pred = num(get(parms, "/Predictor")); if(!(pred >= 10)) return data;

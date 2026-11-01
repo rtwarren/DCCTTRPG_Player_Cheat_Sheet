@@ -200,8 +200,9 @@ a.btn{text-decoration:none;display:inline-block}
 .changes{margin:4px 0 0;padding-left:1.1rem;font-size:.85rem;max-height:9rem;overflow:auto}
 .changes li{margin:1px 0}
 .statin{width:auto;border-collapse:collapse}
-.statin th,.statin td{border-bottom:0;padding:2px 10px 2px 0;vertical-align:middle}
-.statin input{width:5rem;padding:5px 8px;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:1rem}
+.statin th,.statin td{border-bottom:0;padding:2px 8px 2px 0;vertical-align:middle}
+.statin th{font-size:.78rem;color:var(--soft);font-weight:700;text-align:left}
+.statin input{width:4.3rem;padding:5px 7px;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:1rem}
 .statin b{font-size:1.05rem}
 .fields.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 10px;margin-top:10px}
 .fields.grid3 label input{min-width:0;width:100%;max-width:none}
@@ -445,13 +446,13 @@ a.btn{text-decoration:none;display:inline-block}
 
       <h3>Your crawler</h3>
       <table class="statin">
-        <thead><tr><th>Stat</th><th>Enhanced</th><th>Mod</th></tr></thead>
+        <thead><tr><th>Stat</th><th>Unenhanced</th><th>Enhanced</th><th>Mod</th></tr></thead>
         <tbody>
-          <tr><td>Strength</td><td><input type="number" min="1" id="cr-str" data-save value="3" inputmode="numeric" aria-label="Strength score"></td><td><b id="m-str">+2</b></td></tr>
-          <tr><td>Intelligence</td><td><input type="number" min="1" id="cr-int" data-save value="3" inputmode="numeric" aria-label="Intelligence score"></td><td><b id="m-int">+2</b></td></tr>
-          <tr><td>Constitution</td><td><input type="number" min="1" id="cr-con" data-save value="3" inputmode="numeric" aria-label="Constitution score"></td><td><b id="m-con">+2</b></td></tr>
-          <tr><td>Dexterity</td><td><input type="number" min="1" id="cr-dex" data-save value="3" inputmode="numeric" aria-label="Dexterity score"></td><td><b id="m-dex">+2</b></td></tr>
-          <tr><td>Charisma</td><td><input type="number" min="1" id="cr-cha" data-save value="3" inputmode="numeric" aria-label="Charisma score"></td><td><b id="m-cha">+2</b></td></tr>
+          <tr><td>Strength</td><td><input type="number" min="1" id="cu-str" data-save value="3" inputmode="numeric" aria-label="Strength, unenhanced"></td><td><input type="number" min="1" id="cr-str" data-save value="3" inputmode="numeric" aria-label="Strength, enhanced"></td><td><b id="m-str">+2</b></td></tr>
+          <tr><td>Intelligence</td><td><input type="number" min="1" id="cu-int" data-save value="3" inputmode="numeric" aria-label="Intelligence, unenhanced"></td><td><input type="number" min="1" id="cr-int" data-save value="3" inputmode="numeric" aria-label="Intelligence, enhanced"></td><td><b id="m-int">+2</b></td></tr>
+          <tr><td>Constitution</td><td><input type="number" min="1" id="cu-con" data-save value="3" inputmode="numeric" aria-label="Constitution, unenhanced"></td><td><input type="number" min="1" id="cr-con" data-save value="3" inputmode="numeric" aria-label="Constitution, enhanced"></td><td><b id="m-con">+2</b></td></tr>
+          <tr><td>Dexterity</td><td><input type="number" min="1" id="cu-dex" data-save value="3" inputmode="numeric" aria-label="Dexterity, unenhanced"></td><td><input type="number" min="1" id="cr-dex" data-save value="3" inputmode="numeric" aria-label="Dexterity, enhanced"></td><td><b id="m-dex">+2</b></td></tr>
+          <tr><td>Charisma</td><td><input type="number" min="1" id="cu-cha" data-save value="3" inputmode="numeric" aria-label="Charisma, unenhanced"></td><td><input type="number" min="1" id="cr-cha" data-save value="3" inputmode="numeric" aria-label="Charisma, enhanced"></td><td><b id="m-cha">+2</b></td></tr>
         </tbody>
       </table>
       <div class="fields grid3">
@@ -1326,11 +1327,23 @@ a.btn{text-decoration:none;display:inline-block}
       return {t: "hex", raw: "<" + h + ">"};
     }
 
+    /* Browsers' DecompressionStream is strict: a bad checksum or a few stray bytes after the data
+       make it fail outright (Chrome reports that as "Failed to fetch"). PDF readers shrug those off,
+       and some PDF programs write them, so keep whatever decoded cleanly instead of giving up. */
+    async function inflateWith(format, bytes){
+      var ds = new DecompressionStream(format), w = ds.writable.getWriter();
+      w.write(bytes).catch(function(){}); w.close().catch(function(){});
+      var rd = ds.readable.getReader(), parts = [], len = 0, err = null;
+      try{ for(;;){ var x = await rd.read(); if(x.done) break; parts.push(x.value); len += x.value.length; } }catch(e){ err = e; }
+      var out = new Uint8Array(len), o = 0;
+      parts.forEach(function(q){ out.set(q, o); o += q.length; });
+      return {out: out, err: err};
+    }
     async function inflate(bytes){
-      var ds = new DecompressionStream("deflate"), w = ds.writable.getWriter();
-      w.write(bytes); w.close();
-      var buf = await new Response(ds.readable).arrayBuffer();
-      return new Uint8Array(buf);
+      var a = await inflateWith("deflate", bytes);
+      if(!a.err || a.out.length) return a.out;
+      try{ if(bytes.length > 2){ var b = await inflateWith("deflate-raw", bytes.subarray(2)); if(b.out.length) return b.out; } }catch(e){}
+      throw new Error("Part of this PDF is compressed in a way the page can\u2019t read. Open the sheet in a PDF reader, use Save As to make a fresh copy, and link that copy.");
     }
     function unpredict(data, parms){
       var pred = num(get(parms, "/Predictor")); if(!(pred >= 10)) return data;
@@ -1817,12 +1830,16 @@ a.btn{text-decoration:none;display:inline-block}
   var CKEY = "dcc-cheat-crawler";
   (function(){
     var raw = store(CKEY); if(!raw) return;
-    try{ var o = JSON.parse(raw); document.querySelectorAll("[data-save]").forEach(function(el){ if(o[el.id] != null) el.value = o[el.id]; }); }catch(e){}
+    try{
+      var o = JSON.parse(raw); document.querySelectorAll("[data-save]").forEach(function(el){ if(o[el.id] != null) el.value = o[el.id]; });
+      /* older saves had no Unenhanced column: start it equal to Enhanced */
+      STATS.forEach(function(k){ if(o["cu-" + k] == null && o["cr-" + k] != null) $("cu-" + k).value = o["cr-" + k]; });
+    }catch(e){}
   })();
   function saveCrawler(){ var o = {}; document.querySelectorAll("[data-save]").forEach(function(el){ o[el.id] = el.value; }); store(CKEY, JSON.stringify(o)); }
   function crawler(){
-    var c = {score: {}, mod: {}};
-    STATS.forEach(function(k){ var s = Math.max(1, num("cr-" + k, 3)); c.score[k] = s; c.mod[k] = modOf(s); });
+    var c = {score: {}, base: {}, mod: {}};
+    STATS.forEach(function(k){ var s = Math.max(1, num("cr-" + k, 3)); c.score[k] = s; c.base[k] = Math.max(1, num("cu-" + k, s)); c.mod[k] = modOf(s); });
     c.evb = num("cr-evb", 0); c.arm = Math.max(0, num("cr-arm", 0)); c.drb = Math.max(0, num("cr-drb", 0));
     c.jump = Math.max(0, num("cr-jump", 0)); c.lvl = Math.max(1, num("cr-lvl", 1)); c.fav = Math.max(0, num("cr-fav", 0));
     c.dr = c.arm + c.drb; c.evade = c.mod.dex + c.evb; c.slot = c.mod.con; c.mana = c.score.int;
@@ -1832,7 +1849,9 @@ a.btn{text-decoration:none;display:inline-block}
     var c = crawler(), F = floor;
     STATS.forEach(function(k){
       var m = $("m-" + k); m.textContent = "+" + c.mod[k];
-      m.setAttribute("data-eq", SFULL[k] + " " + c.score[k] + " falls in the " + modBand(c.score[k]) + " range\nso its Mod is +" + c.mod[k]); m.tabIndex = 0;
+      var gap = c.score[k] - c.base[k];
+      m.setAttribute("data-eq", "Enhanced " + SFULL[k] + " " + c.score[k] + " falls in the " + modBand(c.score[k]) + " range\nso its Mod is +" + c.mod[k] +
+        "\nUnenhanced " + c.base[k] + (gap ? (gap > 0 ? " + " : " \u2212 ") + Math.abs(gap) + " from gear and buffs" : ", nothing from gear or buffs")); m.tabIndex = 0;
     });
     var fame = c.score.cha >= 5 * F ? "+1 Popularity at floor’s end" : c.score.cha <= 2 * F ? "−1 Popularity at floor’s end" : "No Popularity change";
     var pts = 3 * (c.lvl - 1);
@@ -2231,7 +2250,11 @@ a.btn{text-decoration:none;display:inline-block}
       level: fnum(FN.level), floor: fnum(FN.floor), stats: {}, evb: fnum(tf(FN.evb)), arm: fnum(tf(FN.arm)), drb: fnum(tf(FN.drb)),
       fav: fnum(tf(FN.fav)), mana: fnum(tf(FN.mana)), debuffs: (fv(tf(FN.debuffs)) || "").trim(),
       ext: FN.ext.map(function(n){ return (fv(tf(n)) || "").trim(); }).filter(Boolean), pop: (fv(tf(FN.pop)) || "").trim(), skills: [], attacks: []};
-    STATS.forEach(function(k){ var e = fnum(tf(FN.stats[k][0])); m.stats[k] = e != null ? e : fnum(tf(FN.stats[k][1])); });
+    m.base = {};
+    STATS.forEach(function(k){
+      var e = fnum(tf(FN.stats[k][0])), u = fnum(tf(FN.stats[k][1]));
+      m.stats[k] = e != null ? e : u; m.base[k] = u != null ? u : e;
+    });
     m.slots = 10 - FN.slotBoxes.filter(function(b){ return !!fv(b); }).length;
     for(var k = 0; k < 20; k++){
       var nm = (fv(tf(103 + 6 * k)) || "").trim(); if(!nm) continue;
@@ -2246,7 +2269,8 @@ a.btn{text-decoration:none;display:inline-block}
   function looksLikeSheet(doc){ var f = doc.fieldMap; return !!(f[FN.name] && f[tf(21)] && f[FN.slotBoxes[0]]); }
   function applySheet(m){
     SH.model = m;
-    STATS.forEach(function(k){ if(m.stats[k] != null) $("cr-" + k).value = m.stats[k]; });
+    STATS.forEach(function(k){ if(m.stats[k] != null) $("cr-" + k).value = m.stats[k]; if(m.base[k] != null) $("cu-" + k).value = m.base[k]; });
+    syncPrev();
     $("cr-evb").value = m.evb != null ? m.evb : 0;
     $("cr-arm").value = m.arm != null ? m.arm : 0;
     $("cr-drb").value = m.drb != null ? m.drb : 0;
@@ -2266,7 +2290,7 @@ a.btn{text-decoration:none;display:inline-block}
   }
   function curModel(){
     var c = crawler();
-    return {level: c.lvl, floor: floor, stats: Object.assign({}, c.score), evb: c.evb, arm: c.arm, drb: c.drb, fav: c.fav,
+    return {level: c.lvl, floor: floor, stats: Object.assign({}, c.score), base: Object.assign({}, c.base), evb: c.evb, arm: c.arm, drb: c.drb, fav: c.fav,
       mana: hm.mana, slots: hm.slots,
       skills: SH.cur ? SH.cur.skills.map(function(s){ return {row: s.row, name: s.name, rank: s.rank, mark: s.mark}; }) : []};
   }
@@ -2278,8 +2302,9 @@ a.btn{text-decoration:none;display:inline-block}
     if(a.level !== b.level){ L("Level " + a.level + " to " + b.level); w[FN.level] = String(b.level); }
     if(a.floor !== b.floor){ L("Floor " + a.floor + " to " + b.floor); w[FN.floor] = String(b.floor); }
     STATS.forEach(function(k){
+      if(a.base && a.base[k] !== b.base[k]){ L(SFULL[k] + " (Unenhanced) " + a.base[k] + " to " + b.base[k]); w[tf(FN.stats[k][1])] = String(b.base[k]); }
       if(a.stats[k] === b.stats[k]) return;
-      L(SFULL[k] + " " + a.stats[k] + " to " + b.stats[k]);
+      L(SFULL[k] + " (Enhanced) " + a.stats[k] + " to " + b.stats[k]);
       w[tf(FN.stats[k][0])] = String(b.stats[k]); w[tf(FN.stats[k][2])] = String(modOf(b.stats[k]));
       if(k === "dex"){ w[tf(FN.dexMod)] = String(c.mod.dex); w[tf(FN.evTot)] = String(c.evade); }
       if(k === "int") w[tf(FN.maxMana)] = String(c.mana);
@@ -2461,6 +2486,17 @@ a.btn{text-decoration:none;display:inline-block}
 
   /* ---------- wiring ---------- */
   function calcRefresh(){ renderCrawler(); ckRefresh(); dmRefresh(); hmRender(); renderSheetBox(); }
+  /* changing Unenhanced moves Enhanced by the same amount, so gear and buff bonuses stay put */
+  function syncPrev(){ STATS.forEach(function(k){ var u = $("cu-" + k); u.setAttribute("data-prev", u.value); }); }
+  STATS.forEach(function(k){
+    $("cu-" + k).addEventListener("input", function(){
+      var nv = parseInt(this.value, 10), pv = parseInt(this.getAttribute("data-prev"), 10);
+      if(isNaN(nv)) return;
+      if(!isNaN(pv) && nv !== pv){ var e = $("cr-" + k); e.value = Math.max(1, (parseInt(e.value, 10) || nv) + (nv - pv)); }
+      this.setAttribute("data-prev", nv);
+    });
+  });
+  syncPrev();
   document.querySelectorAll("[data-save]").forEach(function(el){ el.addEventListener("input", function(){ saveCrawler(); calcRefresh(); sheetChanged(); }); });
 
   /* ---------- start ---------- */

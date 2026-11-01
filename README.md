@@ -38,6 +38,8 @@ Edit the files in `src/`, then run the build again. Don't edit the built HTML by
 
 - **Linking.** In Chrome and Edge the page uses the File System Access API, so it can save straight into the PDF. The file handle is kept in IndexedDB so you can reconnect next visit. Other browsers open the file read-only: the change list shows what to update by hand, and saving needs Chrome or Edge.
 - **Saving.** `pdf-engine.js` never rewrites the original bytes. Each save appends changed field objects, new appearance streams and a new cross-reference section to the end of the file, the same way Acrobat saves. Removing those appended bytes gets you the previous version.
+- **Stats.** Each stat has an Unenhanced and an Enhanced value, matching the sheet. Changing Unenhanced moves Enhanced by the same amount, so gear and buff bonuses stay put; changing Enhanced alone only changes Enhanced. Both are saved.
+- **Re-saved PDFs.** If a PDF program re-saves the sheet with compressed object streams, the engine decompresses them. It tolerates the bad checksums and stray bytes some programs leave behind, which strict browser decompression would otherwise reject with "Failed to fetch".
 - **Edits made elsewhere.** The page checks the file every few seconds. If you changed it in your PDF reader, it reloads those numbers. Before every save it re-reads the file, so edits made elsewhere are kept.
 - **Unsaved changes.** The list shows the difference between the numbers when you linked (or last saved) and now. Only fields that changed are written.
 

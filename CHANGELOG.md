@@ -2,6 +2,12 @@
 
 Versions of `dist/Crawler_Cheat_Sheet.html`. Each one is tagged in git (for example `v1.2.0`).
 
+## 1.2.0 (2026-10-31)
+
+- Unenhanced stats now save. Each stat has an Unenhanced and an Enhanced box, matching the sheet. Raising Unenhanced moves Enhanced by the same amount, so gear and buff bonuses stay put.
+- Hovering a stat's Mod shows the Unenhanced value and the bonus from gear and buffs.
+- Linking a sheet that another PDF program re-saved no longer fails with "Failed to fetch". The page now tolerates the small errors some programs leave in compressed sections.
+
 ## 1.1.0 (2026-10-31)
 
 - Windows Defender no longer flags the page. It used to build an updated PDF in the browser and download it, which looks like malware that smuggles files through web pages. The page now only saves into a sheet you linked.
